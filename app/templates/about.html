@@ -1,8 +1,26 @@
-{%block head %}
-<title>About Page</title>
-{% endblock %}
+{% extends 'base.html' %}
 
-{%block body %}
-<h1>Welcome to the About Page</h1>
-<p>This is the content of the home page.</p>
+{% block title %}About{% endblock %}
+
+{% block content %}
+<h1>Programming Languages</h1>
+<table border="1">
+    <caption>programming languages</caption>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Creator</th>
+            <th>Year</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for language in languages %}
+        <tr>
+            <td>{{ language.name }}</td>
+            <td>{{ language.creator }}</td>
+            <td>{{ language.year }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
