@@ -1,21 +1,43 @@
 {% extends 'base.html' %}
 
-{% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/shop.css') }}">
-{% endblock %}
 
 {% block title %}Shop CarFrame{% endblock %}
 
 {% block content %}
 <div class="filters">
-    <h3 class="filter-All">Alle</h3>
-    <h3 class="filter-Ferrari">Ferrari</h3>
-    <h3 class="filter-Lamborghini">Lamborghini</h3>
-    <h3 class="filter-Porsche">Porsche</h3>
-    <h3 class="filter-BMW">BMW</h3>
-    <h3 class="filter-Audi">Audi</h3>
-    <h3 class="filter-Jaguar">Jaguar</h3>
+    <button class="filter" id="alle">Alle</button>
+    <button class="filter">Ferrari</button>
+    <button class="filter">Lamborghini</button>
+    <button class="filter">Porsche</button>
+    <button class="filter">BMW</button>
+    <button class="filter">Audi</button>
+    <button class="filter">Jaguar</button>
+    <button class="filter">Bugatti</button>
+    <button class="filter">Others</button>
+</div>
 
+<div class="posters">
+    <div class="f1">
+        <img src="../static/posters/6.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto">
+        <h2 class="poster-text">F1 Track</h2>
+        <h3 class="price">38.- CHF</h3>
+        <br>
+    </div>
+    <div class="porsche gt3 rs">
+        <img src="../static/posters/w.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto">
+        <h2 class="poster-text">Porsche GT3 RS</h2>
+        <h3 class="price">38.- CHF</h3>
+        <br>
+    </div>
+    <div class="ferrari">
+        <img src="../static/posters/4.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto">
+        <h2 class="poster-text">Ferrari Enzo</h2>
+        <h3 class="price">38.- CHF</h3>
+        <br>
+    </div>
+    <img src="../static/posters/1.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto">
+    <img src="../static/posters/Just drive, don’t mind.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto">
+    <img src="../static/posters/2.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto">
 </div>
 
 {% endblock %}

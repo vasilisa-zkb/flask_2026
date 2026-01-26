@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.filter {
+    font-family: 'Inter', sans-serif;
+    color: lightgray;
+    font-weight: 400;
+    background-color: black;
+    border: none;
+}
+
+#alle {
+    color: white;
+    font-weight: 650;
+}
+
+.filters {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.posters {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.poster-text {
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+.price {
+    color: white;
+    font-family: 'inter', sans-serif;
+}
