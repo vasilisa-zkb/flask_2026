@@ -68,7 +68,7 @@ pip freeze > requirements.txt
 Um die WebApplikation zu starten musst du die Abhängigkeiten installieren (siehe Kapitel oben) und aschliessend das main.py ausführen.
 
 ```command
-python main.py
+python app.py
 ```
 
 ## Weitere Infos
