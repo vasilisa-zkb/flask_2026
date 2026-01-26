@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/shop.css') }}">
+{% endblock %}
+
 {% block title %}Shop CarFrame{% endblock %}
 
 {% block content %}
-<h1>Guten Morgen Liebe CarFrame Gruppe!</h1>
-<p>Willkommen!</p>
-
-<form action="{{ url_for('submit') }}" method="post">
-    <label for="name">Enter your name:</label>
-    <input type="text" id="name" name="name">
-    <button type="submit">Submit</button>
-</form>
+<div class="filters">
+    <h3 class="filter-All">Alle</h3>
+    <h3 class="filter-Ferrari">Ferrari</h3>
+</div>
 
 {% endblock %}
