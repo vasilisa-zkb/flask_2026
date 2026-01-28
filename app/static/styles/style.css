@@ -20,6 +20,23 @@ body {
     margin: 0 15px;
     font-size: 30px;
     margin: 0px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.navlink.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120%;
+    height: 15px;
+    background-image: url('../pictures/unterstrich schwarz 1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .navlinks {
