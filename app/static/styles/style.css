@@ -10,7 +10,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px 50px;
 }
 
 .navlink {
@@ -19,9 +19,20 @@ body {
     text-decoration: none;
     margin: 0 15px;
     font-size: 30px;
+    margin: 0px;
 }
 
 .navlinks {
     display: flex;
+    gap: 50px;
     align-items: center;
+}
+
+.search-input {
+    padding: 15px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+    width: 40%;
+    font-family: 'Inter', sans-serif;
 }
