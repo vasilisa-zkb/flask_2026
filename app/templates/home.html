@@ -6,49 +6,49 @@
 {% block content %}
 <div class="filters">
     <button class="filter" id="alle">Alle</button>
-    <button class="filter">Ferrari</button>
-    <button class="filter">Lamborghini</button>
-    <button class="filter">Porsche</button>
-    <button class="filter">BMW</button>
-    <button class="filter">Audi</button>
-    <button class="filter">Jaguar</button>
-    <button class="filter">Bugatti</button>
-    <button class="filter">Others</button>
+    <button class="filter" id="ferrari">Ferrari</button>
+    <button class="filter" id="lamborghini">Lamborghini</button>
+    <button class="filter" id="porsche">Porsche</button>
+    <button class="filter" id="bmw">BMW</button>
+    <button class="filter" id="audi">Audi</button>
+    <button class="filter" id="jaguar">Jaguar</button>
+    <button class="filter" id="bugatti">Bugatti</button>
+    <button class="filter" id="others">Others</button>
 </div>
 
 <div class="posters">
     <div class="f1">
-        <button><img src="../static/posters/6.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto"></button>
+        <button href="{{ url_for('home') }}"><img src="../static/posters/6.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto"></button>
         <h2 class="poster-text">F1 Track</h2>
         <h3 class="price">38.- CHF</h3>
         <br>
     </div>
     <div class="porschegt3rs">
-        <button><img src="../static/posters/w.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto"></button>
+        <button href="{{ url_for('home') }}"><img src="../static/posters/w.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto"></button>
         <h2 class="poster-text">Porsche GT3 RS</h2>
         <h3 class="price">38.- CHF</h3>
         <br>
     </div>
     <div class="ferrari">
-        <button><img src="../static/posters/4.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto"></button>
+        <button href="{{ url_for('home') }}"><img src="../static/posters/4.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto"></button>
         <h2 class="poster-text">Ferrari Enzo</h2>
         <h3 class="price">38.- CHF</h3>
         <br>
     </div>
     <div class="Jaguar">
-        <button><img src="../static/posters/1.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto"></button>
+        <button href="{{ url_for('home') }}"><img src="../static/posters/1.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto"></button>
         <h2 class="poster-text">Jaguar F-Type</h2>
         <h3 class="price">38.- CHF</h3>
         <br>
     </div>
     <div class="highway">
-        <button><img src="../static/posters/Just drive, don’t mind.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto"></button>
+        <button href="{{ url_for('home') }}"><img src="../static/posters/Just drive, don’t mind.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto"></button>
         <h2 class="poster-text">Just Drive don’t mind</h2>
         <h3 class="price">38.- CHF</h3>
         <br>
     </div>
     <div class="LaFerrari">
-        <button><img src="../static/posters/2.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto"></button>
+        <button href="{{ url_for('home') }}"><img src="../static/posters/2.png" alt="Porsche GT3 RS" class="poster" height="600" width="auto"></button>
         <h2 class="poster-text">Ferrari LaFerrari</h2>
         <h3 class="price">38.- CHF</h3>
         <br>
