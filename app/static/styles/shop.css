@@ -21,6 +21,7 @@
     display: flex;
     gap: 15px;
     margin-bottom: 50px;
+    margin-top: 50px;
     justify-content: center;
     align-items: flex-start;
 }
@@ -35,14 +36,15 @@
     position: absolute;
     background-color: #1a1a1a;
     min-width: 180px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
     z-index: 1;
     border-radius: 8px;
     padding: 8px 0;
+    padding-top: 10px;
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    margin-top: 5px;
+    margin-top: 0;
 }
 
 .dropdown-content a {
@@ -69,6 +71,7 @@
     justify-content: space-around;
     flex-wrap: wrap;
 }
+
 .poster-text {
     font-family: 'Inter', sans-serif;
     color: white;
@@ -78,6 +81,7 @@
     color: white;
     font-family: 'inter', sans-serif;
 }
+
 button {
     background-color: transparent;
     border: none;
