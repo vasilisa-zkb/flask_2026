@@ -4,8 +4,7 @@
     font-family: 'Inter', sans-serif;
     color: lightgray;
     font-weight: 400;
-    background-color: black;
-    border: none;
+    
 }
 
 #alle {
@@ -16,8 +15,9 @@
 .filters {
     display: flex;
     gap: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     justify-content: center;
+    
 }
 
 .posters {
@@ -33,4 +33,8 @@
 .price {
     color: white;
     font-family: 'inter', sans-serif;
+}
+button {
+    background-color: transparent;
+    border: none;
 }
