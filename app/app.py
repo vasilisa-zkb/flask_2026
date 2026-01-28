@@ -57,7 +57,7 @@ def about() -> str:
 
 @app.route("/cart")
 def cart():
-    return 'work in progress'
+    return render_template("cart.html")
 
 @app.route("/submit", methods=["POST"])
 def submit():
