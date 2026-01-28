@@ -4,7 +4,12 @@
     font-family: 'Inter', sans-serif;
     color: lightgray;
     font-weight: 400;
-    
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.filter:hover {
+    color: white;
 }
 
 #alle {
@@ -17,7 +22,46 @@
     gap: 15px;
     margin-bottom: 50px;
     justify-content: center;
-    
+    align-items: flex-start;
+}
+
+.filter-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1a1a1a;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
+    z-index: 1;
+    border-radius: 8px;
+    padding: 8px 0;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 5px;
+}
+
+.dropdown-content a {
+    color: lightgray;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #2a2a2a;
+    color: white;
+}
+
+.filter-dropdown:hover .dropdown-content {
+    display: block;
 }
 
 .posters {
