@@ -87,3 +87,17 @@ button {
     background-color: transparent;
     border: none;
 }
+
+a {
+    text-decoration: none;
+}
+
+.posters a {
+    display: block;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.posters a:hover {
+    transform: scale(1.02);
+}
