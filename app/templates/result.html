@@ -3,7 +3,10 @@
 {% block title %}Result{% endblock %}
 
 {% block content %}
-<h1>Thank you</h1>
-<p>Hello, {{ name }}! Thanks for contacting us.</p>
-<p>This feedback was sent from this E-mail: {{ email }}</p>
+<h1>Danke für dein Feedback</h1>
+<p>Hallo, {{ name }}! Danke das du uns kontaktiert hast.</p>
+<p>Wir haben deine Nachricht erhalten</p>
+<img src="{{ url_for('static', filename='CarFrame_whiteback.png') }}" alt="CarFrameLogo" width="100%"
+style="border-radius: 12px; overflow: hidden; max-width: 800px;">
+
 {% endblock %}
