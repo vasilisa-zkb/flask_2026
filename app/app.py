@@ -59,8 +59,7 @@ def about() -> str:
 def submit():
     app.logger.info("Form submitted")
     name = request.form.get("name")
-    email = request.form.get("email")
-    return redirect(url_for("result", name=name, email=email))
+    return redirect(url_for("result", name=name))
 
 if __name__ == '__main__':
     app.run(port=5000)
