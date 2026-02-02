@@ -1,6 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+.content {
+    padding-top: 50px;
+    padding-left: 50px;
+    margin: 0;
+}
+
 .h1{
     color: white;
     font-family: 'Inter', sans-serif;
+    font-size: 48px;
+    font-weight: 300;
+    margin: 0;
 }
