@@ -33,4 +33,32 @@ document.addEventListener('DOMContentLoaded', function() {
             selectedSize = this.id;
         });
     });
+
+    // Carousel functionality
+    const carousel = document.querySelector('.carousel');
+    if (carousel) {
+        const slides = carousel.querySelectorAll('.carousel-slide');
+        const prevBtn = carousel.querySelector('.prev');
+        const nextBtn = carousel.querySelector('.next');
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+        }
+
+        prevBtn.addEventListener('click', function() {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            showSlide(currentIndex);
+        });
+
+        nextBtn.addEventListener('click', function() {
+            currentIndex = (currentIndex + 1) % slides.length;
+            showSlide(currentIndex);
+        });
+
+        // Show first slide initially
+        showSlide(currentIndex);
+    }
 });

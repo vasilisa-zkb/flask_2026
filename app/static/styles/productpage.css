@@ -15,6 +15,11 @@
     padding-left: 20px;
 }
 
+.carousel {
+    max-width: 750px;
+    width: 100%;
+}
+
 .title {
     font-family: "Inter", sans-serif;
     color: white;
@@ -202,25 +207,56 @@
     width: 15%;
 }
 
-/* Carousel arrow styling - make arrows black */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    filter: invert(1);
+.carousel {
+    max-width: 750px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Carousel indicators - make them circles */
-.carousel-indicators button {
-    width: 15px !important;
-    height: 15px !important;
-    border-radius: 50% !important;
-    border: 2px solid white !important;
-    background-color: transparent !important;
-    opacity: 1 !important;
-    margin: 0 5px !important;
-    padding: 0 !important;
+.carousel-inner {
+    position: relative;
+    width: 100%;
+    height: auto;
 }
 
-.carousel-indicators button.active {
-    background-color: white !important;
+.carousel-slide {
+    width: 100%;
+    height: auto;
+    display: none;
+}
+
+.carousel-slide.active {
+    display: block;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border-radius: 100000px;
+    color: black;
+    border: none;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.carousel-btn.prev {
+    left: 10px;
+}
+
+.carousel-btn.next {
+    right: 10px;
 }
 
