@@ -19,4 +19,18 @@ document.addEventListener('DOMContentLoaded', function() {
             quantityDisplay.textContent = quantity;
         }
     });
+
+    // Size selection functionality
+    const sizeButtons = document.querySelectorAll('.buttons .button');
+    let selectedSize = null;
+    
+    sizeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove selected class from all buttons
+            sizeButtons.forEach(btn => btn.classList.remove('selected'));
+            // Add selected class to clicked button
+            this.classList.add('selected');
+            selectedSize = this.id;
+        });
+    });
 });

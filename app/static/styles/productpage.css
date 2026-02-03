@@ -6,6 +6,7 @@
     flex-direction: column;
     padding-left: 20px;
     padding-top: 20px;
+    margin-bottom: 10%;
 }
 
 .posterimg {
@@ -45,17 +46,22 @@
 }
 
 .button {
-    background-color: lightgrey;
+    background-color: rgb(138, 138, 138);
     font-size: 20px;
     font-weight: bold;
     width: 64px;
     height: 77px;
-
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
 }
 
 .button:hover {
     background-color: white;
+}
 
+.button.selected {
+    background-color: white;
 }
 
 
@@ -194,4 +200,26 @@
     background-color: white;
     height: 15%;
     width: 15%;
+}
+
+/* Carousel arrow styling - make arrows black */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(1);
+}
+
+/* Carousel indicators - make them circles */
+.carousel-indicators button {
+    width: 15px !important;
+    height: 15px !important;
+    border-radius: 50% !important;
+    border: 2px solid white !important;
+    background-color: transparent !important;
+    opacity: 1 !important;
+    margin: 0 5px !important;
+    padding: 0 !important;
+}
+
+.carousel-indicators button.active {
+    background-color: white !important;
 }
