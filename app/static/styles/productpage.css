@@ -143,8 +143,8 @@
 }
 
 .quantity-icon {
-    width: 36px;
-    height: 36px;
+    width: 25px;
+    height: 25px;
     color: #000000;
 
 }
@@ -174,5 +174,24 @@
 .bildWarenkorb {
     margin: 0px;
     padding: 0px;
+}
 
+.bildNavigator{
+    margin-top: 1%;
+    gap: 20%;
+    margin-bottom: 4%;
+    width: 10%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 22%;
+    
+}
+
+.arrowBG{
+    border-radius: 100px;
+    background-color: white;
+    height: 15%;
+    width: 15%;
 }
