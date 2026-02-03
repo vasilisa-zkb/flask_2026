@@ -39,6 +39,12 @@ languages = [
     {"name": "Ruby", "creator": "Yukihiro Matsumoto", "year": 1995},
 ]
 
+cart_items = [
+    {"id": 1, "image_url": "static\posters\w.png", "name": "Porsche GT3 RS", "price": 38, "quantity": 1},
+    
+
+]
+
 @app.route('/')
 def home():
     print(math_service.add(1.0, 2.0))
@@ -65,7 +71,7 @@ def information() -> str:
 
 @app.route("/cart")
 def cart():
-    return 'work in progress'
+    return render_template("cart.html", cart_items=cart_items)
 
 @app.route("/submit", methods=["POST"])
 def submit():
