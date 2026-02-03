@@ -1,5 +1,6 @@
 <head>
       <link rel="stylesheet" href="{{ url_for('static', filename='styles/productpage.css') }}">
+      <script src="{{ url_for('static', filename='javascript/script.js') }}" defer></script>
 </head>
 {% extends 'base.html' %}
 
@@ -39,15 +40,27 @@
                   <p class="price">38.- CHF</p>
 
 
-                  <div class="anzahl">
+                  bitte
 
-
-                        <button class="minus gui effect">-</button>
-                        <div class="counter gui">0</div>
-                        <button class="plus gui effect">+</button>
-
-
+                  <div class="cart-item-quantity">
+                        <button class="quantity-btn" id="decrease-btn" type="button" aria-label="Decrease quantity">
+                              <svg class="quantity-icon" width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                          stroke-linejoin="round" />
+                              </svg>
+                        </button>
+                        <span class="quantity-value" id="quantity-display">1</span>
+                        <button class="quantity-btn" id="increase-btn" type="button" aria-label="Increase quantity">
+                              <svg class="quantity-icon" width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2"
+                                          stroke-linecap="round" stroke-linejoin="round" />
+                              </svg>
+                        </button>
                   </div>
+                  
+
 
                   <button class="warenkorb">
                         <svg width="10%" height="10%" viewBox="0 0 24 24" fill="none"

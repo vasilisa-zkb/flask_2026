@@ -50,16 +50,17 @@
     font-weight: bold;
     width: 64px;
     height: 77px;
-    
+
 }
-.button:hover{
+
+.button:hover {
     background-color: white;
 
 }
 
 
 .price {
-    font-family: "Inters", sans-serif;
+    font-family: "Inter", sans-serif;
     color: white;
     font-size: 45px;
     font-weight: lighter;
@@ -86,7 +87,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-        font-family: "Inters", sans-serif;
+    font-family: "Inter", sans-serif;
 
 }
 
@@ -95,7 +96,7 @@
     font-size: 20px;
 }
 
-.effect:hover{
+.effect:hover {
     background-color: white;
 }
 
@@ -114,4 +115,51 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+}
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+    background: #FFFFFF;
+    border-radius: 6px;
+    overflow: hidden;
+    height: 80px;
+    width: fit-content;
+    border: 5px solid #ffffff;
+    margin-left: 17%;
+
+}
+
+.quantity-btn {
+    width: 80px;
+    height: 80px;
+    border: none;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+}
+
+.quantity-btn:active {
+    background: #F0F0F0;
+}
+
+.quantity-value {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000;
+    font-family: "Inter", sans-serif;
+    font-size: 36px;
+    font-weight: 400;
+    color: #ffffff;
+}
+
+.quantity-icon {
+    width: 36px;
+    height: 36px;
+    color: #000000;
 }
