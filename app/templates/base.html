@@ -4,7 +4,10 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/shop.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/cart.css') }}">
+<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='pictures/CarFrame_Icon.ico') }}">
 </head>
+
+
 <body>
     <nav>
         <div class="navcontent">
@@ -22,8 +25,10 @@
             </div>
 
             <div class="navlinks">
-                <a class="navlink {% if request.endpoint == 'home' %}active{% endif %}" href="{{ url_for('home') }}">Shop</a>
-                <a class="navlink {% if request.endpoint == 'about' %}active{% endif %}" href="{{ url_for('about') }}">About Us</a>
+                <a class="navlink {% if request.endpoint == 'home' %}active{% endif %}"
+                    href="{{ url_for('home') }}">Shop</a>
+                <a class="navlink {% if request.endpoint == 'about' %}active{% endif %}"
+                    href="{{ url_for('about') }}">About Us</a>
                 <a class="navlink {% if request.endpoint == 'cart' %}active{% endif %}" href="{{ url_for('cart')}}">
                     <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         color="white">
