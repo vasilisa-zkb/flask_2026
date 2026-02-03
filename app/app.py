@@ -60,7 +60,9 @@ def result(name) -> str:
 @app.route("/about")
 def about() -> str:
     return render_template("about.html", languages=languages)
-
+@app.route("/cashdesk")
+def cashdesk() -> str:
+    return render_template("cashdesk.html")
 @app.route("/cart")
 def cart():
     return render_template("cart.html", cart_items=cart_items)
