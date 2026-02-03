@@ -45,8 +45,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin: 0;
 }
 
+.cart-item-size {
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0;
+    color: black;
+}
 .cart-item-price {
     font-size: 36px;
     font-weight: 400;
@@ -138,3 +145,4 @@
     justify-content: center;
     margin-top: 30px;
 }
+
