@@ -40,11 +40,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const slides = carousel.querySelectorAll('.carousel-slide');
         const prevBtn = carousel.querySelector('.prev');
         const nextBtn = carousel.querySelector('.next');
+        const indicators = carousel.querySelectorAll('.indicator');
         let currentIndex = 0;
 
         function showSlide(index) {
             slides.forEach((slide, i) => {
                 slide.classList.toggle('active', i === index);
+            });
+            indicators.forEach((indicator, i) => {
+                indicator.classList.toggle('active', i === index);
             });
         }
 
@@ -56,6 +60,13 @@ document.addEventListener('DOMContentLoaded', function() {
         nextBtn.addEventListener('click', function() {
             currentIndex = (currentIndex + 1) % slides.length;
             showSlide(currentIndex);
+        });
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', function() {
+                currentIndex = index;
+                showSlide(currentIndex);
+            });
         });
 
         // Show first slide initially
