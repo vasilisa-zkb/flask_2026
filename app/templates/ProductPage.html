@@ -1,0 +1,59 @@
+<head>
+      <link rel="stylesheet" href="{{ url_for('static', filename='styles/productpage.css') }}">
+</head>
+{% extends 'base.html' %}
+
+{% block title %}Shop CarFrame{% endblock %}
+
+{% block content %}
+
+<div class="a">
+      <svg width="7%" height="7%" color="white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+      </svg>
+      <div class="posterimg">
+            <img src="{{ url_for('static', filename='pictures/w.png') }}" width="750px" height="auto">
+
+            <div class="text">
+                  <h1 class="title">
+                        Porsche GT3 RS
+                  </h1>
+                  <p class="desc">
+                        Ein ikonisches Porsche 911 GT3 RS Poster, das kompromisslose Performance und Motorsport-DNA
+                        zeigt.
+                        Aerodynamische Perfektion, Leichtbau und Rennstrecken-Gene vereinen sich zu purer
+                        Fahrleidenschaft –
+                        ein Statement für echte Porsche-Enthusiasten.
+                  </p>
+                  <p class="choose">
+                        Wählen sie Ihre gewünschte Grösse:
+                  </p>
+                  <div class="buttons">
+                        <button class="button" id="a4">A4</button>
+                        <button class="button" id="a3">A3</button>
+                        <button class="button" id="a2">A2</button>
+
+
+                  </div>
+                  <p class="price">38.- CHF</p>
+
+
+                  <div class="anzahl">
+                        
+
+                              <button class="minus gui effect">-</button>
+                              <div class="counter gui">0</div>
+                              <button class="plus gui effect">+</button>
+                        
+
+                  </div>
+
+
+            </div>
+
+
+      </div>
+</div>
+
+{% endblock %}

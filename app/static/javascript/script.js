@@ -1,0 +1,1 @@
+const grösse1 = document. ('.')
