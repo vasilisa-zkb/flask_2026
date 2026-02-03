@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}Shop CarFrame{% endblock %}
+
 {% block css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/about.css') }}">
 {% endblock %}
@@ -44,12 +45,12 @@
         </div>
     </div>
     <div>
-        <h1 id="socialsh1">Kontaktiere uns!</h1>
+         <h1 id="socialsh1" style="margin-left: 1%;">Kontaktiere uns!</h1>
         <div id="contact">
             <form action="{{ url_for('submit') }}" method="post">
                 <input type="text" id="name" name="name" placeholder="Name">
                 <input type="email" id="email" name="email" placeholder="email">
-                <textarea id="contact_message" name="message" placeholder="Nachricht" rows="6"></textarea>
+                <textarea id="contact_message" name="message" placeholder="Nachricht" rows="1"></textarea>
                 <button type="submit" id="contact_submit">Senden</button>
             </form>
         </div>

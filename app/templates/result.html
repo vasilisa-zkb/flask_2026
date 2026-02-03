@@ -2,11 +2,20 @@
 
 {% block title %}Result{% endblock %}
 
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/result.css') }}">
+{% endblock %}
+
+
 {% block content %}
-<h1>Danke für dein Feedback</h1>
-<p>Hallo, {{ name }}! Danke das du uns kontaktiert hast.</p>
-<p>Wir haben deine Nachricht erhalten</p>
-<img src="{{ url_for('static', filename='CarFrame_whiteback.png') }}" alt="CarFrameLogo" width="100%"
-style="border-radius: 12px; overflow: hidden; max-width: 800px;">
+
+<div id="everything" class="result">
+    <div class="result_text">
+        <h1>Danke für deine Nachricht</h1>
+        <p>Hallo, {{ name }}!</p>
+        <p>Wir haben deine Nachricht erhalten</p>
+    </div>
+    <img src="{{ url_for('static', filename='CarFrame_whiteback.png') }}" alt="CarFrameLogo" class="result-image">
+</div>
 
 {% endblock %}
