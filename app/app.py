@@ -40,7 +40,7 @@ languages = [
 ]
 
 cart_items = [
-    {"id": 1, "image_url": "static\posters\w.png", "name": "Porsche GT3 RS", "price": 38, "quantity": 1},
+    {"id": 1, "image_url": "static\posters\w.png", "name": "Porsche GT3 RS", "size": "A4", "price": 38, "quantity": 1},
     
 
 ]
