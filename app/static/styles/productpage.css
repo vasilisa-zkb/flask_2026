@@ -99,3 +99,19 @@
     background-color: white;
 }
 
+.warenkorb {
+    margin-left: 17%;
+    margin-top: 15%;
+    width: 232px;
+    height: 50px;
+    background-color: rgb(255, 153, 0);
+    border: none;
+    font-size: 24px;
+    font-family: "Inters", sans-serif;
+    font-weight: bold;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
