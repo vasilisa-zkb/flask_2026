@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+
+.a {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+.posterimg {
+    display: flex;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.title {
+    font-family: "Inter", sans-serif;
+    color: white;
+    font-size: 64px;
+    font-weight: lighter;
+    padding-left: 17%;
+}
+
+.desc {
+    padding-left: 17%;
+    padding-right: 16%;
+    font-family: "Inter", sans-serif;
+    color: white;
+    font-weight: lighter;
+}
+
+.choose {
+    padding-left: 17%;
+    padding-top: 5%;
+    font-family: "Inter", sans-serif;
+    color: white;
+    font-weight: lighter;
+}
+
+.buttons {
+    display: flex;
+    padding-left: 17%;
+    gap: 20px;
+}
+
+.button {
+    background-color: lightgrey;
+    font-size: 20px;
+    font-weight: bold;
+    width: 64px;
+    height: 77px;
+    
+}
+.button:hover{
+    background-color: white;
+
+}
+
+
+.price {
+    font-family: "Inters", sans-serif;
+    color: white;
+    font-size: 45px;
+    font-weight: lighter;
+    padding-left: 17%;
+    margin-top: 5%;
+}
+
+.anzahl {
+    padding-left: 17%;
+    display: flex;
+    align-items: center;
+
+
+}
+
+.gui {
+    width: 50px;
+    height: 50px;
+
+}
+
+.counter {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        font-family: "Inters", sans-serif;
+
+}
+
+.effect {
+    background-color: lightgrey;
+    font-size: 20px;
+}
+
+.effect:hover{
+    background-color: white;
+}
+
