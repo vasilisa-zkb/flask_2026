@@ -58,8 +58,25 @@ def about() -> str:
 @app.route("/submit", methods=["POST"])
 def submit():
     app.logger.info("Form submitted")
-    name = request.form.get("name")
+    name = request.form.get("name", "").strip()
+    email = request.form.get("email", "").strip()
+    message = request.form.get("message", "").strip()
+
+    errors = []
+    # count letters only
+    if sum(c.isalpha() for c in name) < 3:
+        errors.append("Name must contain at least 3 letters.")
+    if len(message) < 10:
+        errors.append("Nachricht must be at least 10 characters.")
+
+    if errors:
+        # re-render about page with errors and previous form values
+        return render_template("about.html", languages=languages, errors=errors,
+                               form={"name": name, "email": email, "message": message})
+
     return redirect(url_for("result", name=name))
+
+
 
 if __name__ == '__main__':
     app.run(port=5000)

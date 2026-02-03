@@ -34,13 +34,13 @@
             <h1>Social Media</h1>
             <div id="socialsimgs">
             <img id="instagram"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/500px-Instagram_icon.png"
-                height="150px" alt="Instagram Logo"
-                onclick="window.location.href='https://www.instagram.com/official.carframe'">
+                src="{{ url_for('static', filename='inta_white.svg') }}"
+                height="100px" alt="Instagram Logo"
+                onclick="window.open('https://www.instagram.com/official.carframe', '_blank')">
             <img id="Tiktok"
-                src="https://static.vecteezy.com/system/resources/thumbnails/016/716/485/small/tiktok-icon-free-png.png"
-                height="150px" alt="TikTok Logo"
-                onclick="window.location.href='https://www.tiktok.com/@official.carframe?_r=1&_t=ZN-934D43BiUfi'">
+                src="{{ url_for('static', filename='tiktok_white.svg') }}"
+                height="100px" alt="TikTok Logo"
+                onclick="window.open('https://www.tiktok.com/@official.carframe?_r=1&_t=ZN-934D43BiUfi', '_blank')">
                 </div>
         </div>
     </div>
@@ -49,7 +49,7 @@
         <div id="contact">
             <form action="{{ url_for('submit') }}" method="post">
                 <input type="text" id="name" name="name" placeholder="Name">
-                <input type="email" id="email" name="email" placeholder="email">
+                <input type="email" id="email" name="email" placeholder="E-mail">
                 <textarea id="contact_message" name="message" placeholder="Nachricht" rows="1"></textarea>
                 <button type="submit" id="contact_submit">Senden</button>
             </form>

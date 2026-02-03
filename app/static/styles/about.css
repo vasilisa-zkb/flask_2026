@@ -23,7 +23,6 @@ body {
     flex-direction: column;
     text-align: left;
     font-weight: 100;
-    margin-top: 10px;
     margin-right: 1%;
 }
 
@@ -33,7 +32,8 @@ body {
 
 .about h1 {
     font-weight: 200;
-    margin-bottom: 0%;
+    margin-bottom: 1%;
+    margin-top: 1%;
 }
 
 #socials {
@@ -44,10 +44,9 @@ body {
 
 #socialsimgs {
     display: flex;
-    display: table-column;
+    gap: 3%;
+    align-items: center;
 }
-
-
 
 #CarFrame_whiteback {
     display: flex;
@@ -57,9 +56,9 @@ body {
     border-radius: 20px;
     overflow: hidden;
     width: 50%;
-    height: 25%;
+    height: 30%;
     margin-left: 1%;
-    margin-right: 1%;
+    margin-right: 3%;
     padding-top: 5%;
     padding-bottom: 5%;
 }
@@ -67,7 +66,7 @@ body {
 
 #contact {
     margin-left: 1%;
-    background-color: white;
+    background-color: #eaeaea;
     color: black;
     border-radius: 12px;
     overflow: hidden;
@@ -96,9 +95,10 @@ body {
     padding: 12px;
     font-size: 16px;
     border-radius: 8px;
-    border: 1px solid #d5cbc2;
+    border: 1px solid #eaeaea;
     box-sizing: border-box;
     resize: vertical;
+    max-height: 1000px;
 }
 
 #contact button {
@@ -107,7 +107,7 @@ body {
     font-size: 16px;
     border-radius: 8px;
     border: none;
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #000000;
     cursor:crosshair;
 }
