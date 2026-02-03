@@ -41,7 +41,6 @@ languages = [
 
 cart_items = [
     {"id": 1, "image_url": "static\posters\w.png", "name": "Porsche GT3 RS", "size": "A4", "price": 38, "quantity": 1},
-    
 
 ]
 
@@ -72,6 +71,12 @@ def information() -> str:
 @app.route("/cart")
 def cart():
     return render_template("cart.html", cart_items=cart_items)
+
+
+@app.route("/feedback")
+def feedback():
+    return render_template("feedback.html")
+
 
 @app.route("/submit", methods=["POST"])
 def submit():
