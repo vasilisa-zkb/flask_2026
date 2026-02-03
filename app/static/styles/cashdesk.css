@@ -58,7 +58,6 @@ body {
 	box-shadow: 0 2px 0 rgba(255, 255, 255, 0.12) inset;
 	cursor: pointer;
 	transition: background 0.2s ease;
-    width: 100%;
 }
 
 .payment-option:hover {
