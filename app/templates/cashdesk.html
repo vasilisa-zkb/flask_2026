@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block title %}Kasse | CarFrame{% endblock %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/cashdesk.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="cashdesk">
+	<section class="cashdesk-container">
+		<h1 class="cashdesk-title">Kasse</h1>
+
+		<div class="payment-list">
+			<div class="payment-wrapper">
+				<input type="radio" id="visa" name="payment" class="radio-input" data-payment="visa">
+				<label for="visa" class="payment-option">
+					<span class="radio"></span>
+					<span class="payment-text">Debit-/Kreditkarte</span>
+					<img class="payment-logo-img visa" src="{{ url_for('static', filename='cashdeskLogos/images.png') }}" alt="Visa">
+				</label>
+				<div id="visa-form" class="payment-form" style="display: none;">
+					<form>
+						<div class="form-group">
+							<label>Vollständiger Name:</label>
+							<input type="text" placeholder="Max Mustermann" required>
+						</div>
+						<div class="form-group">
+							<label>Kartennummer:</label>
+							<input type="text" placeholder="0000 0000 0000 0000" required>
+						</div>
+						<div class="form-row">
+							<div class="form-group">
+								<label>Ablaufdatum:</label>
+								<input type="text" placeholder="MM/JJ" required>
+							</div>
+							<div class="form-group">
+								<label>CVV:</label>
+								<input type="text" placeholder="000" required>
+							</div>
+						</div>
+						<button type="submit" class="checkout-btn">Kauf abschließen</button>
+					</form>
+				</div>
+			</div>
+
+			<div class="payment-wrapper">
+				<input type="radio" id="twint" name="payment" class="radio-input" data-payment="twint">
+				<label for="twint" class="payment-option">
+					<span class="radio"></span>
+					<span class="payment-text">Twint</span>
+					<img class="payment-logo-img twint" src="{{ url_for('static', filename='cashdeskLogos/Twint.svg.png') }}" alt="Twint">
+				</label>
+				<div id="twint-form" class="payment-form" style="display: none;">
+					<div class="form-content">
+						<p>Sie werden zu TWINT weitergeleitet</p>
+						<button type="button" class="checkout-btn" onclick="window.open('https://www.twint.ch', '_blank')">Zu TWINT</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="payment-wrapper">
+				<input type="radio" id="amex" name="payment" class="radio-input" data-payment="amex">
+				<label for="amex" class="payment-option">
+					<span class="radio"></span>
+					<span class="payment-text">American Express</span>
+					<img class="payment-logo-img amex" src="{{ url_for('static', filename='cashdeskLogos/American_Express_logo_(2018).svg') }}" alt="American Express">
+				</label>
+				<div id="amex-form" class="payment-form" style="display: none;">
+					<form>
+						<div class="form-group">
+							<label>Vollständiger Name:</label>
+							<input type="text" placeholder="Max Mustermann" required>
+						</div>
+						<div class="form-group">
+							<label>Kartennummer:</label>
+							<input type="text" placeholder="0000 0000 0000 0000" required>
+						</div>
+						<div class="form-row">
+							<div class="form-group">
+								<label>Ablaufdatum:</label>
+								<input type="text" placeholder="MM/JJ" required>
+							</div>
+							<div class="form-group">
+								<label>CVV:</label>
+								<input type="text" placeholder="000" required>
+							</div>
+						</div>
+						<button type="submit" class="checkout-btn">Kauf abschließen</button>
+					</form>
+				</div>
+			</div>
+
+			<div class="payment-wrapper">
+				<input type="radio" id="klarna" name="payment" class="radio-input" data-payment="klarna">
+				<label for="klarna" class="payment-option">
+					<span class="radio"></span>
+					<span class="payment-text">Klarna</span>
+					<img class="payment-logo-img klarna" src="{{ url_for('static', filename='cashdeskLogos/Klarna_Payment_Badge.svg.png') }}" alt="Klarna">
+				</label>
+				<div id="klarna-form" class="payment-form" style="display: none;">
+					<div class="form-content">
+						<p>Sie werden zu Klarna weitergeleitet</p>
+						<button type="button" class="checkout-btn" onclick="window.open('https://www.klarna.com', '_blank')">Zu Klarna</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="payment-wrapper">
+				<input type="radio" id="apple" name="payment" class="radio-input" data-payment="apple">
+				<label for="apple" class="payment-option">
+					<span class="radio"></span>
+					<span class="payment-text">Apple Pay</span>
+					<img class="payment-logo-img apple" src="{{ url_for('static', filename='cashdeskLogos/Apple_Pay_logo.svg.png') }}" alt="Apple Pay">
+				</label>
+				<div id="apple-form" class="payment-form" style="display: none;">
+					<div class="form-content">
+						<p>Apple Pay wird aktiviert</p>
+						<button type="button" class="checkout-btn" onclick="window.open('https://www.apple.com/apple-pay/', '_blank')">Weiter mit Apple Pay</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="payment-wrapper">
+				<input type="radio" id="gpay" name="payment" class="radio-input" data-payment="gpay">
+				<label for="gpay" class="payment-option">
+					<span class="radio"></span>
+					<span class="payment-text">Google Pay</span>
+					<img class="payment-logo-img gpay" src="{{ url_for('static', filename='cashdeskLogos/Google_Pay_Logo.svg.png') }}" alt="Google Pay">
+				</label>
+				<div id="gpay-form" class="payment-form" style="display: none;">
+					<div class="form-content">
+						<p>Google Pay wird aktiviert</p>
+						<button type="button" class="checkout-btn" onclick="window.open('https://pay.google.com/intl/de_ch/about/', '_blank')">Weiter mit Google Pay</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>
+
+<script>
+// Zahlungsmethode auswählen und Formular anzeigen
+document.querySelectorAll('.radio-input').forEach(input => {
+	input.addEventListener('change', function() {
+		// Alle Formulare verstecken
+		document.querySelectorAll('.payment-form').forEach(form => {
+			form.style.display = 'none';
+		});
+		
+		// Ausgewähltes Formular anzeigen
+		const selectedForm = document.getElementById(this.dataset.payment + '-form');
+		if (selectedForm) {
+			selectedForm.style.display = 'block';
+		}
+	});
+});
+</script>
+
+{% endblock %}
