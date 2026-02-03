@@ -8,3 +8,6 @@ app/__pycache__/db.cpython-314.pyc
 app/services/__pycache__/math_service.cpython-314.pyc
 .venv
 **/__pycache__/
+*.pyd
+*.pyo
+*.pyc
