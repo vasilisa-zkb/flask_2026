@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from dotenv import load_dotenv # Lädt .env Datei
 from services import math_service
 from config import DevelopmentConfig, ProductionConfig
@@ -37,10 +37,6 @@ languages = [
     {"name": "Java", "creator": "James Gosling", "year": 1995},
     {"name": "C#", "creator": "Microsoft", "year": 2000},
     {"name": "Ruby", "creator": "Yukihiro Matsumoto", "year": 1995},
-]
-
-cart_items = [
-    {"id": 1, "image_url": "static/posters/w.png", "name": "Porsche GT3 RS", "size": "A4", "price": 38, "quantity": 1}
 ]
 
 posters = [
@@ -85,8 +81,19 @@ def cashdesk() -> str:
 def information() -> str:
     return render_template("information.html")
 
+@app.route("/cart/add/<id>", methods=["POST"])
+def add_to_cart(id) -> str:
+    allowed_ids = { 1, 2, 3, 4, 5, 6 }
+    if int(id) in allowed_ids:
+        cart_items = session.get('cart_items', [])
+        cart_items.append(id)
+        session['cart_items'] = cart_items
+        app.logger.info(f"Added item {id} to cart. Current cart items: {cart_items}")
+    return redirect(url_for('productpage', id=id))
+
 @app.route("/cart")
 def cart():
+    cart_items = session.get('cart_items', [])
     return render_template("cart.html", cart_items=cart_items)
 
 @app.route("/feedbackconfirmation")

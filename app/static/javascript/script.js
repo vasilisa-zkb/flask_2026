@@ -22,7 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Size selection functionality
     const sizeButtons = document.querySelectorAll('.buttons .button');
-    let selectedSize = null;
+    const sizeInput = document.getElementById('size-input');
+    let selectedSize = 'A4';
+
+    if (sizeInput) {
+        sizeInput.value = selectedSize;
+    }
     
     sizeButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -30,7 +35,10 @@ document.addEventListener('DOMContentLoaded', function() {
             sizeButtons.forEach(btn => btn.classList.remove('selected'));
             // Add selected class to clicked button
             this.classList.add('selected');
-            selectedSize = this.id;
+            selectedSize = this.textContent.trim();
+            if (sizeInput) {
+                sizeInput.value = selectedSize;
+            }
         });
     });
 
