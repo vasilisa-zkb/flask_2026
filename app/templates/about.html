@@ -1,26 +1,61 @@
 {% extends 'base.html' %}
 
-{% block title %}About{% endblock %}
+{% block title %}Shop CarFrame{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/about.css') }}">
+{% endblock %}
 
 {% block content %}
-<h1>Programming Languages</h1>
-<table border="1">
-    <caption>programming languages</caption>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Creator</th>
-            <th>Year</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for language in languages %}
-        <tr>
-            <td>{{ language.name }}</td>
-            <td>{{ language.creator }}</td>
-            <td>{{ language.year }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+
+<div id="everything" class="about">
+
+
+    <div class="top">
+        <div id="CarFrame_whiteback">
+            <img src="{{ url_for('static', filename='CarFrame_whiteback.png') }}" alt="CarFrameLogo" width="100%">
+        </div>
+        <div id="About_text">
+            <h1>About CarFrame</h1>
+            <p>CarFrame steht für mehr als nur Poster, wir bringen echte Fahrleidenschaft an deine Wand.
+                Unsere designs fangen die Emotion,
+                Perfomance und Ästhetik ikonischer Fahrzeuge ein und
+                verwandeln sie in hochwertige Kunst.
+                Jedes Motiv wird mit Liebe zum Detail gestaltet: clean, modern und zeitlos.
+                Ob Supersportler, Tracktools oder Automobile Ikonen;
+                CarFrame ist für Alle,
+                Die Benzin im Blut haben
+                und ihren Lifestyle zeigen wollen.
+            </p>
+        </div>
+    </div>
+    <div>
+        <div id="socials">
+            <h1>Social Media</h1>
+            <div id="socialsimgs">
+            <img id="instagram"
+                src="{{ url_for('static', filename='inta_white.svg') }}"
+                height="100px" alt="Instagram Logo"
+                onclick="window.open('https://www.instagram.com/official.carframe', '_blank')">
+            <img id="Tiktok"
+                src="{{ url_for('static', filename='tiktok_white.svg') }}"
+                height="100px" alt="TikTok Logo"
+                onclick="window.open('https://www.tiktok.com/@official.carframe?_r=1&_t=ZN-934D43BiUfi', '_blank')">
+                </div>
+        </div>
+    </div>
+    <div>
+         <h1 id="socialsh1" style="margin-left: 1%;">Kontaktiere uns!</h1>
+        <div id="contact">
+            <form action="{{ url_for('submit') }}" method="post">
+                <input type="text" id="name" name="name" placeholder="Name">
+                <input type="email" id="email" name="email" placeholder="E-mail">
+                <textarea id="contact_message" name="message" placeholder="Nachricht" rows="1"></textarea>
+                <button type="submit" id="contact_submit">Senden</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}
