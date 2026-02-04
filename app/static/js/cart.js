@@ -18,16 +18,65 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         buttons.forEach((btn) => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', async () => {
                 const current = parseInt(valueEl.textContent, 10) || 0;
                 const isDecrease = btn.getAttribute('aria-label')?.toLowerCase().includes('decrease');
                 const next = isDecrease ? Math.max(1, current - 1) : current + 1;
                 valueEl.textContent = String(next);
                 updatePrice(next);
+
+                // Update session
+                const index = cartItem.dataset.index;
+                if (index !== undefined) {
+                    try {
+                        const response = await fetch(`/cart/update/${index}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ quantity: next })
+                        });
+
+                        if (!response.ok) {
+                            console.error('Failed to update quantity');
+                        }
+                    } catch (error) {
+                        console.error('Error updating quantity:', error);
+                    }
+                }
             });
         });
 
         const initialQty = parseInt(valueEl.textContent, 10) || 0;
         updatePrice(initialQty);
+    });
+
+    // Remove button functionality
+    const removeButtons = document.querySelectorAll('.remove-button');
+    removeButtons.forEach((button) => {
+        button.addEventListener('click', async () => {
+            const cartItem = button.closest('.cart-item');
+            if (!cartItem) return;
+            
+            const index = cartItem.dataset.index;
+            if (index === undefined) return;
+
+            try {
+                const response = await fetch(`/cart/remove/${index}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    console.error('Failed to remove item');
+                }
+            } catch (error) {
+                console.error('Error removing item:', error);
+            }
+        });
     });
 });
