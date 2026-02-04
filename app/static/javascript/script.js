@@ -3,13 +3,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const decreaseBtn = document.getElementById('decrease-btn');
     const increaseBtn = document.getElementById('increase-btn');
     const quantityDisplay = document.getElementById('quantity-display');
+    const quantityInput = document.getElementById('quantity-input');
     
     let quantity = 1;
+    
+    if (quantityInput) {
+        quantityInput.value = quantity;
+    }
     
     // Increase quantity
     increaseBtn.addEventListener('click', function() {
         quantity++;
         quantityDisplay.textContent = quantity;
+        if (quantityInput) {
+            quantityInput.value = quantity;
+        }
     });
     
     // Decrease quantity (minimum 1)
@@ -17,6 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (quantity > 1) {
             quantity--;
             quantityDisplay.textContent = quantity;
+            if (quantityInput) {
+                quantityInput.value = quantity;
+            }
         }
     });
 

@@ -80,7 +80,8 @@
 
 
                      <form action="{{ url_for('add_to_cart', id=id) }}" method="post">
-                           <input type="hidden" name="size" id="size-input" value="A4">
+                       <input type="hidden" name="size" id="size-input" value="A4">
+                       <input type="hidden" name="quantity" id="quantity-input" value="1">
                        <button class="warenkorb">
                         <svg class="bildWarenkorb" width="10%" height="55%" viewBox="0 0 24 24" fill="none"
                               color="black" xmlns="http://www.w3.org/2000/svg">

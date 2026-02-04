@@ -17,7 +17,7 @@
         </div> -->
         {% for item in cart_items %}
         <div class="cart-item">
-            <img src="{{ item.image_url }}" alt="{{ item.name }}" class="cart-item-image" width="180px" height="auto">
+            <img src="{{ url_for('static', filename='pictures/' ~ item.id ~ '/' ~ item.name ~ '.png') }}" alt="{{ item.name }}" class="cart-item-image" width="180px" height="auto">
             <div class="cart-item-details">
                 <div class="left-side">
                     <h2 class="cart-item-name">{{ item.name }}</h2>
