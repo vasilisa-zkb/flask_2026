@@ -87,6 +87,19 @@ body {
     min-height: 200px;
 }
 
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.error-message {
+    color: #d32f2f;
+    font-size: 14px;
+    min-height: 18px;
+    font-weight: 500;
+}
+
 #contact input[type="text"],
 #contact input[type="email"],
 #contact textarea {

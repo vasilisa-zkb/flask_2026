@@ -47,15 +47,67 @@
     <div>
          <h1 id="socialsh1" style="margin-left: 1%;">Kontaktiere uns!</h1>
         <div id="contact">
-            <form action="{{ url_for('submit') }}" method="post">
-                <input type="text" id="name" name="name" placeholder="Name">
-                <input type="email" id="email" name="email" placeholder="E-mail">
-                <textarea id="contact_message" name="message" placeholder="Nachricht" rows="1"></textarea>
+            <form id="contactForm" action="{{ url_for('submit') }}" method="post">
+                <div class="form-field">
+                    <input type="text" id="name" name="name" placeholder="Name">
+                    <span class="error-message" id="name-error"></span>
+                </div>
+                <div class="form-field">
+                    <input type="email" id="email" name="email" placeholder="E-mail">
+                    <span class="error-message" id="email-error"></span>
+                </div>
+                <div class="form-field">
+                    <textarea id="contact_message" name="message" placeholder="Nachricht" rows="1"></textarea>
+                    <span class="error-message" id="message-error"></span>
+                </div>
                 <button type="submit" id="contact_submit">Senden</button>
             </form>
         </div>
     </div>
 </div>
 
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Alle Fehlermeldungen zurücksetzen
+        document.getElementById('name-error').textContent = '';
+        document.getElementById('email-error').textContent = '';
+        document.getElementById('message-error').textContent = '';
+        
+        // Werte holen
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('contact_message').value.trim();
+        
+        let isValid = true;
+        
+        // Validierung
+        if (name === '') {
+            document.getElementById('name-error').textContent = 'Dieses Feld darf nicht leer sein';
+            isValid = false;
+        }
+        
+        if (email === '') {
+            document.getElementById('email-error').textContent = 'Dieses Feld darf nicht leer sein';
+            isValid = false;
+        }
+        
+        if (message === '') {
+            document.getElementById('message-error').textContent = 'Dieses Feld darf nicht leer sein';
+            isValid = false;
+        }
+        
+        // Wenn alles gültig ist, in Konsole ausgeben und Formular absenden
+        if (isValid) {
+            console.log('Name:', name);
+            console.log('Email:', email);
+            console.log('Nachricht:', message);
+            
+            // Formular absenden
+            this.submit();
+        }
+    });
+</script>
 
 {% endblock %}
