@@ -57,14 +57,16 @@
 
             </div>
         </div>
-        <div class="buy-button-container">
-        <button class="buybutton" onclick="location.href='{{ url_for('information') }}'">Zur Kasse</button>
-    </div>
+        
         {% else %}
         <p class="leer">Ihr Warenkorb ist leer.</p>
         {% endfor %}
     </div>
-    
+    {% if cart_items %}
+    <div class="buy-button-container">
+        <button class="buybutton" onclick="location.href='{{ url_for('information') }}'">Zur Kasse</button>
+    </div>
+    {% endif %}
 </div>
 
 <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
