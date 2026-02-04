@@ -111,6 +111,19 @@ def remove_from_cart(index):
         app.logger.info(f"Removed item at index {index}. Remaining items: {cart_items}")
     return '', 204
 
+@app.route("/cart/update/<int:index>", methods=["POST"])
+def update_cart_quantity(index):
+    cart_items = session.get('cart_items', [])
+    if 0 <= index < len(cart_items):
+        data = request.get_json()
+        quantity = data.get('quantity', 1)
+        if quantity > 0:
+            cart_items[index]['quantity'] = quantity
+            session['cart_items'] = cart_items
+            app.logger.info(f"Updated item at index {index} to quantity {quantity}")
+            return '', 204
+    return '', 400
+
 @app.route("/feedbackconfirmation")
 def feedbackconfirmation() -> str:
     return render_template("feedbackconfirmation.html")
