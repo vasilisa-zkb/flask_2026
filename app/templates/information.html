@@ -11,32 +11,37 @@
 	<section class="information-container">
 		<h1 class="page-title">Lieferadresse</h1>
 		
-		<form class="info-form">
+		<form id="informationForm" class="info-form">
 			<div class="form-section">
 				<div class="form-row">
 					<div class="form-field">
 						<label>Vorname:</label>
-						<input type="text" placeholder="Max" required>
+						<input type="text" id="first_name" name="first_name" placeholder="Max" required>
+						<span class="error-message" id="first-name-error"></span>
 					</div>
 					<div class="form-field">
 						<label>Nachname:</label>
-						<input type="text" placeholder="Mustermann" required>
+						<input type="text" id="last_name" name="last_name" placeholder="Mustermann" required>
+						<span class="error-message" id="last-name-error"></span>
 					</div>
 				</div>
 				
 				<div class="form-field full-width">
 					<label>Adresse:</label>
-					<input type="text" placeholder="Zürichstrasse 20" required>
+					<input type="text" id="address" name="address" placeholder="Zürichstrasse 20" required>
+					<span class="error-message" id="address-error"></span>
 				</div>
 				
 				<div class="form-row">
 					<div class="form-field small">
 						<label>PLZ:</label>
-						<input type="text" placeholder="1234" required>
+						<input type="text" id="zip" name="zip" placeholder="1234" required>
+						<span class="error-message" id="zip-error"></span>
 					</div>
 					<div class="form-field">
 						<label>Ort:</label>
-						<input type="text" placeholder="Zürich" required>
+						<input type="text" id="city" name="city" placeholder="Zürich" required>
+						<span class="error-message" id="city-error"></span>
 					</div>
 				</div>
 			</div>
@@ -47,12 +52,13 @@
 				<div class="form-row">
 					<div class="form-field">
 						<label>E-Mail Adresse:</label>
-						<input type="email" placeholder="max.mustermann@example.com" required>
+						<input type="email" id="email" name="email" placeholder="max.mustermann@example.com" required>
+						<span class="error-message" id="email-error"></span>
 					</div>
 					<div class="form-field">
 						<label>Rabattcode:</label>
 						<div class="input-with-button">
-							<input type="text" placeholder="abc123">
+							<input type="text" id="discount_code" name="discount_code" placeholder="abc123">
 							<button type="button" class="confirm-btn">Bestätigen</button>
 						</div>
 					</div>
@@ -60,15 +66,59 @@
 				
 				<div class="form-field half-width">
 					<label>Handynummer:</label>
-					<input type="tel" placeholder="076 123 45 67" required>
+					<input type="tel" id="phone" name="phone" placeholder="076 123 45 67" required>
+					<span class="error-message" id="phone-error"></span>
 				</div>
 			</div>
 			
 			<div class="form-actions">
 				<button type="button" class="action-btn back-btn" onclick="window.history.back()">Zurück</button>
-				<button type="submit" class="action-btn next-btn" onclick="location.href='{{ url_for('cashdesk') }}'">weiter</button>
+				<button type="submit" class="action-btn next-btn">weiter</button>
 			</div>
 		</form>
 	</section>
 </main>
+
+<script>
+	document.getElementById('informationForm').addEventListener('submit', function(e) {
+		e.preventDefault();
+
+		const fields = [
+			{ id: 'first_name', errorId: 'first-name-error', label: 'Vorname' },
+			{ id: 'last_name', errorId: 'last-name-error', label: 'Nachname' },
+			{ id: 'address', errorId: 'address-error', label: 'Adresse' },
+			{ id: 'zip', errorId: 'zip-error', label: 'PLZ' },
+			{ id: 'city', errorId: 'city-error', label: 'Ort' },
+			{ id: 'email', errorId: 'email-error', label: 'E-Mail' },
+			{ id: 'phone', errorId: 'phone-error', label: 'Handynummer' }
+		];
+
+		fields.forEach(field => {
+			document.getElementById(field.errorId).textContent = '';
+		});
+
+		let isValid = true;
+
+		fields.forEach(field => {
+			const value = document.getElementById(field.id).value.trim();
+			if (value === '') {
+				document.getElementById(field.errorId).textContent = 'Dieses Feld darf nicht leer sein';
+				isValid = false;
+			}
+		});
+
+		if (isValid) {
+			console.log('Vorname:', document.getElementById('first_name').value.trim());
+			console.log('Nachname:', document.getElementById('last_name').value.trim());
+			console.log('Adresse:', document.getElementById('address').value.trim());
+			console.log('PLZ:', document.getElementById('zip').value.trim());
+			console.log('Ort:', document.getElementById('city').value.trim());
+			console.log('E-Mail:', document.getElementById('email').value.trim());
+			console.log('Handynummer:', document.getElementById('phone').value.trim());
+			console.log('Rabattcode:', document.getElementById('discount_code').value.trim());
+
+			window.location.href = "{{ url_for('cashdesk') }}";
+		}
+	});
+</script>
 {% endblock %}

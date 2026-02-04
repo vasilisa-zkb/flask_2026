@@ -78,6 +78,14 @@ body {
 	margin-bottom: 8px;
 }
 
+.error-message {
+	color: #d32f2f;
+	font-size: 14px;
+	min-height: 18px;
+	font-weight: 500;
+	margin-top: 6px;
+}
+
 .form-field input {
 	background: #e8e8e8;
 	border: none;
