@@ -17,7 +17,8 @@
         </div>
         <div id="About_text">
             <h1>About CarFrame</h1>
-            <p>CarFrame steht für mehr als nur Poster, wir bringen echte Fahrleidenschaft an deine Wand.
+            <p id="decription-text">CarFrame steht für mehr als nur Poster, wir bringen echte Fahrleidenschaft an deine
+                Wand.
                 Unsere designs fangen die Emotion,
                 Perfomance und Ästhetik ikonischer Fahrzeuge ein und
                 verwandeln sie in hochwertige Kunst.
@@ -31,7 +32,7 @@
     </div>
     <div>
         <div id="socials">
-            <h1>Social Media</h1>
+            <h1 class="SocialMedia-Text">Social Media</h1>
             <div id="socialsimgs">
                 <img id="instagram" src="{{ url_for('static', filename='inta_white.svg') }}" height="100px"
                     alt="Instagram Logo" onclick="window.open('https://www.instagram.com/official.carframe', '_blank')">
@@ -42,7 +43,7 @@
         </div>
     </div>
     <div>
-        <h1 id="socialsh1" style="margin-left: 1%;">Kontaktiere uns!</h1>
+        <h1 id="socialsh1">Kontaktiere uns!</h1>
         <div id="contact">
             <form id="contactForm" action="{{ url_for('submit') }}" method="post">
                 <div class="form-field">
