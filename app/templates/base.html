@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
-</head>
+
+<head><title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/shop.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/cart.css') }}">
+{% block extra_styles %}{% endblock %}
+{% block css %}{% endblock %}
 <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='pictures/CarFrame_Icon.ico') }}">
 </head>
+
 
 <body>
     <nav>
@@ -16,7 +19,7 @@
                 <img src="../static/pictures/CarFrame_Logo.png" height="80vh" width="auto">
             </a>
             <div class="search-bar">
-                <input class="search-input" type="text" placeholder="Suche">
+                <input class="search-input" type="text" placeholder="Suche" id="searchInput">
                 <svg class="search-icon" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
