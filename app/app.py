@@ -39,10 +39,6 @@ languages = [
     {"name": "Ruby", "creator": "Yukihiro Matsumoto", "year": 1995},
 ]
 
-cart_items = [
-    {"id": 1, "image_url": "static/posters/w.png", "name": "Porsche GT3 RS", "size": "A4", "price": 38, "quantity": 1}
-]
-
 posters = [
     {"id": 1, "name": "F1 Track", "description": "Ein ikonisches Motorsport-Poster, das packende Renn-Action und pure Geschwindigkeit einfängt. Präzise Linienwahl, aerodynamische Effizienz und taktisches Können verschmelzen in der Kurve zu einem intensiven Duell am Limit – ein Statement für echte Racing-Enthusiasten."},
     {"id": 2, "name": "Porsche GT3 RS", "description": "Ein ikonisches Porsche 911 GT3 RS Poster, das kompromisslose Performance und Motorsport-DNA zeigt. Aerodynamische Perfektion, Leichtbau und Rennstrecken-Gene vereinen sich zu purer Fahrleidenschaft – ein Statement für echte Porsche-Enthusiasten."},
@@ -87,10 +83,33 @@ def information() -> str:
 
     return render_template("information.html")
 
+@app.route("/cart/add/<id>", methods=["POST"])
+def add_to_cart(id) -> str:
+    allowed_ids = { 1, 2, 3, 4, 5, 6 }
+    if int(id) in allowed_ids:
+        quantity = int(request.form.get('quantity', 1))
+        size = request.form.get('size', 'A4')
+        cart_items = session.get('cart_items', [])
+        cart_items.append({ 'id': id, 'name': posters[int(id)-1]['name'], 'size': size, 'price': 38, 'quantity': quantity })
+        session['cart_items'] = cart_items
+        app.logger.info(f"Added item {id} to cart. Current cart items: {cart_items}")
+    return redirect(url_for('productpage', id=id))
+
+
+
 @app.route("/cart")
 def cart():
+    cart_items = session.get('cart_items', [])
+    return render_template("cart.html", cart_items=cart_items)
 
-    return render_template("cart.html", cart_items=cart_items, cart=cart)
+@app.route("/cart/remove/<int:index>", methods=["POST"])
+def remove_from_cart(index):
+    cart_items = session.get('cart_items', [])
+    if 0 <= index < len(cart_items):
+        cart_items.pop(index)
+        session['cart_items'] = cart_items
+        app.logger.info(f"Removed item at index {index}. Remaining items: {cart_items}")
+    return '', 204
 
 @app.route("/feedbackconfirmation")
 def feedbackconfirmation() -> str:
