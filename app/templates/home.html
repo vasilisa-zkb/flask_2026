@@ -1,15 +1,228 @@
 {% extends 'base.html' %}
 
+
 {% block title %}Shop CarFrame{% endblock %}
 
 {% block content %}
-<h1>Guten Morgen Liebe CarFrame Gruppe!</h1>
-<p>Willkommen!</p>
+<div class="filters">
+    <button class="filter" id="alle" data-filter="alle">Alle</button>
 
-<form action="{{ url_for('submit') }}" method="post">
-    <label for="name">Enter your name:</label>
-    <input type="text" id="name" name="name">
-    <button type="submit">Submit</button>
-</form>
+    <div class="filter-dropdown">
+        <button class="filter" id="ferrari" data-filter="ferrari">Ferrari</button>
+        <div class="dropdown-content">
+            <a href="{{ url_for('cart')}}">LaFerrari</a>
+            <a href="{{ url_for('cart')}}">Enzo</a>
+        </div>
+    </div>
+
+    <div class="filter-dropdown">
+        <button class="filter" id="lamborghini" data-filter="lamborghini">Lamborghini</button>
+        <div class="dropdown-content">
+            <a href="#" onclick="document.getElementById('lamborghini').click(); return false;">Derzeit keine Modelle verfügbar</a>
+        </div>
+    </div>
+
+    <div class="filter-dropdown">
+        <button class="filter" id="porsche" data-filter="porsche">Porsche</button>
+        <div class="dropdown-content">
+            <a href="{{ url_for('cart')}}">911 GT3 RS</a>
+        </div>
+    </div>
+
+    <div class="filter-dropdown">
+        <button class="filter" id="bmw" data-filter="bmw">BMW</button>
+        <div class="dropdown-content">
+            <a href="#" onclick="document.getElementById('bmw').click(); return false;">Derzeit keine Modelle verfügbar</a>
+        </div>
+    </div>
+
+    <div class="filter-dropdown">
+        <button class="filter" id="audi" data-filter="audi">Audi</button>
+        <div class="dropdown-content">
+            <a href="#" onclick="document.getElementById('audi').click(); return false;">Derzeit keine Modelle verfügbar</a>
+        </div>
+    </div>
+
+    <div class="filter-dropdown">
+        <button class="filter" id="jaguar" data-filter="jaguar">Jaguar</button>
+        <div class="dropdown-content">
+            <a href="{{ url_for('cart')}}">F-Type</a>
+        </div>
+    </div>
+
+    <div class="filter-dropdown">
+        <button class="filter" id="bugatti" data-filter="bugatti">Bugatti</button>
+        <div class="dropdown-content">
+            <a href="#" onclick="document.getElementById('bugatti').click(); return false;">Derzeit keine Modelle verfügbar</a>
+        </div>
+    </div>
+
+    <div class="filter-dropdown">
+        <button class="filter" id="others" data-filter="others">Others</button>
+        <div class="dropdown-content">
+            <a href="{{ url_for('cart')}}">F1 Track</a>
+            <a href="{{ url_for('cart')}}">Just Drive don’t mind</a>
+        </div>
+    </div>
+</div>
+
+<div class="posters" id="postersContainer">
+    <div id="noProductsMessage" style="display: none; width: 100%; text-align: center; padding: 50px; color: lightgray; font-size: 18px; font-family: 'Inter', sans-serif;">
+        Derzeit keine Modelle verfügbar
+    </div>
+    <div class="f1 poster-item" data-category="others">
+        <a href="{{ url_for('cart') }}" class="poster-link">
+            <img src="{{ url_for('static', filename='posters/6.png') }}" alt="F1 Track" class="poster poster-main"
+                height="600" width="auto">
+            <img src="{{ url_for('static', filename='posters/Streets-2.png') }}" alt="F1 Track" class="poster poster-hover"
+                height="600" width="auto">
+        </a>
+        <h2 class="poster-text">F1 Track</h2>
+        <h3 class="price">38.- CHF</h3>
+        <br>
+    </div>
+    <div class="porschegt3rs poster-item" data-category="porsche">
+        <a href="{{ url_for('cart') }}" class="poster-link">
+            <img src="{{ url_for('static', filename='posters/w.png') }}" alt="Porsche GT3 RS" class="poster poster-main"
+                height="600" width="auto">
+            <img src="{{ url_for('static', filename='posters/GT3RS-2.png') }}" alt="Porsche GT3 RS" class="poster poster-hover"
+                height="600" width="auto">
+        </a>
+        <h2 class="poster-text">Porsche GT3 RS</h2>
+        <h3 class="price">38.- CHF</h3>
+        <br>
+    </div>
+    <div class="ferrari poster-item" data-category="ferrari">
+        <a href="{{ url_for('cart') }}" class="poster-link">
+            <img src="{{ url_for('static', filename='posters/4.png') }}" alt="Ferrari Enzo" class="poster poster-main"
+                height="600" width="auto">
+            <img src="{{ url_for('static', filename='posters/ferrari-2.png') }}" alt="Ferrari Enzo" class="poster poster-hover"
+                height="600" width="auto">
+        </a>
+        <h2 class="poster-text">Ferrari Enzo</h2>
+        <h3 class="price">38.- CHF</h3>
+        <br>
+    </div>
+    <div class="Jaguar poster-item" data-category="jaguar">
+        <a href="{{ url_for('cart') }}" class="poster-link">
+            <img src="{{ url_for('static', filename='posters/1.png') }}" alt="Jaguar F-Type" class="poster poster-main"
+                height="600" width="auto">
+            <img src="{{ url_for('static', filename='posters/Poster_Mockup_1.png') }}" alt="Jaguar F-Type" class="poster poster-hover"
+                height="600" width="auto">
+        </a>
+        <h2 class="poster-text">Jaguar F-Type</h2>
+        <h3 class="price">38.- CHF</h3>
+        <br>
+    </div>
+    <div class="highway poster-item" data-category="others">
+        <a href="{{ url_for('cart') }}" class="poster-link">
+            <img src="{{ url_for('static', filename='posters/highway.png') }}" alt="Just Drive don't mind" class="poster poster-main"
+                height="600" width="auto">
+            <img src="{{ url_for('static', filename='posters/highway-2.png') }}" alt="Just Drive don't mind" class="poster poster-hover"
+                height="600" width="auto">
+        </a>
+        <h2 class="poster-text">Just Drive don't mind</h2>
+        <h3 class="price">38.- CHF</h3>
+        <br>
+    </div>
+    <div class="LaFerrari poster-item" data-category="ferrari">
+        <a href="{{ url_for('cart') }}" class="poster-link">
+            <img src="{{ url_for('static', filename='posters/2.png') }}" alt="Ferrari LaFerrari" class="poster poster-main"
+                height="600" width="auto">
+            <img src="{{ url_for('static', filename='posters/poster_Mockup_1(1).png') }}" alt="Ferrari LaFerrari" class="poster poster-hover"
+                height="600" width="auto">
+        </a>
+        <h2 class="poster-text">Ferrari LaFerrari</h2>
+        <h3 class="price">38.- CHF</h3>
+        <br>
+    </div>
+</div>
+
+<script>
+// Filter functionality
+document.querySelectorAll('.filter').forEach(button => {
+    button.addEventListener('click', function() {
+        const filterValue = this.getAttribute('data-filter');
+        const posterItems = document.querySelectorAll('.poster-item');
+        const noProductsMessage = document.getElementById('noProductsMessage');
+        const searchInput = document.getElementById('searchInput');
+        
+        // Clear search input
+        if (searchInput) searchInput.value = '';
+        
+        // Update active filter styling
+        document.querySelectorAll('.filter').forEach(btn => {
+            btn.style.color = 'lightgray';
+            btn.style.fontWeight = '400';
+        });
+        this.style.color = 'white';
+        this.style.fontWeight = '650';
+        
+        // Filter posters
+        let visibleCount = 0;
+        posterItems.forEach(item => {
+            if (filterValue === 'alle' || item.getAttribute('data-category') === filterValue) {
+                item.style.display = 'block';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+        
+        // Show/hide no products message
+        if (visibleCount === 0) {
+            noProductsMessage.style.display = 'block';
+        } else {
+            noProductsMessage.style.display = 'none';
+        }
+    });
+});
+
+// Search functionality
+const searchInput = document.getElementById('searchInput');
+if (searchInput) {
+    searchInput.addEventListener('input', function() {
+        const searchQuery = this.value.toLowerCase().trim();
+        const posterItems = document.querySelectorAll('.poster-item');
+        const noProductsMessage = document.getElementById('noProductsMessage');
+        
+        // Reset filter styling
+        document.querySelectorAll('.filter').forEach(btn => {
+            btn.style.color = 'lightgray';
+            btn.style.fontWeight = '400';
+        });
+        
+        // If search is empty, show all
+        if (searchQuery === '') {
+            posterItems.forEach(item => {
+                item.style.display = 'block';
+            });
+            noProductsMessage.style.display = 'none';
+            return;
+        }
+        
+        // Filter posters based on search
+        let visibleCount = 0;
+        posterItems.forEach(item => {
+            const posterText = item.querySelector('.poster-text').textContent.toLowerCase();
+            const category = item.getAttribute('data-category').toLowerCase();
+            
+            if (posterText.includes(searchQuery) || category.includes(searchQuery)) {
+                item.style.display = 'block';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+        
+        // Show/hide no products message
+        if (visibleCount === 0) {
+            noProductsMessage.style.display = 'block';
+        } else {
+            noProductsMessage.style.display = 'none';
+        }
+    });
+}
+</script>
 
 {% endblock %}

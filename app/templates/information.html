@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Lieferadresse | CarFrame{% endblock %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/information.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="information">
+	<section class="information-container">
+		<h1 class="page-title">Lieferadresse</h1>
+		
+		<form class="info-form">
+			<div class="form-section">
+				<div class="form-row">
+					<div class="form-field">
+						<label>Vorname:</label>
+						<input type="text" placeholder="Max" required>
+					</div>
+					<div class="form-field">
+						<label>Nachname:</label>
+						<input type="text" placeholder="Mustermann" required>
+					</div>
+				</div>
+				
+				<div class="form-field full-width">
+					<label>Adresse:</label>
+					<input type="text" placeholder="Zürichstrasse 20" required>
+				</div>
+				
+				<div class="form-row">
+					<div class="form-field small">
+						<label>PLZ:</label>
+						<input type="text" placeholder="1234" required>
+					</div>
+					<div class="form-field">
+						<label>Ort:</label>
+						<input type="text" placeholder="Zürich" required>
+					</div>
+				</div>
+			</div>
+			
+			<h2 class="section-title">Kontaktinformationen:</h2>
+			
+			<div class="form-section">
+				<div class="form-row">
+					<div class="form-field">
+						<label>E-Mail Adresse:</label>
+						<input type="email" placeholder="max.mustermann@example.com" required>
+					</div>
+					<div class="form-field">
+						<label>Rabattcode:</label>
+						<div class="input-with-button">
+							<input type="text" placeholder="abc123">
+							<button type="button" class="confirm-btn">Bestätigen</button>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-field half-width">
+					<label>Handynummer:</label>
+					<input type="tel" placeholder="076 123 45 67" required>
+				</div>
+			</div>
+			
+			<div class="form-actions">
+				<button type="button" class="action-btn back-btn" onclick="window.history.back()">Zurück</button>
+				<button type="submit" class="action-btn next-btn" onclick="location.href='{{ url_for('cashdesk') }}'">weiter</button>
+			</div>
+		</form>
+	</section>
+</main>
+{% endblock %}

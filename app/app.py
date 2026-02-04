@@ -39,6 +39,12 @@ languages = [
     {"name": "Ruby", "creator": "Yukihiro Matsumoto", "year": 1995},
 ]
 
+cart_items = [
+    {"id": 1, "image_url": "static\posters\w.png", "name": "Porsche GT3 RS", "size": "A4", "price": 38, "quantity": 1},
+    
+
+]
+
 @app.route('/')
 def home():
     print(math_service.add(1.0, 2.0))
@@ -59,12 +65,40 @@ def about() -> str:
 def productpage() -> str:
     return render_template("ProductPage.html")
 
+@app.route("/cashdesk")
+def cashdesk() -> str:
+    return render_template("cashdesk.html")
+
+@app.route("/information")
+def information() -> str:
+    return render_template("information.html")
+
+@app.route("/cart")
+def cart():
+    return render_template("cart.html", cart_items=cart_items)
 
 @app.route("/submit", methods=["POST"])
 def submit():
     app.logger.info("Form submitted")
-    name = request.form.get("name")
+    name = request.form.get("name", "").strip()
+    email = request.form.get("email", "").strip()
+    message = request.form.get("message", "").strip()
+
+    errors = []
+    # count letters only
+    if sum(c.isalpha() for c in name) < 3:
+        errors.append("Name must contain at least 3 letters.")
+    if len(message) < 10:
+        errors.append("Nachricht must be at least 10 characters.")
+
+    if errors:
+        # re-render about page with errors and previous form values
+        return render_template("about.html", languages=languages, errors=errors,
+                               form={"name": name, "email": email, "message": message})
+
     return redirect(url_for("result", name=name))
+
+
 
 if __name__ == '__main__':
     app.run(port=5000)
