@@ -34,14 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Size selection functionality
     const sizeButtons = document.querySelectorAll('.buttons .button');
     const sizeInput = document.getElementById('size-input');
-    let selectedSize = 'A4';
-
-    if (sizeInput) {
-        sizeInput.value = selectedSize;
-    }
+    const addToCartForm = document.getElementById('add-to-cart-form');
+    let selectedSize = null;
     
     sizeButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
             // Remove selected class from all buttons
             sizeButtons.forEach(btn => btn.classList.remove('selected'));
             // Add selected class to clicked button
@@ -52,6 +50,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Form submission validation
+    if (addToCartForm) {
+        addToCartForm.addEventListener('submit', function(e) {
+            if (!selectedSize) {
+                e.preventDefault();
+                alert('Bitte wählen Sie eine Grösse aus, bevor Sie das Poster in den Warenkorb legen.');
+                return false;
+            }
+        });
+    }
 
     // Carousel functionality
     const carousel = document.querySelector('.carousel');
