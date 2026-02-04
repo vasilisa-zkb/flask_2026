@@ -45,11 +45,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function showSlide(index) {
             slides.forEach((slide, i) => {
-                slide.classList.toggle('active', i === index);
+                slide.style.transform = `translateX(${(i - index) * 100}%)`;
             });
             indicators.forEach((indicator, i) => {
                 indicator.classList.toggle('active', i === index);
             });
+            carousel.style.height = slides[index].offsetHeight + 'px';
         }
 
         prevBtn.addEventListener('click', function() {
