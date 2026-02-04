@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Kasse | CarFrame{% endblock %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/feedbackconfirmation.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="feedback">
+	<h1>Feedback</h1>
+
+	<h3 class="feedback-text">Ihr Feedback wurde uns 
+		<br>
+		erfolgreich gesendet.</h3>
+	<h3>Vielen Dank!</h3>
+</div>
+
+
+{% endblock %}
