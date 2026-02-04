@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+
+.a {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-top: 20px;
+    margin-bottom: 4%;
+}
+
+.posterimg {
+    display: flex;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.carousel {
+    max-width: 750px;
+    width: 100%;
+}
+
+.title {
+    font-family: "Inter", sans-serif;
+    color: white;
+    font-size: 64px;
+    font-weight: lighter;
+    padding-left: 17%;
+}
+
+.desc {
+    padding-left: 17%;
+    padding-right: 16%;
+    font-family: "Inter", sans-serif;
+    color: white;
+    font-weight: lighter;
+}
+
+.choose {
+    padding-left: 17%;
+    padding-top: 5%;
+    font-family: "Inter", sans-serif;
+    color: white;
+    font-weight: lighter;
+}
+
+.buttons {
+    display: flex;
+    padding-left: 17%;
+    gap: 20px;
+}
+
+.button {
+    background-color: rgb(138, 138, 138);
+    font-size: 20px;
+    font-weight: bold;
+    width: 64px;
+    height: 77px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: white;
+}
+
+.button.selected {
+    background-color: white;
+}
+
+
+.price {
+    font-family: "Inter", sans-serif;
+    color: white;
+    font-size: 45px;
+    font-weight: lighter;
+    padding-left: 17%;
+    margin-top: 8%;
+}
+
+.anzahl {
+    padding-left: 17%;
+    display: flex;
+    align-items: center;
+
+
+}
+
+.gui {
+    width: 50px;
+    height: 50px;
+
+}
+
+.counter {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter", sans-serif;
+
+}
+
+.effect {
+    background-color: lightgrey;
+    font-size: 20px;
+}
+
+.effect:hover {
+    background-color: white;
+}
+
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+    background: #FFFFFF;
+    border-radius: 3px;
+    overflow: hidden;
+    height: 50px;
+    width: fit-content;
+    border: 2px solid #ffffff;
+    margin-left: 17%;
+
+}
+
+.quantity-btn {
+    width: 50px;
+    height: 50px;
+    border: none;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+}
+
+.quantity-btn:active {
+    background: #F0F0F0;
+}
+
+.quantity-value {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000;
+    font-family: "Inter", sans-serif;
+    font-size: 30px;
+    font-weight: 100;
+    color: #ffffff;
+}
+
+.quantity-icon {
+    width: 25px;
+    height: 25px;
+    color: #000000;
+
+}
+
+
+.warenkorb {
+    margin-left: 17%;
+    margin-top: 15%;
+    width: 35%;
+    height: 5%;
+    background-color: white;
+    border: none;
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+}
+
+.textWarenkorb {
+    font-size: 16px;
+    margin: 0px;
+    color: black;
+    padding-left: 0px;
+}
+
+.bildWarenkorb {
+    margin: 0px;
+    padding: 0px;
+}
+
+.bildNavigator{
+    margin-top: 1%;
+    gap: 20%;
+    margin-bottom: 4%;
+    width: 10%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 22%;
+    
+}
+
+.arrowBG{
+    border-radius: 100px;
+    background-color: white;
+    height: 15%;
+    width: 15%;
+}
+
+.carousel {
+    max-width: 750px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: height 0.5s ease;
+}
+
+.carousel-inner {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    transition: transform 0.5s ease;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border-radius: 100000px;
+    color: black;
+    border: none;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.carousel-btn.prev {
+    left: 10px;
+}
+
+.carousel-btn.next {
+    right: 10px;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.indicator.active {
+    background-color: white;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 10px;
+    height: 7%;
+    width: 7%;
+}
+

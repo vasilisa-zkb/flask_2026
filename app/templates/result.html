@@ -2,7 +2,20 @@
 
 {% block title %}Result{% endblock %}
 
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/result.css') }}">
+{% endblock %}
+
+
 {% block content %}
-<h1>Result Page</h1>
-<p>Hello, {{ name }}!</p>
+
+<div id="everything" class="result">
+    <div class="result_text">
+        <h1 style="font-weight: 200;">Wir haben deine Nachricht erhalten {{ name }}</h1>
+        <p>Danke für deine Nachricht!</p>
+        <p>wir melden uns bald bei dir</p>
+    </div>
+    <img src="{{ url_for('static', filename='CarFrame_whiteback.png') }}" alt="CarFrameLogo" class="result-image">
+</div>
+
 {% endblock %}
