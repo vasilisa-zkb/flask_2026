@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from dotenv import load_dotenv # Lädt .env Datei
 from services import math_service
 from config import DevelopmentConfig, ProductionConfig
@@ -47,6 +47,7 @@ cart_items = [
 def home():
     print(math_service.add(1.0, 2.0))
     app.logger.info("Rendering home page")
+    session['test'] = "Hello, Session!"
     return render_template("home.html")
 
 @app.route('/result/', defaults={'name': 'Guest'})
@@ -57,6 +58,7 @@ def result(name) -> str:
 
 @app.route("/about")
 def about() -> str:
+    app.logger.info(session.get('test', ''))
     return render_template("about.html", languages=languages)
 
 @app.route("/productpage")
@@ -69,15 +71,31 @@ def cashdesk() -> str:
 
 @app.route("/information")
 def information() -> str:
+
     return render_template("information.html")
 
 @app.route("/cart")
 def cart():
-    return render_template("cart.html", cart_items=cart_items)
+    cart=session.get('cart', [])
+
+    return render_template("cart.html", cart_items=cart_items, cart=cart)
 
 @app.route("/feedbackconfirmation")
 def feedbackconfirmation() -> str:
     return render_template("feedbackconfirmation.html")
+
+
+@app.route("/cart/add/<item>", methods=["POST"])
+def add_to_cart(item):
+    allowed_items = {'item1', 'item2'}
+    if item in allowed_items:
+        cart=session.get('cart', [])
+        cart.append(item)
+        session['cart'] = cart
+    return redirect(url_for("home"))
+
+
+
 
 @app.route("/submit", methods=["POST"])
 def submit():
