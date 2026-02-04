@@ -56,7 +56,6 @@ posters = [
 def home():
     print(math_service.add(1.0, 2.0))
     app.logger.info("Rendering home page")
-    session['test'] = "Hello, Session!"
     return render_template("home.html")
 
 @app.route('/result/', defaults={'name': 'Guest'})
@@ -90,7 +89,6 @@ def information() -> str:
 
 @app.route("/cart")
 def cart():
-    cart=session.get('cart', [])
 
     return render_template("cart.html", cart_items=cart_items, cart=cart)
 
@@ -98,15 +96,6 @@ def cart():
 def feedbackconfirmation() -> str:
     return render_template("feedbackconfirmation.html")
 
-
-@app.route("/cart/add/<item>", methods=["POST"])
-def add_to_cart(item):
-    allowed_items = {'item1', 'item2'}
-    if item in allowed_items:
-        cart=session.get('cart', [])
-        cart.append(item)
-        session['cart'] = cart
-    return redirect(url_for("home"))
 
 
 
