@@ -2,50 +2,160 @@
 
 body {
     font-family: "Inter", sans-serif;
-   font-weight: 100;
-   color: white;
+    font-weight: 100;
+    color: white;
+
+
 }
 
-h1{
 
-     display: flex;
-    flex-direction: column;
+h1 {
+    display: flex;
+
     align-items: center;
     justify-content: center;
     font-weight: 300;
     font-size: 80px;
 }
 
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 600px;
+    width: 100%;
+    min-width: 0;
+}
+
+
 .feedback_block {
+    margin: 24px auto;
+    background-color: #eaeaea;
+    color: black;
+    border-radius: 12px;
+    overflow: hidden; /* Wichtig: sorgt dafür, dass Kinder an den abgerundeten Ecken abgeschnitten werden */
+    width: 50%;
+    min-width: 520px;
+    max-width: 8000px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin-top: 5%;
+    padding: 24px;
+    box-sizing: border-box;
 }
 
 
-#contact input,
-#contact textarea {
+/* inputs / textarea: white border + subtle focus */
+.feedback_block input,
+.feedback_block textarea {
     width: 100%;
-    min-height: 35px;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #eaeaea;
     box-sizing: border-box;
-    resize: vertical;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #ffffff; /* white border */
+    background-color: #ffffff; /* white background */
+    color: #000000;
+    padding: 10px;
+    transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+.feedback_block input:focus,
+.feedback_block textarea:focus {
+    border-color: #dddddd;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.04);
+    outline: none;
+}
+
+
+.feedbackinput {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    min-height: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+#feedbackmessage {
+    padding: 12px;
+    resize: vertical !important;
+    font-size: 16px;
+    width: 100%;
+    overflow: hidden;
+    min-height: 35px;
     max-height: 1000px;
 }
 
-.feedback_submit {
-    width: 100%;
+
+
+.feedbackbutton {
+     width: 100%;
     padding: 12px;
     font-size: 16px;
     border-radius: 8px;
     border: none;
-    background-color: #8f8484;
-    color: #ffffff;
-    cursor:crosshair;
+    background-color: #ffffff;
+    color: #000000;
+    cursor:crosshair
 }
 
+.feedback_block label,
+.feedbackinput label [type="text"],
+#contact label {
+    display: block;
+    text-align: center;
+    width: 100%;
+   font-weight: 200;
+}
+
+/* CSS-only star rating */
+.rating-block {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.star-rating {
+    display: inline-flex;
+    gap: 16px; 
+    flex-direction: row-reverse; 
+    align-items: center;
+    border: none;
+    padding: 0;
+    background: transparent;
+    margin-bottom: 2%;
+
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    font-size: 48px;      /* larger stars */
+    line-height: 1;
+    color: #cfcfcf; /* unfilled */
+    cursor: pointer;
+    user-select: none;
+    padding: 2px;
+
+    border-radius: 6px;
+    transition: color 0.12s ease, transform 0.12s ease;
+}
+
+/* fill stars up to the checked one; also show hover preview */
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #000; /* filled */
+    transform: scale(1.06);
+}
+
+/* focus for keyboard users */
+.star-rating label:focus {
+    outline: 2px solid rgba(0,0,0,0.12);
+    outline-offset: 3px;
+}
