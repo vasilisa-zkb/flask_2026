@@ -93,10 +93,21 @@ def add_to_cart(id) -> str:
         app.logger.info(f"Added item {id} to cart. Current cart items: {cart_items}")
     return redirect(url_for('productpage', id=id))
 
+
+
 @app.route("/cart")
 def cart():
     cart_items = session.get('cart_items', [])
     return render_template("cart.html", cart_items=cart_items)
+
+@app.route("/cart/remove/<int:index>", methods=["POST"])
+def remove_from_cart(index):
+    cart_items = session.get('cart_items', [])
+    if 0 <= index < len(cart_items):
+        cart_items.pop(index)
+        session['cart_items'] = cart_items
+        app.logger.info(f"Removed item at index {index}. Remaining items: {cart_items}")
+    return '', 204
 
 @app.route("/feedbackconfirmation")
 def feedbackconfirmation() -> str:

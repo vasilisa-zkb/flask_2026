@@ -16,7 +16,7 @@
             </div>
         </div> -->
         {% for item in cart_items %}
-        <div class="cart-item">
+        <div class="cart-item" data-index="{{ loop.index0 }}">
             <img src="{{ url_for('static', filename='pictures/' ~ item.id ~ '/' ~ item.name ~ '.png') }}" alt="{{ item.name }}" class="cart-item-image" width="180px" height="auto">
             <div class="cart-item-details">
                 <div class="left-side">
@@ -57,13 +57,14 @@
 
             </div>
         </div>
-        {% else %}
-        <p>Ihr Warenkorb ist leer.</p>
-        {% endfor %}
-    </div>
-    <div class="buy-button-container">
+        <div class="buy-button-container">
         <button class="buybutton" onclick="location.href='{{ url_for('information') }}'">Zur Kasse</button>
     </div>
+        {% else %}
+        <p class="leer">Ihr Warenkorb ist leer.</p>
+        {% endfor %}
+    </div>
+    
 </div>
 
 <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
