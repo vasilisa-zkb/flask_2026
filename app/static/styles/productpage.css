@@ -6,7 +6,7 @@
     flex-direction: column;
     padding-left: 20px;
     padding-top: 20px;
-    margin-bottom: 10%;
+    margin-bottom: 4%;
 }
 
 .posterimg {
@@ -212,6 +212,7 @@
     width: 100%;
     position: relative;
     overflow: hidden;
+    transition: height 0.5s ease;
 }
 
 .carousel-inner {
@@ -221,13 +222,12 @@
 }
 
 .carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: auto;
-    display: none;
-}
-
-.carousel-slide.active {
-    display: block;
+    transition: transform 0.5s ease;
 }
 
 .carousel-btn {
@@ -280,5 +280,15 @@
 
 .indicator.active {
     background-color: white;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 10px;
+    height: 7%;
+    width: 7%;
 }
 
