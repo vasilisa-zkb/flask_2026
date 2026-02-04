@@ -30,4 +30,33 @@ document.addEventListener('DOMContentLoaded', () => {
         const initialQty = parseInt(valueEl.textContent, 10) || 0;
         updatePrice(initialQty);
     });
+
+    // Remove button functionality
+    const removeButtons = document.querySelectorAll('.remove-button');
+    removeButtons.forEach((button) => {
+        button.addEventListener('click', async () => {
+            const cartItem = button.closest('.cart-item');
+            if (!cartItem) return;
+            
+            const index = cartItem.dataset.index;
+            if (index === undefined) return;
+
+            try {
+                const response = await fetch(`/cart/remove/${index}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    console.error('Failed to remove item');
+                }
+            } catch (error) {
+                console.error('Error removing item:', error);
+            }
+        });
+    });
 });
