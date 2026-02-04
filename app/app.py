@@ -86,6 +86,11 @@ def submit():
     email = request.form.get("email", "").strip()
     message = request.form.get("message", "").strip()
 
+    # Ausgabe in der Konsole
+    print(f"Name: {name}")
+    print(f"Email: {email}")
+    print(f"Nachricht: {message}")
+
     errors = []
     # count letters only
     if sum(c.isalpha() for c in name) < 3:
