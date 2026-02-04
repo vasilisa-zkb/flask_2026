@@ -66,5 +66,18 @@
     </div>
 </div>
 
+
+{{ cart|length }} items in cart.
+
+{% if cart %}
+<ul>
+    {% for item in cart %}
+    <li>{{ item }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Your cart is empty.</p>
+{% endif %}
+
 <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
 {% endblock %}
