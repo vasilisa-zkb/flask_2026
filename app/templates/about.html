@@ -47,24 +47,16 @@
     <div>
          <h1 id="socialsh1" style="margin-left: 1%;">Kontaktiere uns!</h1>
         <div id="contact">
-            <form id="contactForm" action="{{ url_for('submit') }}" method="post">
-                <div class="form-field">
-                    <input type="text" id="name" name="name" placeholder="Name">
-                    <span class="error-message" id="name-error"></span>
-                </div>
-                <div class="form-field">
-                    <input type="email" id="email" name="email" placeholder="E-mail">
-                    <span class="error-message" id="email-error"></span>
-                </div>
-                <div class="form-field">
-                    <textarea id="contact_message" name="message" placeholder="Nachricht" rows="1"></textarea>
-                    <span class="error-message" id="message-error"></span>
-                </div>
+            <form action="{{ url_for('submit') }}" method="post">
+                <input type="text" id="name" name="name" placeholder="Name">
+                <input type="email" id="email" name="email" placeholder="E-mail">
+                <textarea id="contact_message" name="message" placeholder="Nachricht" rows="1"></textarea>
                 <button type="submit" id="contact_submit">Senden</button>
             </form>
         </div>
     </div>
 </div>
+
 
 <script>
     document.getElementById('contactForm').addEventListener('submit', function(e) {
