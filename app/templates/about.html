@@ -65,6 +65,18 @@
 </div>
 
 
+
+<form id="contactForm" action="{{ url_for('add_to_cart', item='item1') }}" method="post">
+    <button type="submit" id="contact_submit">Senden</button>
+</form>
+
+<form id="contactForm" action="{{ url_for('add_to_cart', item='item2') }}" method="post">
+    <button background-color="white" type="submit" id="contact_submit">Senden</button>
+</form>
+
+
+
+
 <script>
     document.getElementById('contactForm').addEventListener('submit', function (e) {
         e.preventDefault();
