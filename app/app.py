@@ -62,6 +62,7 @@ def result(name) -> str:
 
 @app.route("/about")
 def about() -> str:
+    app.logger.info(session.get('test', ''))
     return render_template("about.html", languages=languages)
 
 @app.route("/productpage")
@@ -79,6 +80,7 @@ def cashdesk() -> str:
 
 @app.route("/information")
 def information() -> str:
+
     return render_template("information.html")
 
 @app.route("/cart/add/<id>", methods=["POST"])
@@ -112,6 +114,10 @@ def remove_from_cart(index):
 @app.route("/feedbackconfirmation")
 def feedbackconfirmation() -> str:
     return render_template("feedbackconfirmation.html")
+
+
+
+
 
 @app.route("/submit", methods=["POST"])
 def submit():

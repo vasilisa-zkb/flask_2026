@@ -16,27 +16,32 @@
 				<div class="form-row">
 					<div class="form-field">
 						<label>Vorname:</label>
-						<input type="text" placeholder="Max" required>
+						<input type="text" name="firstname" placeholder="Max" required>
+						<span class="error-message" id="firstname-error"></span>
 					</div>
 					<div class="form-field">
 						<label>Nachname:</label>
-						<input type="text" placeholder="Mustermann" required>
+						<input type="text" name="lastname" placeholder="Mustermann" required>
+						<span class="error-message" id="lastname-error"></span>
 					</div>
 				</div>
 				
 				<div class="form-field full-width">
 					<label>Adresse:</label>
-					<input type="text" placeholder="Zürichstrasse 20" required>
+					<input type="text" name="address" placeholder="Zürichstrasse 20" required>
+					<span class="error-message" id="address-error"></span>
 				</div>
 				
 				<div class="form-row">
 					<div class="form-field small">
 						<label>PLZ:</label>
-						<input type="text" placeholder="1234" required>
+						<input type="text" name="plz" placeholder="1234" required>
+						<span class="error-message" id="plz-error"></span>
 					</div>
 					<div class="form-field">
 						<label>Ort:</label>
-						<input type="text" placeholder="Zürich" required>
+						<input type="text" name="ort" placeholder="Zürich" required>
+						<span class="error-message" id="ort-error"></span>
 					</div>
 				</div>
 			</div>
@@ -47,28 +52,69 @@
 				<div class="form-row">
 					<div class="form-field">
 						<label>E-Mail Adresse:</label>
-						<input type="email" placeholder="max.mustermann@example.com" required>
+						<input type="email" name="email" placeholder="max.mustermann@example.com" required>
+						<span class="error-message" id="email-error"></span>
 					</div>
 					<div class="form-field">
 						<label>Rabattcode:</label>
 						<div class="input-with-button">
-							<input type="text" placeholder="abc123">
+							<input type="text" name="rabattcode" placeholder="abc123">
 							<button type="button" class="confirm-btn">Bestätigen</button>
 						</div>
+						<span class="error-message" id="rabattcode-error"></span>
 					</div>
 				</div>
 				
 				<div class="form-field half-width">
 					<label>Handynummer:</label>
-					<input type="tel" placeholder="076 123 45 67" required>
+					<input type="tel" name="phone" placeholder="076 123 45 67" required>
+					<span class="error-message" id="phone-error"></span>
 				</div>
 			</div>
 			
 			<div class="form-actions">
 				<button type="button" class="action-btn back-btn" onclick="window.history.back()">Zurück</button>
-				<button type="submit" class="action-btn next-btn" onclick="location.href='{{ url_for('cashdesk') }}'">weiter</button>
+				<button type="submit" class="action-btn next-btn">weiter</button>
 			</div>
 		</form>
 	</section>
 </main>
+
+<script>
+	document.querySelector('.info-form').addEventListener('submit', function(e) {
+		e.preventDefault();
+		
+		// Alle Fehlermeldungen zurücksetzen
+		document.querySelectorAll('.error-message').forEach(msg => msg.textContent = '');
+		
+		// Erforderliche Felder überprüfen
+		const requiredFields = [
+			{ name: 'firstname', label: 'Vorname' },
+			{ name: 'lastname', label: 'Nachname' },
+			{ name: 'address', label: 'Adresse' },
+			{ name: 'plz', label: 'PLZ' },
+			{ name: 'ort', label: 'Ort' },
+			{ name: 'email', label: 'E-Mail Adresse' },
+			{ name: 'rabattcode', label: 'Rabattcode' },
+			{ name: 'phone', label: 'Handynummer' }
+		];
+		
+		let isValid = true;
+		
+		requiredFields.forEach(field => {
+			const input = document.querySelector(`input[name="${field.name}"]`);
+			const errorElement = document.getElementById(`${field.name}-error`);
+			
+			if (!input.value.trim()) {
+				errorElement.textContent = `${field.label} ist erforderlich`;
+				isValid = false;
+			}
+		});
+		
+		// Wenn alle Felder gültig sind, zur nächsten Seite gehen
+		if (isValid) {
+			location.href = '{{ url_for('cashdesk') }}';
+		}
+	});
+</script>
 {% endblock %}
