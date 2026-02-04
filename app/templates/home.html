@@ -139,11 +139,16 @@
 </div>
 
 <script>
+// Filter functionality
 document.querySelectorAll('.filter').forEach(button => {
     button.addEventListener('click', function() {
         const filterValue = this.getAttribute('data-filter');
         const posterItems = document.querySelectorAll('.poster-item');
         const noProductsMessage = document.getElementById('noProductsMessage');
+        const searchInput = document.getElementById('searchInput');
+        
+        // Clear search input
+        if (searchInput) searchInput.value = '';
         
         // Update active filter styling
         document.querySelectorAll('.filter').forEach(btn => {
@@ -172,6 +177,52 @@ document.querySelectorAll('.filter').forEach(button => {
         }
     });
 });
+
+// Search functionality
+const searchInput = document.getElementById('searchInput');
+if (searchInput) {
+    searchInput.addEventListener('input', function() {
+        const searchQuery = this.value.toLowerCase().trim();
+        const posterItems = document.querySelectorAll('.poster-item');
+        const noProductsMessage = document.getElementById('noProductsMessage');
+        
+        // Reset filter styling
+        document.querySelectorAll('.filter').forEach(btn => {
+            btn.style.color = 'lightgray';
+            btn.style.fontWeight = '400';
+        });
+        
+        // If search is empty, show all
+        if (searchQuery === '') {
+            posterItems.forEach(item => {
+                item.style.display = 'block';
+            });
+            noProductsMessage.style.display = 'none';
+            return;
+        }
+        
+        // Filter posters based on search
+        let visibleCount = 0;
+        posterItems.forEach(item => {
+            const posterText = item.querySelector('.poster-text').textContent.toLowerCase();
+            const category = item.getAttribute('data-category').toLowerCase();
+            
+            if (posterText.includes(searchQuery) || category.includes(searchQuery)) {
+                item.style.display = 'block';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+        
+        // Show/hide no products message
+        if (visibleCount === 0) {
+            noProductsMessage.style.display = 'block';
+        } else {
+            noProductsMessage.style.display = 'none';
+        }
+    });
+}
 </script>
 
 {% endblock %}
