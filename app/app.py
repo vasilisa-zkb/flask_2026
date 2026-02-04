@@ -85,8 +85,10 @@ def information() -> str:
 def add_to_cart(id) -> str:
     allowed_ids = { 1, 2, 3, 4, 5, 6 }
     if int(id) in allowed_ids:
+        quantity = int(request.form.get('quantity', 1))
+        size = request.form.get('size', 'A4')
         cart_items = session.get('cart_items', [])
-        cart_items.append(id)
+        cart_items.append({ 'id': id, 'name': posters[int(id)-1]['name'], 'size': size, 'price': 38, 'quantity': quantity })
         session['cart_items'] = cart_items
         app.logger.info(f"Added item {id} to cart. Current cart items: {cart_items}")
     return redirect(url_for('productpage', id=id))
