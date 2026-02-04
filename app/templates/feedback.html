@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Feedback{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/feedback.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="everything" class="feedback">
+
+    <h1>Feedback</h1>
+
+    <div class="feedback_block">
+        <div class="feedbackinput">
+            <div>
+                <form action="{{ url_for('submit2') }}" method="post">
+                    <label for="name">Vor-/Nachname</label>
+                    <input type="text" id="name" name="name" placeholder="Name">
+            </div>
+            <div>
+                <label for="email">E-mail Adresse</label>
+                <input type="email" id="email" name="email" placeholder="E-mail">
+            </div>
+            <div>
+                <label for="feedback_message">Feedback</label>
+
+                <div class="feedback_submit">
+                    <textarea id="feedbackmessage" name="message" placeholder="Feedback" rows="1"></textarea>
+                </div>
+            </div>
+
+           
+            <div class="rating-block">
+                <fieldset class="star-rating" aria-label="Bewertung">
+                    <input type="radio" id="star5" name="rating" value="5">
+                    <label for="star5" title="5 von 5">★</label>
+
+                    <input type="radio" id="star4" name="rating" value="4">
+                    <label for="star4" title="4 von 5">★</label>
+
+                    <input type="radio" id="star3" name="rating" value="3">
+                    <label for="star3" title="3 von 5">★</label>
+
+                    <input type="radio" id="star2" name="rating" value="2">
+                    <label for="star2" title="2 von 5">★</label>
+
+                    <input type="radio" id="star1" name="rating" value="1">
+                    <label for="star1" title="1 von 5">★</label>
+                </fieldset>
+            </div>
+
+        </div>
+        <button type="submit2" class="feedbackbutton">Senden</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

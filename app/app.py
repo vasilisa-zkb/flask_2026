@@ -39,6 +39,9 @@ languages = [
     {"name": "Ruby", "creator": "Yukihiro Matsumoto", "year": 1995},
 ]
 
+cart_items = [
+    {"id": 1, "image_url": "static\posters\w.png", "name": "Porsche GT3 RS", "size": "A4", "price": 38, "quantity": 1},
+
 posters = [
     {"id": 1, "name": "F1 Track", "description": "Ein ikonisches Motorsport-Poster, das packende Renn-Action und pure Geschwindigkeit einfängt. Präzise Linienwahl, aerodynamische Effizienz und taktisches Können verschmelzen in der Kurve zu einem intensiven Duell am Limit – ein Statement für echte Racing-Enthusiasten."},
     {"id": 2, "name": "Porsche GT3 RS", "description": "Ein ikonisches Porsche 911 GT3 RS Poster, das kompromisslose Performance und Motorsport-DNA zeigt. Aerodynamische Perfektion, Leichtbau und Rennstrecken-Gene vereinen sich zu purer Fahrleidenschaft – ein Statement für echte Porsche-Enthusiasten."},
@@ -102,6 +105,10 @@ def cart():
     cart_items = session.get('cart_items', [])
     return render_template("cart.html", cart_items=cart_items)
 
+
+@app.route("/feedback")
+def feedback():
+    return render_template("feedback.html")
 @app.route("/cart/remove/<int:index>", methods=["POST"])
 def remove_from_cart(index):
     cart_items = session.get('cart_items', [])
@@ -148,8 +155,8 @@ def submit():
     # count letters only
     if sum(c.isalpha() for c in name) < 3:
         errors.append("Name must contain at least 3 letters.")
-    if len(message) < 10:
-        errors.append("Nachricht must be at least 10 characters.")
+    if len(message) < 3:
+        errors.append("Nachricht must be at least 3 characters.")
 
     if errors:
         # re-render about page with errors and previous form values
@@ -158,6 +165,26 @@ def submit():
 
     return redirect(url_for("result", name=name))
 
+@app.route("/submit2", methods=["POST"])
+def submit2():
+    app.logger.info("Form submitted")
+    name = request.form.get("name", "").strip()
+    email = request.form.get("email", "").strip()
+    message = request.form.get("message", "").strip()
+
+    errors = []
+
+    if sum(c.isalpha() for c in name) < 3:
+        errors.append("Name must contain at least 3 letters.")
+    if len(message) < 3:
+        errors.append("Nachricht must be at least 3 characters.")
+
+    if errors:
+
+        return render_template("about.html", languages=languages, errors=errors,
+                               form={"name": name, "email": email, "message": message})
+
+    return redirect(url_for("feedbackconfirmation", name=name))
 
 
 if __name__ == '__main__':
