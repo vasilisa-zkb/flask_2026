@@ -212,22 +212,22 @@
     width: 100%;
     position: relative;
     overflow: hidden;
-    transition: height 0.5s ease;
 }
 
 .carousel-inner {
     position: relative;
     width: 100%;
-    height: auto;
 }
 
 .carousel-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: auto;
-    transition: transform 0.5s ease;
+    display: none;
+    transition: opacity 0.5s ease;
+}
+
+.carousel-slide.active {
+    display: block;
 }
 
 .carousel-btn {
