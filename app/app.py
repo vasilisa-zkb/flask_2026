@@ -61,6 +61,10 @@ def result(name) -> str:
 def about() -> str:
     return render_template("about.html", languages=languages)
 
+@app.route("/productpage")
+def productpage() -> str:
+    return render_template("ProductPage.html")
+
 @app.route("/cashdesk")
 def cashdesk() -> str:
     return render_template("cashdesk.html")
