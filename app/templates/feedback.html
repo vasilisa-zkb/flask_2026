@@ -16,17 +16,17 @@
             <div>
                 <form action="{{ url_for('submit2') }}" method="post">
                     <label for="name">Vor-/Nachname</label>
-                    <input type="text" id="name" name="name" placeholder="Name">
+                    <input type="text" id="name" name="name" placeholder="Name" required>
             </div>
             <div>
                 <label for="email">E-mail Adresse</label>
-                <input type="email" id="email" name="email" placeholder="E-mail">
+                <input type="email" id="email" name="email" placeholder="E-mail" required>
             </div>
             <div>
                 <label for="feedback_message">Feedback</label>
 
                 <div class="feedback_submit">
-                    <textarea id="feedbackmessage" name="message" placeholder="Feedback" rows="1"></textarea>
+                    <textarea id="feedbackmessage" name="message" placeholder="Feedback" rows="1" required></textarea>
                 </div>
             </div>
 
@@ -51,10 +51,33 @@
             </div>
 
         </div>
-        <button type="submit2" class="feedbackbutton">Senden</button>
+        <button type="submit" class="feedbackbutton">Senden</button>
         </form>
     </div>
    <!-- script vom console log-->
 </div>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+        // Validierung: Prüfe ob eine Bewertung ausgewählt wurde
+        const ratingSelected = document.querySelector('input[name="rating"]:checked');
+        if (!ratingSelected) {
+            e.preventDefault();
+            alert('Bitte wähle eine Bewertung aus!');
+            return;
+        }
+        
+        // Sammle alle Formulardaten
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            message: document.getElementById('feedbackmessage').value,
+            rating: ratingSelected.value
+        };
+        
+        // Ausgabe in der Konsole
+        console.log('Feedback gesendet:', formData);
+    });
+</script>
 
 {% endblock %}
