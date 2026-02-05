@@ -39,13 +39,24 @@ app.config['MAIL_TIMEOUT'] = 10
 mail = Mail(app)
 
 def send_email_async(message: Message) -> None:
+    app.logger.info(
+        "Email queued: subject=%s recipients=%s",
+        message.subject,
+        ",".join(message.recipients or [])
+    )
+
     def _send():
         try:
             with app.app_context():
+                app.logger.info("Email send start")
                 mail.send(message)
             app.logger.info("Email sent successfully")
         except Exception as e:
-            app.logger.error(f"Error sending email: {str(e)}")
+            app.logger.error(
+                "Error sending email: %s (%s)",
+                str(e),
+                type(e).__name__
+            )
 
     threading.Thread(target=_send, daemon=True).start()
 
