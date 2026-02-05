@@ -102,14 +102,38 @@ def information() -> str:
 
 @app.route("/cart/add/<id>", methods=["POST"])
 def add_to_cart(id) -> str:
-    allowed_ids = { 1, 2, 3, 4, 5, 6 }
-    if int(id) in allowed_ids:
+    allowed_ids = {1, 2, 3, 4, 5, 6}
+    try:
+        product_id = int(id)
+    except ValueError:
+        app.logger.warning(f"Invalid product id: {id}")
+        return redirect(url_for('productpage', id=id))
+
+    if product_id in allowed_ids:
         quantity = int(request.form.get('quantity', 1))
+        if quantity < 1:
+            quantity = 1
         size = request.form.get('size', 'A4')
         cart_items = session.get('cart_items', [])
-        cart_items.append({ 'id': id, 'name': posters[int(id)-1]['name'], 'size': size, 'price': 38, 'quantity': quantity })
+
+        # Wenn das Produkt bereits im Warenkorb ist (gleiche id und größe), Menge erhöhen
+        found = False
+        for item in cart_items:
+            try:
+                existing_id = int(item.get('id', item.get('id')))
+            except Exception:
+                existing_id = item.get('id')
+
+            if int(existing_id) == product_id and item.get('size') == size:
+                item['quantity'] = item.get('quantity', 0) + quantity
+                found = True
+                break
+
+        if not found:
+            cart_items.append({'id': product_id, 'name': posters[product_id-1]['name'], 'size': size, 'price': 38, 'quantity': quantity})
+
         session['cart_items'] = cart_items
-        app.logger.info(f"Added item {id} to cart. Current cart items: {cart_items}")
+        app.logger.info(f"Added item {product_id} (size {size}) x{quantity} to cart. Current cart items: {cart_items}")
     return redirect(url_for('productpage', id=id))
 
 
