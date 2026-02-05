@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 body {
-	background: #000000;
+	background: transparent;
 	color: #ffffff;
 	font-family: 'Inter', sans-serif;
 }
@@ -17,6 +17,12 @@ body {
 .cashdesk-container {
 	width: 100%;
 	max-width: 980px;
+	background: rgba(0, 0, 0, 0.55);
+	backdrop-filter: blur(6px);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 20px;
+	padding: 28px 32px 32px 32px;
+	box-sizing: border-box;
 }
 
 .cashdesk-title {
@@ -165,6 +171,11 @@ body {
 @media (max-width: 900px) {
 	.cashdesk {
 		padding: 20px 24px 60px 24px;
+	}
+
+	.cashdesk-container {
+		padding: 22px 20px 26px 20px;
+		border-radius: 16px;
 	}
 
 	.cashdesk-title {

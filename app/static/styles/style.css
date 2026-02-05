@@ -1,9 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+html {
+    background-color: rgb(0, 0, 0);
+    background-image: url('/static/posters/backgroundCarFrame.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 body {
     margin: 0;
     padding: 0;
-    background-color: rgb(0, 0, 0);
+    min-height: 100vh;
+    background: transparent;
 }
 
 .navcontent {
@@ -120,5 +130,9 @@ body {
 
     .navlink {
         font-size: 18px;
+    }
+
+    body {
+        background-attachment: scroll;
     }
 }
