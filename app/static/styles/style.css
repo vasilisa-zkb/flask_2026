@@ -80,3 +80,45 @@ body {
         display: none;
     }
 }
+
+@media (max-width: 900px) {
+    .navcontent {
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 12px 20px;
+    }
+
+    .navlinks {
+        gap: 18px;
+    }
+
+    .navlink {
+        font-size: 20px;
+        padding-bottom: 6px;
+    }
+
+    .navlink.active::after {
+        height: 8px;
+        width: 110%;
+    }
+
+    .navcontent img {
+        height: 48px !important;
+        width: auto !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .navcontent {
+        justify-content: center;
+    }
+
+    .navlinks {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .navlink {
+        font-size: 18px;
+    }
+}
