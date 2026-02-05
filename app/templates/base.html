@@ -35,6 +35,9 @@
                 <a class="navlink {% if request.endpoint == 'about' %}active{% endif %}"
                     href="{{ url_for('about') }}">About Us</a>
                 <a class="navlink {% if request.endpoint == 'cart' %}active{% endif %}" href="{{ url_for('cart')}}">
+                    {% if cart_item_count and cart_item_count > 0 %}
+                    <span class="cart-badge">{{ cart_item_count }}</span>
+                    {% endif %}
                     <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         color="white">
                         <path
