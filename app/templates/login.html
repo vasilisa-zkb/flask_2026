@@ -1,0 +1,47 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css') }}">
+    <script src="{{ url_for('static', filename='javascript/script.js') }}" defer></script>
+</head>
+{% extends 'base.html' %}
+
+{% block title %}Shop CarFrame{% endblock %}
+
+{% block content %}
+
+
+<div class="login-container">
+
+<div class="left">
+<h1 class="title">Welcome to Carframe</h1>
+<p class="description">Please login to your account</p>
+</div>
+
+<div class="right">
+
+    <div class="gui">
+
+    <h1 class="userlogin">User Login</h1>
+
+    <div class="fields">
+
+        <button class="Username"> USR </button>
+
+        <button class="Password"> PWD </button>
+            
+
+    </div>
+
+    
+
+    </div>
+
+    
+
+</div>
+
+
+
+</div>
+
+
+{% endblock %}
