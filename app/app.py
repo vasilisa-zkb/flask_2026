@@ -1,5 +1,4 @@
 import os
-import threading
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mail import Mail, Message
 from dotenv import load_dotenv # Lädt .env Datei
@@ -34,20 +33,8 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'sekreteriatcarframe@gmail.com'
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', '')
 app.config['MAIL_DEFAULT_SENDER'] = 'sekreteriatcarframe@gmail.com'
-app.config['MAIL_TIMEOUT'] = 10
 
 mail = Mail(app)
-
-def send_email_async(message: Message) -> None:
-    def _send():
-        try:
-            with app.app_context():
-                mail.send(message)
-            app.logger.info("Email sent successfully")
-        except Exception as e:
-            app.logger.error(f"Error sending email: {str(e)}")
-
-    threading.Thread(target=_send, daemon=True).start()
 
 @app.context_processor
 def cart_context():
@@ -107,6 +94,10 @@ def productpage(id) -> str:
 def cashdesk() -> str:
     return render_template("cashdesk.html")
 
+@app.route("/login")
+def login() -> str:
+    return render_template("login.html")
+
 @app.route("/information")
 def information() -> str:
 
@@ -128,7 +119,7 @@ def add_to_cart(id) -> str:
         size = request.form.get('size', 'A4')
         cart_items = session.get('cart_items', [])
 
-        # Wenn das Produkt bereits im Warenkorb ist (gleiche id und größe), Menge erhöhen
+        # Wenn Produkt im Warenkorb 
         found = False
         for item in cart_items:
             try:
@@ -210,12 +201,16 @@ def submit():
         return render_template("about.html", languages=languages, errors=errors,
                                form={"name": name, "email": email, "message": message})
 
-    msg = Message(
-        subject=f"Kontaktformular von {name}",
-        recipients=['sekreteriatcarframe@gmail.com'],
-        body=f"Name: {name}\nE-Mail: {email}\nNachricht:\n{message}"
-    )
-    send_email_async(msg)
+    try:
+        msg = Message(
+            subject=f"Kontaktformular von {name}",
+            recipients=['sekreteriatcarframe@gmail.com'],
+            body=f"Name: {name}\nE-Mail: {email}\nNachricht:\n{message}"
+        )
+        mail.send(msg)
+        app.logger.info(f"Email sent successfully to sekreteriatcarframe@gmail.com")
+    except Exception as e:
+        app.logger.error(f"Error sending email: {str(e)}")
 
     return redirect(url_for("result", name=name))
 
@@ -238,12 +233,16 @@ def submit2():
         return render_template("about.html", languages=languages, errors=errors,
                                form={"name": name, "email": email, "message": message})
 
-    msg = Message(
-        subject=f"Feedback von {name}",
-        recipients=['sekreteriatcarframe@gmail.com'],
-        body=f"Name: {name}\nE-Mail: {email}\nBewertung: {rating}/5\nFeedback:\n{message}"
-    )
-    send_email_async(msg)
+    try:
+        msg = Message(
+            subject=f"Feedback von {name}",
+            recipients=['sekreteriatcarframe@gmail.com'],
+            body=f"Name: {name}\nE-Mail: {email}\nBewertung: {rating}/5\nFeedback:\n{message}"
+        )
+        mail.send(msg)
+        app.logger.info(f"Feedback email sent successfully to sekreteriatcarframe@gmail.com")
+    except Exception as e:
+        app.logger.error(f"Error sending feedback email: {str(e)}")
 
     return redirect(url_for("feedbackconfirmation", name=name))
 
