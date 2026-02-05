@@ -21,7 +21,9 @@ z.B.
 #-------------------------------
 #Vorbereitungen
 # 1. .env laden (macht lokal Variablen verfügbar, auf Render passiert nichts)
-load_dotenv()
+# Lade .env aus dem übergeordneten Verzeichnis
+dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
+load_dotenv(dotenv_path)
 
 
 # 2. Config wählen
