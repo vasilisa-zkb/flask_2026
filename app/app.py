@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, session
+from flask_mail import Mail, Message
 from dotenv import load_dotenv # Lädt .env Datei
 from services import math_service
 from config import DevelopmentConfig, ProductionConfig
@@ -28,6 +29,16 @@ if os.environ.get('FLASK_ENV') == 'development':
     app.config.from_object(DevelopmentConfig)
 else:
     app.config.from_object(ProductionConfig)
+
+# Mail Konfiguration
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'sekreteriatcarframe@gmail.com'
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', '')
+app.config['MAIL_DEFAULT_SENDER'] = 'sekreteriatcarframe@gmail.com'
+
+mail = Mail(app)
 #-------------------------------
 
 # mock data
@@ -40,7 +51,7 @@ languages = [
 ]
 
 cart_items = [
-    {"id": 1, "image_url": "static\posters\w.png", "name": "Porsche GT3 RS", "size": "A4", "price": 38, "quantity": 1},
+    {"id": 1, "image_url": "static/posters/w.png", "name": "Porsche GT3 RS", "size": "A4", "price": 38, "quantity": 1},
 ]
 
 posters = [
@@ -164,6 +175,18 @@ def submit():
         return render_template("about.html", languages=languages, errors=errors,
                                form={"name": name, "email": email, "message": message})
 
+    # E-Mail senden
+    try:
+        msg = Message(
+            subject=f"Kontaktformular von {name}",
+            recipients=['sekreteriatcarframe@gmail.com'],
+            body=f"Name: {name}\nE-Mail: {email}\nNachricht:\n{message}"
+        )
+        mail.send(msg)
+        app.logger.info(f"Email sent successfully to sekreteriatcarframe@gmail.com")
+    except Exception as e:
+        app.logger.error(f"Error sending email: {str(e)}")
+
     return redirect(url_for("result", name=name))
 
 @app.route("/submit2", methods=["POST"])
@@ -172,6 +195,7 @@ def submit2():
     name = request.form.get("name", "").strip()
     email = request.form.get("email", "").strip()
     message = request.form.get("message", "").strip()
+    rating = request.form.get("rating", "").strip()
 
     errors = []
 
@@ -181,9 +205,20 @@ def submit2():
         errors.append("Nachricht must be at least 3 characters.")
 
     if errors:
-
         return render_template("about.html", languages=languages, errors=errors,
                                form={"name": name, "email": email, "message": message})
+
+    # E-Mail senden
+    try:
+        msg = Message(
+            subject=f"Feedback von {name}",
+            recipients=['sekreteriatcarframe@gmail.com'],
+            body=f"Name: {name}\nE-Mail: {email}\nBewertung: {rating}/5\nFeedback:\n{message}"
+        )
+        mail.send(msg)
+        app.logger.info(f"Feedback email sent successfully to sekreteriatcarframe@gmail.com")
+    except Exception as e:
+        app.logger.error(f"Error sending feedback email: {str(e)}")
 
     return redirect(url_for("feedbackconfirmation", name=name))
 
