@@ -1,7 +1,7 @@
 import os
 import threading
+import requests
 from flask import Flask, render_template, request, redirect, url_for, session
-from flask_mail import Mail, Message
 from dotenv import load_dotenv # Lädt .env Datei
 from services import math_service
 from config import DevelopmentConfig, ProductionConfig
@@ -28,35 +28,63 @@ if os.environ.get('FLASK_ENV') == 'development':
 else:
     app.config.from_object(ProductionConfig)
 
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'sekreteriatcarframe@gmail.com'
-mail_password = os.environ.get('MAIL_PASSWORD', '').strip().replace(' ', '')
-app.config['MAIL_PASSWORD'] = mail_password
-app.config['MAIL_DEFAULT_SENDER'] = 'sekreteriatcarframe@gmail.com'
-app.config['MAIL_TIMEOUT'] = 10
+# Mailgun configuration (HTTP API)
 
-mail = Mail(app)
+MAILGUN_DOMAIN = os.environ.get('MAILGUN_DOMAIN', '').strip()
+MAILGUN_API_KEY = os.environ.get('MAILGUN_API_KEY', '').strip()
+MAILGUN_FROM = os.environ.get('MAILGUN_FROM', '').strip()
 
-if not app.config['MAIL_PASSWORD']:
-    app.logger.warning('MAIL_PASSWORD is empty. Emails will fail on Render unless it is set in Environment Variables.')
+if not MAILGUN_DOMAIN or not MAILGUN_API_KEY:
+    app.logger.warning('Mailgun is not configured. Set MAILGUN_DOMAIN and MAILGUN_API_KEY in Render Environment Variables.')
 else:
-    app.logger.info('MAIL_PASSWORD is set (length=%s).', len(app.config['MAIL_PASSWORD']))
+    app.logger.info('Mailgun is configured for domain=%s.', MAILGUN_DOMAIN)
 
-def send_email_async(message: Message) -> None:
+def send_email_via_mailgun(subject: str, recipients: list[str], text: str) -> bool:
+    if not MAILGUN_DOMAIN or not MAILGUN_API_KEY:
+        app.logger.warning('Mailgun send skipped: missing configuration.')
+        return False
+
+    from_addr = MAILGUN_FROM or f"CarFrame <mailgun@{MAILGUN_DOMAIN}>"
+
+    try:
+        response = requests.post(
+            f"https://api.mailgun.net/v3/{MAILGUN_DOMAIN}/messages",
+            auth=("api", MAILGUN_API_KEY),
+            data={
+                "from": from_addr,
+                "to": recipients,
+                "subject": subject,
+                "text": text,
+            },
+            timeout=10,
+        )
+        app.logger.info(
+            "Mailgun response status=%s body=%s",
+            response.status_code,
+            response.text[:500],
+        )
+        response.raise_for_status()
+        return True
+    except Exception as e:
+        app.logger.error("Mailgun send error: %s (%s)", str(e), type(e).__name__)
+        return False
+
+def send_email_async(subject: str, recipients: list[str], text: str) -> None:
     app.logger.info(
         "Email queued: subject=%s recipients=%s",
-        message.subject,
-        ",".join(message.recipients or [])
+        subject,
+        ",".join(recipients or [])
     )
 
     def _send():
         try:
-            with app.app_context():
-                app.logger.info("Email send start")
-                mail.send(message)
-            app.logger.info("Email sent successfully")
+            app.logger.info("Email send start (Mailgun)")
+            send_email_via_mailgun(
+                subject=subject or "",
+                recipients=recipients or [],
+                text=text or "",
+            )
+            app.logger.info("Email send finished (Mailgun)")
         except Exception as e:
             app.logger.error(
                 "Error sending email: %s (%s)",
@@ -227,12 +255,11 @@ def submit():
         return render_template("about.html", languages=languages, errors=errors,
                                form={"name": name, "email": email, "message": message})
 
-    msg = Message(
+    send_email_async(
         subject=f"Kontaktformular von {name}",
         recipients=['sekreteriatcarframe@gmail.com'],
-        body=f"Name: {name}\nE-Mail: {email}\nNachricht:\n{message}"
+        text=f"Name: {name}\nE-Mail: {email}\nNachricht:\n{message}",
     )
-    send_email_async(msg)
 
     return redirect(url_for("result", name=name))
 
@@ -255,12 +282,11 @@ def submit2():
         return render_template("about.html", languages=languages, errors=errors,
                                form={"name": name, "email": email, "message": message})
 
-    msg = Message(
+    send_email_async(
         subject=f"Feedback von {name}",
         recipients=['sekreteriatcarframe@gmail.com'],
-        body=f"Name: {name}\nE-Mail: {email}\nBewertung: {rating}/5\nFeedback:\n{message}"
+        text=f"Name: {name}\nE-Mail: {email}\nBewertung: {rating}/5\nFeedback:\n{message}",
     )
-    send_email_async(msg)
 
     return redirect(url_for("feedbackconfirmation", name=name))
 
