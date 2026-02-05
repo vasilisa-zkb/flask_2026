@@ -32,11 +32,17 @@ app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'sekreteriatcarframe@gmail.com'
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', '')
+mail_password = os.environ.get('MAIL_PASSWORD', '').strip().replace(' ', '')
+app.config['MAIL_PASSWORD'] = mail_password
 app.config['MAIL_DEFAULT_SENDER'] = 'sekreteriatcarframe@gmail.com'
 app.config['MAIL_TIMEOUT'] = 10
 
 mail = Mail(app)
+
+if not app.config['MAIL_PASSWORD']:
+    app.logger.warning('MAIL_PASSWORD is empty. Emails will fail on Render unless it is set in Environment Variables.')
+else:
+    app.logger.info('MAIL_PASSWORD is set (length=%s).', len(app.config['MAIL_PASSWORD']))
 
 def send_email_async(message: Message) -> None:
     def _send():
