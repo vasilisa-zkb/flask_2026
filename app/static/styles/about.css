@@ -159,6 +159,68 @@ h1 {
     font-size: 375%;
 }
 
+@media (max-width: 900px) {
+    .everything {
+        padding: 0 20px 40px 20px;
+    }
+
+    .top {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+
+    #CarFrame_whiteback {
+        width: 100%;
+        max-width: 600px;
+        margin-right: 0;
+    }
+
+    #About_text {
+        max-width: 100%;
+        margin-right: 0;
+    }
+
+    #decription-text {
+        font-size: 18px;
+    }
+
+    #socialsimgs {
+        flex-wrap: wrap;
+        gap: 24px;
+    }
+
+    #contact {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #socialsh1,
+    .SocialMedia-Text {
+        font-size: 42px;
+    }
+}
+
+@media (max-width: 600px) {
+    .about {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .about h1 {
+        font-size: 28px;
+    }
+
+    #contact {
+        padding: 16px;
+    }
+
+    #socialsh1,
+    .SocialMedia-Text {
+        font-size: 32px;
+    }
+}
+
 /* * {
     outline: 2px solid red;
 } */

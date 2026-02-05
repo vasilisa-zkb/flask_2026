@@ -23,3 +23,23 @@ h3 {
 .feedback-text {
     text-align: center;
 }
+
+@media (max-width: 900px) {
+    h1 {
+        font-size: 44px;
+    }
+
+    h3 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 34px;
+    }
+
+    h3 {
+        font-size: 26px;
+    }
+}

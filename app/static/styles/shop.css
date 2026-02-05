@@ -134,3 +134,34 @@ a {
     transform: scale(1.02);
     transition: transform 0.2s ease;
 }
+
+@media (max-width: 900px) {
+    .filters {
+        flex-wrap: wrap;
+        margin: 24px 0;
+        gap: 12px;
+    }
+
+    .posters {
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .poster-link {
+        width: 90vw;
+        max-width: 420px;
+        height: auto;
+    }
+
+    .poster-main,
+    .poster-hover {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .filter {
+        font-size: 14px;
+    }
+}
