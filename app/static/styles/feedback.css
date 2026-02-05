@@ -158,3 +158,32 @@ h1 {
     outline: 2px solid rgba(0,0,0,0.12);
     outline-offset: 3px;
 }
+
+@media (max-width: 900px) {
+    h1 {
+        font-size: 48px;
+    }
+
+    .feedback_block {
+        width: 90%;
+        min-width: 0;
+    }
+
+    .star-rating label {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 36px;
+    }
+
+    .feedback_block {
+        padding: 16px;
+    }
+
+    .star-rating {
+        gap: 10px;
+    }
+}
