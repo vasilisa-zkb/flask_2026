@@ -5,8 +5,7 @@ from dotenv import load_dotenv # Lädt .env Datei
 from services import math_service
 from config import DevelopmentConfig, ProductionConfig
 
-# Definieren einer Variable, die die aktuelle Datei zum Zentrum
-# der Anwendung macht.
+
 app = Flask(__name__)
 
 """
@@ -18,21 +17,16 @@ z.B.
 * @app.route('/home') -> http://127.0.0.1:5000/home
 """
 
-#-------------------------------
-#Vorbereitungen
-# 1. .env laden (macht lokal Variablen verfügbar, auf Render passiert nichts)
-# Lade .env aus dem übergeordneten Verzeichnis
+
 dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
 load_dotenv(dotenv_path)
 
 
-# 2. Config wählen
 if os.environ.get('FLASK_ENV') == 'development':
     app.config.from_object(DevelopmentConfig)
 else:
     app.config.from_object(ProductionConfig)
 
-# Mail Konfiguration
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
@@ -41,9 +35,7 @@ app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', '')
 app.config['MAIL_DEFAULT_SENDER'] = 'sekreteriatcarframe@gmail.com'
 
 mail = Mail(app)
-#-------------------------------
 
-# mock data
 languages = [
     {"name": "Python", "creator": "Guido van Rossum", "year": 1991},
     {"name": "JavaScript", "creator": "Brendan Eich", "year": 1995},
@@ -184,24 +176,20 @@ def submit():
     email = request.form.get("email", "").strip()
     message = request.form.get("message", "").strip()
 
-    # Ausgabe in der Konsole
     print(f"Name: {name}")
     print(f"Email: {email}")
     print(f"Nachricht: {message}")
 
     errors = []
-    # count letters only
     if sum(c.isalpha() for c in name) < 3:
         errors.append("Name must contain at least 3 letters.")
     if len(message) < 3:
         errors.append("Nachricht must be at least 3 characters.")
 
     if errors:
-        # re-render about page with errors and previous form values
         return render_template("about.html", languages=languages, errors=errors,
                                form={"name": name, "email": email, "message": message})
 
-    # E-Mail senden
     try:
         msg = Message(
             subject=f"Kontaktformular von {name}",
@@ -234,7 +222,6 @@ def submit2():
         return render_template("about.html", languages=languages, errors=errors,
                                form={"name": name, "email": email, "message": message})
 
-    # E-Mail senden
     try:
         msg = Message(
             subject=f"Feedback von {name}",
