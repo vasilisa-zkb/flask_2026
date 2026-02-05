@@ -36,6 +36,13 @@ app.config['MAIL_DEFAULT_SENDER'] = 'sekreteriatcarframe@gmail.com'
 
 mail = Mail(app)
 
+@app.context_processor
+def cart_context():
+    # Anzahl aller Items (berücksichtigt 'quantity') für Anzeige im Navbar-Badge
+    cart = session.get('cart_items', [])
+    total_count = sum(int(item.get('quantity', 0)) for item in cart)
+    return dict(cart_item_count=total_count)
+
 languages = [
     {"name": "Python", "creator": "Guido van Rossum", "year": 1991},
     {"name": "JavaScript", "creator": "Brendan Eich", "year": 1995},
