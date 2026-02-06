@@ -17,7 +17,7 @@
     <nav>
         <div class="navcontent">
             <a href="{{ url_for('home') }}">
-                <img src="../static/pictures/CarFrame_Logo.png" height="80vh" width="auto">
+                <img src="{{ url_for('static', filename='pictures/CarFrame_Logo.png') }}" height="80vh" width="auto">
             </a>
             <div class="search-bar">
                 <input class="search-input" type="text" placeholder="Suche" id="searchInput">

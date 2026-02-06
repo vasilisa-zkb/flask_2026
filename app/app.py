@@ -110,7 +110,7 @@ languages = [
 ]
 
 cart_items = [
-    {"id": 1, "image_url": "static/posters/w.png", "name": "Porsche GT3 RS", "size": "A4", "price": 38, "quantity": 1},
+    {"id": 1, "image_url": "static/pictures/2/Porsche GT3 RS.png", "name": "Porsche GT3 RS", "size": "A4", "price": 38, "quantity": 1},
 ]
 
 posters = [
@@ -257,7 +257,7 @@ def submit():
 
     send_email_async(
         subject=f"Kontaktformular von {name}",
-        recipients=['sekreteriatcarframe@gmail.com'],
+        recipients=['nick.noesberger@gmail.com'],
         text=f"Name: {name}\nE-Mail: {email}\nNachricht:\n{message}",
     )
 
@@ -284,7 +284,7 @@ def submit2():
 
     send_email_async(
         subject=f"Feedback von {name}",
-        recipients=['sekreteriatcarframe@gmail.com'],
+        recipients=['nick.noesberger@gmail.com'],
         text=f"Name: {name}\nE-Mail: {email}\nBewertung: {rating}/5\nFeedback:\n{message}",
     )
 
