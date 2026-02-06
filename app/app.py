@@ -161,6 +161,10 @@ def productpage(id) -> str:
 def cashdesk() -> str:
     return render_template("cashdesk.html")
 
+@app.route("/login")
+def login() -> str:
+    return render_template("login.html")
+
 @app.route("/information")
 def information() -> str:
 
