@@ -1,5 +1,6 @@
 import os
 import threading
+from datetime import datetime, timezone
 import requests
 from flask import Flask, render_template, request, redirect, url_for, session
 from dotenv import load_dotenv # Lädt .env Datei
@@ -47,6 +48,13 @@ def send_email_via_mailgun(subject: str, recipients: list[str], text: str) -> bo
     from_addr = MAILGUN_FROM or f"CarFrame <mailgun@{MAILGUN_DOMAIN}>"
 
     try:
+        app.logger.info(
+            "Mailgun request: domain=%s from=%s to=%s subject=%s",
+            MAILGUN_DOMAIN,
+            from_addr,
+            ",".join(recipients or []),
+            subject,
+        )
         response = requests.post(
             f"https://api.mailgun.net/v3/{MAILGUN_DOMAIN}/messages",
             auth=("api", MAILGUN_API_KEY),
@@ -64,6 +72,7 @@ def send_email_via_mailgun(subject: str, recipients: list[str], text: str) -> bo
             response.text[:500],
         )
         response.raise_for_status()
+        app.logger.info("Mailgun send success")
         return True
     except Exception as e:
         app.logger.error("Mailgun send error: %s (%s)", str(e), type(e).__name__)
@@ -79,12 +88,12 @@ def send_email_async(subject: str, recipients: list[str], text: str) -> None:
     def _send():
         try:
             app.logger.info("Email send start (Mailgun)")
-            send_email_via_mailgun(
+            success = send_email_via_mailgun(
                 subject=subject or "",
                 recipients=recipients or [],
                 text=text or "",
             )
-            app.logger.info("Email send finished (Mailgun)")
+            app.logger.info("Email send finished (Mailgun) success=%s", success)
         except Exception as e:
             app.logger.error(
                 "Error sending email: %s (%s)",
@@ -255,8 +264,9 @@ def submit():
         return render_template("about.html", languages=languages, errors=errors,
                                form={"name": name, "email": email, "message": message})
 
+    timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
     send_email_async(
-        subject=f"Kontaktformular von {name}",
+        subject=f"Kontaktformular von {name} | {timestamp}",
         recipients=['nick.noesberger@gmail.com'],
         text=f"Name: {name}\nE-Mail: {email}\nNachricht:\n{message}",
     )
@@ -282,8 +292,9 @@ def submit2():
         return render_template("about.html", languages=languages, errors=errors,
                                form={"name": name, "email": email, "message": message})
 
+    timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
     send_email_async(
-        subject=f"Feedback von {name}",
+        subject=f"Feedback von {name} | {timestamp}",
         recipients=['nick.noesberger@gmail.com'],
         text=f"Name: {name}\nE-Mail: {email}\nBewertung: {rating}/5\nFeedback:\n{message}",
     )
