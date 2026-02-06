@@ -61,5 +61,10 @@ def submit():
     name = request.form.get("name")
     return redirect(url_for("result", name=name))
 
+@app.route("/bestellbestaetigung")
+def bestellbestaetigung() -> str:
+    return render_template("bestellbestaetigung.html", languages=languages)
+
+
 if __name__ == '__main__':
     app.run(port=5000)
