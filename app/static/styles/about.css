@@ -142,6 +142,10 @@ body {
     color: #000000;
 }
 
+#contact_submit {
+    cursor: pointer;
+}
+
 p {
     color: white;
 }
