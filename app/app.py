@@ -267,7 +267,7 @@ def submit():
     timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
     send_email_async(
         subject=f"Kontaktformular von {name} | {timestamp}",
-        recipients=['nick.noesberger@gmail.com'],
+        recipients=['sekreteriatcarframe@gmail.com'],
         text=f"Name: {name}\nE-Mail: {email}\nNachricht:\n{message}",
     )
 
