@@ -48,6 +48,7 @@
     display: flex;
     padding-left: 17%;
     gap: 20px;
+    align-items: flex-end; /* align bottoms so sizes look parallel */
 }
 
 .button {
@@ -59,6 +60,21 @@
     cursor: pointer;
     border: none;
     transition: background-color 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.button::after {
+    content: attr(data-size);
+    font-size: 9px;
+    font-weight: 300;
+    position: absolute;
+    bottom: 6px;
+    opacity: 0.7;
+    letter-spacing: 0.5px;
 }
 
 .button:hover {
@@ -67,6 +83,10 @@
 
 .button.selected {
     background-color: white;
+}
+
+.button.selected::after {
+    opacity: 1;
 }
 
 
@@ -290,5 +310,40 @@
     margin-bottom: 10px;
     height: 7%;
     width: 7%;
+}
+
+#a4 {
+    width: 59.5px;
+    height: 84.2px;
+    font-size: 18px;
+
+}
+
+#a3 {
+    width: 84.2px;
+    height: 119.1px;
+    font-size: 20px;
+
+}
+
+#a2 {
+    width: 119.1px;
+    height: 168.4px;
+    font-size: 22px;
+
+}
+
+.button {
+    transition: background-color 0.25s ease, transform 0.15s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.button:hover {
+    transform: translateY(-4px);
+}
+
+.button::after {
+    bottom: 8px;
+    font-size: 10px;
 }
 
