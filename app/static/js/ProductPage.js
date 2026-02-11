@@ -38,10 +38,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const priceDisplay = document.querySelector('.price');
     let selectedSize = null;
 
+    // Use numeric unit prices and format to two decimals when displaying
     const sizePrice = {
-        'A4': '25.- CHF',
-        'A3': '30.- CHF',
-        'A2': '40.- CHF'
+        'A4': 29.95,
+        'A3': 34.95,
+        'A2': 44.95
     };
 
     sizeButtons.forEach(button => {
@@ -55,8 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 sizeInput.value = selectedSize;
             }
 
-            if (priceDisplay && sizePrice[selectedSize]) {
-                priceDisplay.textContent = sizePrice[selectedSize];
+            if (priceDisplay && sizePrice[selectedSize] !== undefined) {
+                priceDisplay.textContent = sizePrice[selectedSize].toFixed(2) + ' CHF';
             }
         });
     });
