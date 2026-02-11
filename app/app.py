@@ -123,12 +123,12 @@ cart_items = [
 ]
 
 posters = [
-    {"id": 1, "name": "F1 Track", "description": "Ein ikonisches Motorsport-Poster, das packende Renn-Action und pure Geschwindigkeit einfängt. Präzise Linienwahl, aerodynamische Effizienz und taktisches Können verschmelzen in der Kurve zu einem intensiven Duell am Limit – ein Statement für echte Racing-Enthusiasten."},
-    {"id": 2, "name": "Porsche GT3 RS", "description": "Ein ikonisches Porsche 911 GT3 RS Poster, das kompromisslose Performance und Motorsport-DNA zeigt. Aerodynamische Perfektion, Leichtbau und Rennstrecken-Gene vereinen sich zu purer Fahrleidenschaft – ein Statement für echte Porsche-Enthusiasten."},
-    {"id": 3, "name": "Ferrari Enzo", "description": "Ein ikonisches Ferrari-Poster, das zeitlose Eleganz und italienische Sportwagen-Tradition verkörpert. Glänzender Lack, ikonisches Emblem und pure Design-Leidenschaft verschmelzen zu einem Symbol automobiler Geschichte – ein Statement für echte Klassiker-Enthusiasten."},
-    {"id": 4, "name": "Jaguar F-Type", "description": "Ein ikonisches Jaguar F-Type Poster, das britische Eleganz und kraftvolle Sportwagen-DNA vereint. Markantes Design, dynamische Linien und beeindruckende Performance verschmelzen zu purer Fahrfaszination – ein Statement für echte Sportwagen-Enthusiasten."},
-    {"id": 5, "name": "Just Drive don't mind", "description": "Ein ikonisches Highway-Poster, das Freiheit, Bewegung und pures Fahrgefühl einfängt. Klare Linien, kräftige Farben und eine starke Frontansicht verschmelzen zu einem modernen Retro-Statement – geschaffen für alle, die einfach fahren und den Moment geniessen."},
-    {"id": 6, "name": "Ferrari LaFerrari", "description": "Ein ikonisches LaFerrari-Poster, das italienische Ingenieurskunst und kompromisslose Performance vereint. Extreme Leistung, Hybrid-Innovation und zeitloses Design verschmelzen zu purer Supercar-Emotion – ein klares Statement für echte Ferrari-Enthusiasten."},
+    {"id": 1, "name": "F1 Track", "description": "Ein ikonisches Motorsport-Poster, das packende Renn-Action und pure Geschwindigkeit einfängt. Präzise Linienwahl, aerodynamische Effizienz und taktisches Können verschmelzen in der Kurve zu einem intensiven Duell am Limit, ein Statement für echte Racing-Enthusiasten."},
+    {"id": 2, "name": "Porsche GT3 RS", "description": "Ein ikonisches Porsche 911 GT3 RS Poster, das kompromisslose Performance und Motorsport-DNA zeigt. Aerodynamische Perfektion, Leichtbau und Rennstrecken-Gene vereinen sich zu purer Fahrleidenschaft, ein Statement für echte Porsche-Enthusiasten."},
+    {"id": 3, "name": "Ferrari Enzo", "description": "Ein ikonisches Ferrari-Poster, das zeitlose Eleganz und italienische Sportwagen-Tradition verkörpert. Glänzender Lack, ikonisches Emblem und pure Design-Leidenschaft verschmelzen zu einem Symbol automobiler Geschichte, ein Statement für echte Klassiker-Enthusiasten."},
+    {"id": 4, "name": "Jaguar F-Type", "description": "Ein ikonisches Jaguar F-Type Poster, das britische Eleganz und kraftvolle Sportwagen-DNA vereint. Markantes Design, dynamische Linien und beeindruckende Performance verschmelzen zu purer Fahrfaszination, ein Statement für echte Sportwagen-Enthusiasten."},
+    {"id": 5, "name": "Just Drive don't mind", "description": "Ein ikonisches Highway-Poster, das Freiheit, Bewegung und pures Fahrgefühl einfängt. Klare Linien, kräftige Farben und eine starke Frontansicht verschmelzen zu einem modernen Retro-Statement, geschaffen für alle, die einfach fahren und den Moment geniessen."},
+    {"id": 6, "name": "Ferrari LaFerrari", "description": "Ein ikonisches LaFerrari-Poster, das italienische Ingenieurskunst und kompromisslose Performance vereint. Extreme Leistung, Hybrid-Innovation und zeitloses Design verschmelzen zu purer Supercar-Emotion, ein klares Statement für echte Ferrari-Enthusiasten."},
 ]
 
 @app.route('/')
@@ -185,6 +185,13 @@ def add_to_cart(id) -> str:
             quantity = 1
         size = request.form.get('size', 'A4')
         cart_items = session.get('cart_items', [])
+        calPrice = 0
+        if size == 'A4':
+            calPrice = 25 * quantity
+        elif size == 'A3':
+            calPrice = 30 * quantity
+        else:
+            calPrice = 40 * quantity
 
         # Wenn das Produkt bereits im Warenkorb ist (gleiche id und größe), Menge erhöhen
         found = False
@@ -200,12 +207,11 @@ def add_to_cart(id) -> str:
                 break
 
         if not found:
-            cart_items.append({'id': product_id, 'name': posters[product_id-1]['name'], 'size': size, 'price': 38, 'quantity': quantity})
+            cart_items.append({'id': product_id, 'name': posters[product_id-1]['name'], 'size': size, 'price': calPrice , 'quantity': quantity})
 
         session['cart_items'] = cart_items
         app.logger.info(f"Added item {product_id} (size {size}) x{quantity} to cart. Current cart items: {cart_items}")
     return redirect(url_for('productpage', id=id))
-
 
 
 @app.route("/cart")
@@ -233,7 +239,18 @@ def update_cart_quantity(index):
         data = request.get_json()
         quantity = data.get('quantity', 1)
         if quantity > 0:
-            cart_items[index]['quantity'] = quantity
+            item = cart_items[index]
+
+            size = item.get('size', 'A4')
+            if size == 'A4':
+                unit_price = 25
+            elif size == 'A3':
+                unit_price = 30
+            else:
+                unit_price = 40
+
+            item['quantity'] = quantity
+            item['price'] = unit_price * quantity
             session['cart_items'] = cart_items
             app.logger.info(f"Updated item at index {index} to quantity {quantity}")
             return '', 204
