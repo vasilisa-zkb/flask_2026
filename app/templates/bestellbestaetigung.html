@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/bestellbestaetigung.css') }}">
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Vielen Dank für Ihre Bestellung!</h1>
+        <p class="untertitle">Bestellnummer: 0000</p>
+        <p class="bedanken">Wir haben Ihnen eine Bestellbestätigung per E-Mail geschickt.<br>Wir würden uns sehr freuen wenn Sie ein Feedback hinterlassen.</p>
+        <button class="feedback">Feedback</button>
+        <div class="info-grid">
+            <div class="info-box">
+                <h2>Lieferadresse</h2>
+                <p>
+                    Max Mustermann<br>
+                    Zürichstrasse 20<br>
+                    1234 Zürich
+                </p>
+            </div>
+
+            <div class="info-box">
+                <h2>Informationen</h2>
+                <p>
+                    <strong>Zahlungsart:</strong> Debit-/Kreditkarte<br>
+                    <strong>Versandart:</strong> Express
+                </p>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Produkt</th>
+                    <th>Menge</th>
+                    <th>Enthaltene MwSt.</th>
+                    <th>Summe</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="produkt-zelle">
+                        <img src="{{ url_for('static', filename='images/Porschebild.jpg') }}" alt="Porsche GT3 RS">
+                        <span>Porsche GT3 RS</span>
+                    </td>
+                    <td>1</td>
+                    <td>3.20 CHF</td>
+                    <td>41.20 CHF</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <div class="zusammenfassung">
+            <h2>Zusammenfassung</h2>
+
+            <div class="row"><span>Summe</span><span>41.20 CHF</span></div>
+            <div class="row"><span>Versandkosten</span><span>0.00 CHF</span></div>
+            <div class="row total"><span>Gesamtsumme</span><span>32.96 CHF</span></div>
+            <div class="row"><span>Gesamtsumme ohne MwSt.</span><span>38.- CHF</span></div>
+            <div class="row"><span>zzgl. 19% MwSt.</span><span>3.20 CHF</span></div>
+            <div class="row"><span>Rabatt</span><span>-8.24 CHF</span></div>
+        </div>
+
+        <button class="shop">Zurück zum Shop</button>
+    </div>
+    {% block content %}{% endblock %}
+</body>
+
+</html>

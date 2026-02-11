@@ -277,34 +277,12 @@ def submit():
 
     return redirect(url_for("result", name=name))
 
-@app.route("/submit2", methods=["POST"])
-def submit2():
-    app.logger.info("Form submitted")
-    name = request.form.get("name", "").strip()
-    email = request.form.get("email", "").strip()
-    message = request.form.get("message", "").strip()
-    rating = request.form.get("rating", "").strip()
-
-    errors = []
-
-    if sum(c.isalpha() for c in name) < 3:
-        errors.append("Name must contain at least 3 letters.")
-    if len(message) < 3:
-        errors.append("Nachricht must be at least 3 characters.")
-
-    if errors:
-        return render_template("about.html", languages=languages, errors=errors,
-                               form={"name": name, "email": email, "message": message})
-
-    timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
-    send_email_async(
-        subject=f"Feedback von {name} | {timestamp}",
-        recipients=['nick.noesberger@gmail.com'],
-        text=f"Name: {name}\nE-Mail: {email}\nBewertung: {rating}/5\nFeedback:\n{message}",
-    )
-
-    return redirect(url_for("feedbackconfirmation", name=name))
-
-
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(port=5000) 
+
+    @app.route("/add-product", methods=["POST"])
+    def add_product():
+        name = request.form['name']
+        price = request.form['price']
+        db_repo.create_product(name, price)
+        return redirect(url_for("home"))
