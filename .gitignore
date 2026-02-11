@@ -11,3 +11,4 @@ app/services/__pycache__/math_service.cpython-314.pyc
 *.pyd
 *.pyo
 *.pyc
+.env
