@@ -9,6 +9,10 @@
     margin-bottom: 4%;
 }
 
+.text {
+    padding-left: 60px;
+}
+
 .posterimg {
     display: flex;
     padding-top: 20px;
@@ -25,11 +29,10 @@
     color: white;
     font-size: 64px;
     font-weight: lighter;
-    padding-left: 17%;
+
 }
 
 .desc {
-    padding-left: 17%;
     padding-right: 16%;
     font-family: "Inter", sans-serif;
     color: white;
@@ -37,7 +40,7 @@
 }
 
 .choose1 {
-    padding-left: 17%;
+
     padding-top: 5%;
     font-family: "Inter", sans-serif;
     color: white;
@@ -46,9 +49,10 @@
 
 .buttons {
     display: flex;
-    padding-left: 17%;
+    
     gap: 20px;
-    align-items: flex-end; /* align bottoms so sizes look parallel */
+    align-items: flex-end;
+    /* align bottoms so sizes look parallel */
 }
 
 .button {
@@ -95,12 +99,12 @@
     color: white;
     font-size: 45px;
     font-weight: lighter;
-    padding-left: 17%;
+   
     margin-top: 8%;
 }
 
 .anzahl {
-    padding-left: 17%;
+
     display: flex;
     align-items: center;
 
@@ -140,7 +144,7 @@
     height: 50px;
     width: fit-content;
     border: 2px solid #ffffff;
-    margin-left: 15%;
+    margin-left: 75px;
 
 }
 
@@ -182,8 +186,8 @@
 
 
 .warenkorb {
-    margin-left: 17%;
-    margin-top: 15%;
+
+    margin-top: 200px;
     width: 35%;
     height: 5%;
     background-color: white;
@@ -193,13 +197,15 @@
     justify-content: center;
     align-items: center;
     gap: 10%;
+    overflow: hidden;
+    border-radius: 5px;
 }
 
 .textWarenkorb {
     font-size: 16px;
     margin: 0px;
     color: black;
-    padding-left: 0px;
+   
 }
 
 .bildWarenkorb {
@@ -207,7 +213,7 @@
     padding: 0px;
 }
 
-.bildNavigator{
+.bildNavigator {
     margin-top: 1%;
     gap: 20%;
     margin-bottom: 4%;
@@ -216,11 +222,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 22%;
+ 
 
 }
 
-.arrowBG{
+.arrowBG {
     border-radius: 100px;
     background-color: white;
     height: 10%;
@@ -335,7 +341,7 @@
 
 .button {
     transition: background-color 0.25s ease, transform 0.15s ease;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .button:hover {
@@ -346,4 +352,3 @@
     bottom: 8px;
     font-size: 10px;
 }
-

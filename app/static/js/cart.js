@@ -6,8 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const priceEl = cartItem ? cartItem.querySelector('.cart-item-price') : null;
         const valueEl = control.querySelector('.quantity-value');
         const initialQty = parseInt(valueEl.textContent, 10) || 1;
+        // data-unit-price contains the per-item unit price (not total), so use it directly
         const storedPrice = priceEl ? parseFloat(priceEl.dataset.unitPrice) : null;
-        const unitPrice = storedPrice && initialQty > 0 ? storedPrice / initialQty : null;
+        const unitPrice = (storedPrice !== null && !Number.isNaN(storedPrice)) ? storedPrice : null;
         const buttons = control.querySelectorAll('.quantity-btn');
 
         if (!valueEl || buttons.length === 0) return;
@@ -15,8 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const updatePrice = (qty) => {
             if (!priceEl || unitPrice === null || Number.isNaN(unitPrice)) return;
             const total = unitPrice * qty;
-            const formatted = Number.isInteger(total) ? total : total.toFixed(1);
-            priceEl.textContent = `${formatted}.- CHF`;
+            // Always show two decimal places so values like 39.95 are visible
+            const formatted = total.toFixed(2);
+            priceEl.textContent = `${formatted} CHF`;
         };
 
         buttons.forEach((btn) => {
