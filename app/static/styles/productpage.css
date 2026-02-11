@@ -140,7 +140,7 @@
     height: 50px;
     width: fit-content;
     border: 2px solid #ffffff;
-    margin-left: 17%;
+    margin-left: 15%;
 
 }
 
@@ -217,14 +217,14 @@
     align-items: center;
     justify-content: center;
     margin-left: 22%;
-    
+
 }
 
 .arrowBG{
     border-radius: 100px;
     background-color: white;
-    height: 15%;
-    width: 15%;
+    height: 10%;
+    width: 10%;
 }
 
 .carousel {
@@ -308,8 +308,8 @@
     cursor: pointer;
     padding: 0;
     margin-bottom: 10px;
-    height: 7%;
-    width: 7%;
+    height: 4%;
+    width: 4%;
 }
 
 #a4 {
