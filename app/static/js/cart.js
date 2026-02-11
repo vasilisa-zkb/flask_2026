@@ -4,8 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     quantityControls.forEach((control) => {
         const cartItem = control.closest('.cart-item');
         const priceEl = cartItem ? cartItem.querySelector('.cart-item-price') : null;
-        const unitPrice = priceEl ? parseFloat(priceEl.dataset.unitPrice) : null;
         const valueEl = control.querySelector('.quantity-value');
+        const initialQty = parseInt(valueEl.textContent, 10) || 1;
+        const storedPrice = priceEl ? parseFloat(priceEl.dataset.unitPrice) : null;
+        const unitPrice = storedPrice && initialQty > 0 ? storedPrice / initialQty : null;
         const buttons = control.querySelectorAll('.quantity-btn');
 
         if (!valueEl || buttons.length === 0) return;
@@ -13,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const updatePrice = (qty) => {
             if (!priceEl || unitPrice === null || Number.isNaN(unitPrice)) return;
             const total = unitPrice * qty;
-            const formatted = Number.isInteger(total) ? total : total.toFixed(2);
+            const formatted = Number.isInteger(total) ? total : total.toFixed(1);
             priceEl.textContent = `${formatted}.- CHF`;
         };
 
@@ -25,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 valueEl.textContent = String(next);
                 updatePrice(next);
 
-                // Update session
+
                 const index = cartItem.dataset.index;
                 if (index !== undefined) {
                     try {
@@ -47,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        const initialQty = parseInt(valueEl.textContent, 10) || 0;
         updatePrice(initialQty);
     });
 
@@ -57,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', async () => {
             const cartItem = button.closest('.cart-item');
             if (!cartItem) return;
-            
+
             const index = cartItem.dataset.index;
             if (index === undefined) return;
 
