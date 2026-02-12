@@ -1,5 +1,6 @@
 import os
 import threading
+import json
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mail import Mail, Message
 from dotenv import load_dotenv # Lädt .env Datei
@@ -43,6 +44,32 @@ if not app.config['MAIL_PASSWORD']:
     app.logger.warning('MAIL_PASSWORD is empty. Emails will fail on Render unless it is set in Environment Variables.')
 else:
     app.logger.info('MAIL_PASSWORD is set (length=%s).', len(app.config['MAIL_PASSWORD']))
+
+# Benutzerdaten-Management
+def load_users():
+    """Lade alle Benutzer aus der users.json Datei"""
+    users_file = os.path.join(os.path.dirname(__file__), 'users.json')
+    default_users = {
+        "admin": "1234",
+        "carframe": "poster123"
+    }
+    
+    if os.path.exists(users_file):
+        try:
+            with open(users_file, 'r') as f:
+                return json.load(f)
+        except:
+            return default_users
+    return default_users
+
+def save_users(users):
+    """Speichere alle Benutzer in der users.json Datei"""
+    users_file = os.path.join(os.path.dirname(__file__), 'users.json')
+    try:
+        with open(users_file, 'w') as f:
+            json.dump(users, f, indent=2)
+    except Exception as e:
+        app.logger.error(f"Error saving users: {str(e)}")
 
 def send_email_async(message: Message) -> None:
     def _send():
@@ -113,9 +140,85 @@ def productpage(id) -> str:
 def cashdesk() -> str:
     return render_template("cashdesk.html")
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login() -> str:
+    # Wenn Formular abgeschickt wurde (POST)
+    if request.method == "POST":
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "").strip()
+        
+        # Lade Benutzer aus Datei
+        users = load_users()
+        
+        # Überprüfe ob Benutzername existiert und Passwort stimmt
+        if username in users and users[username] == password:
+            # Login erfolgreich - speichere in Session
+            session['logged_in'] = True
+            session['username'] = username
+            app.logger.info(f"User {username} logged in successfully")
+            return redirect(url_for('home'))
+        else:
+            # Login fehlgeschlagen
+            error = "Falscher Benutzername oder Passwort!"
+            return render_template("login.html", error=error)
+    
+    # Bei GET-Request: Zeige Login-Seite
     return render_template("login.html")
+
+@app.route("/register", methods=["GET", "POST"])
+def register() -> str:
+    # Wenn Formular abgeschickt wurde (POST)
+    if request.method == "POST":
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "").strip()
+        confirm_password = request.form.get("confirm_password", "").strip()
+        
+        # Validierung
+        if not username:
+            error = "Benutzername ist erforderlich!"
+            return render_template("register.html", error=error)
+        
+        if len(username) < 3:
+            error = "Benutzername muss mindestens 3 Zeichen lang sein!"
+            return render_template("register.html", error=error)
+        
+        if not password:
+            error = "Passwort ist erforderlich!"
+            return render_template("register.html", error=error)
+        
+        if len(password) < 4:
+            error = "Passwort muss mindestens 4 Zeichen lang sein!"
+            return render_template("register.html", error=error)
+        
+        if password != confirm_password:
+            error = "Passwörter stimmen nicht überein!"
+            return render_template("register.html", error=error)
+        
+        # Lade bestehende Benutzer
+        users = load_users()
+        
+        # Überprüfe ob Benutzername bereits existiert
+        if username in users:
+            error = "Dieser Benutzername existiert bereits!"
+            return render_template("register.html", error=error)
+        
+        # Neuen Benutzer hinzufügen
+        users[username] = password
+        save_users(users)
+        
+        success = "Registrierung erfolgreich! Melde dich jetzt an."
+        return render_template("register.html", success=success)
+    
+    # Bei GET-Request: Zeige Registrierungs-Seite
+    return render_template("register.html")
+
+@app.route("/logout")
+def logout() -> str:
+    # Entferne User aus Session
+    session.pop('logged_in', None)
+    session.pop('username', None)
+    app.logger.info("User logged out")
+    return redirect(url_for('home'))
 
 @app.route("/information")
 def information() -> str:
