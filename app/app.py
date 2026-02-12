@@ -93,11 +93,11 @@ def add_to_cart(id):
         cart_items = session.get('cart_items', [])
 
         if size == 'A4':
-            unit_price = 29.95
+            unit_price = 38.95
         elif size == 'A3':
-            unit_price = 34.95
+            unit_price = 46.95
         else:
-            unit_price = 44.95
+            unit_price = 54.95
 
         item_exists = False
         for item in cart_items:
@@ -144,11 +144,11 @@ def update_cart_quantity(index):
 
             size = item.get('size', 'A4')
             if size == 'A4':
-                unit_price = 29.95
+                unit_price = 38.95
             elif size == 'A3':
-                unit_price = 34.95
+                unit_price = 46.95
             else:
-                unit_price = 44.95
+                unit_price = 54.95
 
             item['quantity'] = quantity
             item['price'] = unit_price * quantity

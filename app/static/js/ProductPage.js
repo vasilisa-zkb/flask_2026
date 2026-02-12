@@ -40,9 +40,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Use numeric unit prices and format to two decimals when displaying
     const sizePrice = {
-        'A4': 29.95,
-        'A3': 34.95,
-        'A2': 44.95
+        'A4': 38.95,
+        'A3': 46.95,
+        'A2': 54.95
     };
 
     sizeButtons.forEach(button => {
