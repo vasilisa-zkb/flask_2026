@@ -1,0 +1,55 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css') }}">
+    <script src="{{ url_for('static', filename='javascript/script.js') }}" defer></script>
+</head>
+{% extends 'base.html' %}
+
+{% block title %}Shop CarFrame - Registrierung{% endblock %}
+
+{% block content %}
+
+
+<div class="login-container">
+
+    <div class="left">
+        <h1 class="title">Tritt CarFrame bei</h1>
+        <p class="description">Registriere dich jetzt und verpasse keine neuen Drops! 
+        Erhalte exklusiven Zugang zu unseren neuesten Produkte, verwalte 
+        deine Bestellungen und entdecke limitierte Rabattcodes für unsere 
+        Angebote.</p>
+    </div>
+
+    <div class="right">
+        <div class="gui">
+            <h1 class="userlogin">Registrierung</h1>
+
+           
+            <form method="POST" action="{{ url_for('register') }}">
+                <div class="fields">
+
+                    <input type="text" name="username" class="Username" placeholder="Benutzername" required autofocus>
+                    <input type="password" name="password" class="Password" placeholder="Passwort" required>
+                    <input type="password" name="confirm_password" class="Password" placeholder="Passwort wiederholen" required>
+
+                    {% if error %}
+                    <div class="error-message">{{ error }}</div>
+                    {% endif %}
+
+                    {% if success %}
+                    <div class="success-message">{{ success }}</div>
+                    {% endif %}
+
+                    <button type="submit" class="login-btn">Registrieren</button>
+
+                </div>
+            </form>
+
+            <div class="register-link">
+                <p>Hast du schon ein Konto? <a href="{{ url_for('login') }}">Hier anmelden</a></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

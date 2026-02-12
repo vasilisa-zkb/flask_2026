@@ -2,6 +2,7 @@ import os
 import threading
 from datetime import datetime, timezone
 import requests
+import json
 from flask import Flask, render_template, request, redirect, url_for, session
 from dotenv import load_dotenv # Lädt .env Datei
 from services import math_service
@@ -38,53 +39,35 @@ MAILGUN_FROM = os.environ.get('MAILGUN_FROM', '').strip()
 if not MAILGUN_DOMAIN or not MAILGUN_API_KEY:
     app.logger.warning('Mailgun is not configured. Set MAILGUN_DOMAIN and MAILGUN_API_KEY in Render Environment Variables.')
 else:
-    app.logger.info('Mailgun is configured for domain=%s.', MAILGUN_DOMAIN)
+    app.logger.info('MAIL_PASSWORD is set (length=%s).', len(app.config['MAIL_PASSWORD']))
 
-def send_email_via_mailgun(subject: str, recipients: list[str], text: str) -> bool:
-    if not MAILGUN_DOMAIN or not MAILGUN_API_KEY:
-        app.logger.warning('Mailgun send skipped: missing configuration.')
-        return False
+# Benutzerdaten-Management
+def load_users():
+    """Lade alle Benutzer aus der users.json Datei"""
+    users_file = os.path.join(os.path.dirname(__file__), 'users.json')
+    default_users = {
+        "admin": "1234",
+        "carframe": "poster123"
+    }
+    
+    if os.path.exists(users_file):
+        try:
+            with open(users_file, 'r') as f:
+                return json.load(f)
+        except:
+            return default_users
+    return default_users
 
-    from_addr = MAILGUN_FROM or f"CarFrame <mailgun@{MAILGUN_DOMAIN}>"
-
+def save_users(users):
+    """Speichere alle Benutzer in der users.json Datei"""
+    users_file = os.path.join(os.path.dirname(__file__), 'users.json')
     try:
-        app.logger.info(
-            "Mailgun request: domain=%s from=%s to=%s subject=%s",
-            MAILGUN_DOMAIN,
-            from_addr,
-            ",".join(recipients or []),
-            subject,
-        )
-        response = requests.post(
-            f"https://api.mailgun.net/v3/{MAILGUN_DOMAIN}/messages",
-            auth=("api", MAILGUN_API_KEY),
-            data={
-                "from": from_addr,
-                "to": recipients,
-                "subject": subject,
-                "text": text,
-            },
-            timeout=10,
-        )
-        app.logger.info(
-            "Mailgun response status=%s body=%s",
-            response.status_code,
-            response.text[:500],
-        )
-        response.raise_for_status()
-        app.logger.info("Mailgun send success")
-        return True
+        with open(users_file, 'w') as f:
+            json.dump(users, f, indent=2)
     except Exception as e:
-        app.logger.error("Mailgun send error: %s (%s)", str(e), type(e).__name__)
-        return False
+        app.logger.error(f"Error saving users: {str(e)}")
 
-def send_email_async(subject: str, recipients: list[str], text: str) -> None:
-    app.logger.info(
-        "Email queued: subject=%s recipients=%s",
-        subject,
-        ",".join(recipients or [])
-    )
-
+def send_email_async(message: Message) -> None:
     def _send():
         try:
             app.logger.info("Email send start (Mailgun)")
@@ -161,9 +144,85 @@ def productpage(id) -> str:
 def cashdesk() -> str:
     return render_template("cashdesk.html")
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login() -> str:
+    # Wenn Formular abgeschickt wurde (POST)
+    if request.method == "POST":
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "").strip()
+        
+        # Lade Benutzer aus Datei
+        users = load_users()
+        
+        # Überprüfe ob Benutzername existiert und Passwort stimmt
+        if username in users and users[username] == password:
+            # Login erfolgreich - speichere in Session
+            session['logged_in'] = True
+            session['username'] = username
+            app.logger.info(f"User {username} logged in successfully")
+            return redirect(url_for('home'))
+        else:
+            # Login fehlgeschlagen
+            error = "Falscher Benutzername oder Passwort!"
+            return render_template("login.html", error=error)
+    
+    # Bei GET-Request: Zeige Login-Seite
     return render_template("login.html")
+
+@app.route("/register", methods=["GET", "POST"])
+def register() -> str:
+    # Wenn Formular abgeschickt wurde (POST)
+    if request.method == "POST":
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "").strip()
+        confirm_password = request.form.get("confirm_password", "").strip()
+        
+        # Validierung
+        if not username:
+            error = "Benutzername ist erforderlich!"
+            return render_template("register.html", error=error)
+        
+        if len(username) < 3:
+            error = "Benutzername muss mindestens 3 Zeichen lang sein!"
+            return render_template("register.html", error=error)
+        
+        if not password:
+            error = "Passwort ist erforderlich!"
+            return render_template("register.html", error=error)
+        
+        if len(password) < 4:
+            error = "Passwort muss mindestens 4 Zeichen lang sein!"
+            return render_template("register.html", error=error)
+        
+        if password != confirm_password:
+            error = "Passwörter stimmen nicht überein!"
+            return render_template("register.html", error=error)
+        
+        # Lade bestehende Benutzer
+        users = load_users()
+        
+        # Überprüfe ob Benutzername bereits existiert
+        if username in users:
+            error = "Dieser Benutzername existiert bereits!"
+            return render_template("register.html", error=error)
+        
+        # Neuen Benutzer hinzufügen
+        users[username] = password
+        save_users(users)
+        
+        success = "Registrierung erfolgreich! Melde dich jetzt an."
+        return render_template("register.html", success=success)
+    
+    # Bei GET-Request: Zeige Registrierungs-Seite
+    return render_template("register.html")
+
+@app.route("/logout")
+def logout() -> str:
+    # Entferne User aus Session
+    session.pop('logged_in', None)
+    session.pop('username', None)
+    app.logger.info("User logged out")
+    return redirect(url_for('home'))
 
 @app.route("/information")
 def information() -> str:
