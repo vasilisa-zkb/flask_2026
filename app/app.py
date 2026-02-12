@@ -171,43 +171,43 @@ def information() -> str:
     return render_template("information.html")
 
 @app.route("/cart/add/<id>", methods=["POST"])
-def add_to_cart(id) -> str:
-    allowed_ids = {1, 2, 3, 4, 5, 6}
-    try:
-        product_id = int(id)
-    except ValueError:
-        app.logger.warning(f"Invalid product id: {id}")
-        return redirect(url_for('productpage', id=id))
-
-    if product_id in allowed_ids:
+def add_to_cart(id):
+    allowed_ids = { 1, 2, 3, 4, 5, 6 }
+    if int(id) in allowed_ids:
         quantity = int(request.form.get('quantity', 1))
         if quantity < 1:
             quantity = 1
         size = request.form.get('size', 'A4')
         cart_items = session.get('cart_items', [])
-        calPrice = 0
-        if size == 'A4':
-            calPrice = 25 * quantity
-        elif size == 'A3':
-            calPrice = 30 * quantity
-        else:
-            calPrice = 40 * quantity
 
-        # Wenn das Produkt bereits im Warenkorb ist (gleiche id und größe), Menge erhöhen
-        found = False
+        if size == 'A4':
+            unit_price = 38.95
+        elif size == 'A3':
+            unit_price = 46.95
+        else:
+            unit_price = 54.95
+
+        item_exists = False
         for item in cart_items:
             try:
-                existing_id = int(item.get('id', item.get('id')))
-            except Exception:
-                existing_id = item.get('id')
+                # Normalize types: compare ids as integers
+                if int(item.get('id')) == int(id) and item.get('size') == size:
+                    item['quantity'] = int(item.get('quantity', 0)) + quantity
+                    item['price'] = round(unit_price * item['quantity'], 2)
+                    item_exists = True
+                    break
+            except (TypeError, ValueError):
+                # fallback to string comparison if conversion fails
+                if str(item.get('id')) == str(id) and item.get('size') == size:
+                    item['quantity'] = int(item.get('quantity', 0)) + quantity
+                    item['price'] = round(unit_price * item['quantity'], 2)
+                    item_exists = True
+                    break
 
-            if int(existing_id) == product_id and item.get('size') == size:
-                item['quantity'] = item.get('quantity', 0) + quantity
-                found = True
-                break
-
-        if not found:
-            cart_items.append({'id': product_id, 'name': posters[product_id-1]['name'], 'size': size, 'price': calPrice , 'quantity': quantity})
+        if not item_exists:
+            calPrice = round(unit_price * quantity, 2)
+            # store id as integer to keep types consistent
+            cart_items.append({ 'id': int(id), 'name': posters[int(id)-1]['name'], 'size': size, 'price': calPrice , 'quantity': quantity })
 
         session['cart_items'] = cart_items
         app.logger.info(f"Added item {product_id} (size {size}) x{quantity} to cart. Current cart items: {cart_items}")
@@ -243,11 +243,11 @@ def update_cart_quantity(index):
 
             size = item.get('size', 'A4')
             if size == 'A4':
-                unit_price = 25
+                unit_price = 38.95
             elif size == 'A3':
-                unit_price = 30
+                unit_price = 46.95
             else:
-                unit_price = 40
+                unit_price = 54.95
 
             item['quantity'] = quantity
             item['price'] = unit_price * quantity
@@ -255,6 +255,17 @@ def update_cart_quantity(index):
             app.logger.info(f"Updated item at index {index} to quantity {quantity}")
             return '', 204
     return '', 400
+
+
+@app.route("/cart/remove/<int:index>", methods=["POST"])
+def remove_from_cart(index):
+    cart_items = session.get('cart_items', [])
+    if 0 <= index < len(cart_items):
+        cart_items.pop(index)
+        session['cart_items'] = cart_items
+        app.logger.info(f"Removed item at index {index}. Remaining items: {cart_items}")
+    return '', 204
+
 
 @app.route("/feedbackconfirmation")
 def feedbackconfirmation() -> str:

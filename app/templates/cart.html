@@ -42,7 +42,7 @@
                     </button>
                 </div>
                 <div class="right-side">
-                    <p class="cart-item-price" data-unit-price="{{ item.price }}">{{ item.price }}.- CHF</p>
+                    <p class="cart-item-price" data-unit-price="{{ item.unit_price if item.unit_price is defined else (item.price / item.quantity) }}">{{ '%.2f'|format(item.price) }} CHF</p>
                     <div class="remove-item">
                         <button class="remove-button"><svg class="trash-icon" width="100%" height="100%"
                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
