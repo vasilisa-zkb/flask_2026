@@ -190,14 +190,15 @@ def add_to_cart(id):
         item_exists = False
         for item in cart_items:
             try:
-                # Normalize types: compare ids as integers
+
                 if int(item.get('id')) == int(id) and item.get('size') == size:
                     item['quantity'] = int(item.get('quantity', 0)) + quantity
                     item['price'] = round(unit_price * item['quantity'], 2)
                     item_exists = True
                     break
+
             except (TypeError, ValueError):
-                # fallback to string comparison if conversion fails
+
                 if str(item.get('id')) == str(id) and item.get('size') == size:
                     item['quantity'] = int(item.get('quantity', 0)) + quantity
                     item['price'] = round(unit_price * item['quantity'], 2)
@@ -206,11 +207,12 @@ def add_to_cart(id):
 
         if not item_exists:
             calPrice = round(unit_price * quantity, 2)
-            # store id as integer to keep types consistent
+
             cart_items.append({ 'id': int(id), 'name': posters[int(id)-1]['name'], 'size': size, 'price': calPrice , 'quantity': quantity })
 
         session['cart_items'] = cart_items
-        app.logger.info(f"Added item {product_id} (size {size}) x{quantity} to cart. Current cart items: {cart_items}")
+        app.logger.info(f"Added item {id} (size {size}) x{quantity} to cart. Current cart items: {cart_items}")
+
     return redirect(url_for('productpage', id=id))
 
 
@@ -223,6 +225,7 @@ def cart():
 @app.route("/feedback")
 def feedback():
     return render_template("feedback.html")
+
 @app.route("/cart/remove/<int:index>", methods=["POST"])
 def remove_from_cart(index):
     cart_items = session.get('cart_items', [])
