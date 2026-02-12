@@ -34,8 +34,15 @@
                     href="{{ url_for('home') }}">Shop</a>
                 <a class="navlink {% if request.endpoint == 'about' %}active{% endif %}"
                     href="{{ url_for('about') }}">About Us</a>
-                <a class="navlink {% if request.endpoint == 'login' %}active{% endif %}"
-                    href="{{ url_for('login') }}">Login</a>
+                
+                <!-- Zeige Login oder Logout je nach Status -->
+                {% if session.get('logged_in') %}
+                    <a class="navlink" href="{{ url_for('logout') }}">Logout ({{ session.get('username') }})</a>
+                {% else %}
+                    <a class="navlink {% if request.endpoint == 'login' %}active{% endif %}"
+                        href="{{ url_for('login') }}">Login</a>
+                {% endif %}
+                
                 <a class="navlink {% if request.endpoint == 'cart' %}active{% endif %}" href="{{ url_for('cart')}}">
                     {% if cart_item_count and cart_item_count > 0 %}
                     <span class="cart-badge">{{ cart_item_count }}</span>
