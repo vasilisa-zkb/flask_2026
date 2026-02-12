@@ -40,8 +40,8 @@
 }
 
 .choose1 {
-
-    padding-top: 5%;
+    font-size: 35px;
+    margin-top: 80px;
     font-family: "Inter", sans-serif;
     color: white;
     font-weight: lighter;
@@ -49,10 +49,8 @@
 
 .buttons {
     display: flex;
-    
     gap: 20px;
     align-items: flex-end;
-    /* align bottoms so sizes look parallel */
 }
 
 .button {
@@ -95,12 +93,13 @@
 
 
 .price {
+    margin: 50PX;
+    margin-left: 0px;
     font-family: "Inter", sans-serif;
     color: white;
-    font-size: 45px;
+    font-size: 40px;
     font-weight: lighter;
-   
-    margin-top: 8%;
+
 }
 
 .anzahl {
@@ -144,7 +143,7 @@
     height: 50px;
     width: fit-content;
     border: 2px solid #ffffff;
-    margin-left: 75px;
+    margin-top: 300px;
 
 }
 
@@ -187,7 +186,7 @@
 
 .warenkorb {
 
-    margin-top: 200px;
+    margin-top: 20px;
     width: 35%;
     height: 5%;
     background-color: white;
@@ -196,7 +195,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10%;
+    gap: 5px;
     overflow: hidden;
     border-radius: 5px;
 }
@@ -205,12 +204,13 @@
     font-size: 16px;
     margin: 0px;
     color: black;
-   
+
+
 }
 
 .bildWarenkorb {
     margin: 0px;
-    padding: 0px;
+
 }
 
 .bildNavigator {
@@ -222,7 +222,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
- 
+
 
 }
 
