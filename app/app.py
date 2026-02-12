@@ -6,6 +6,8 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from dotenv import load_dotenv # Lädt .env Datei
 from services import math_service
 from config import DevelopmentConfig, ProductionConfig
+import db
+from repository import product_repo 
 
 
 app = Flask(__name__)
@@ -18,7 +20,8 @@ z.B.
 * @app.route('/')    -> http://127.0.0.1:5000/
 * @app.route('/home') -> http://127.0.0.1:5000/home
 """
-
+db.init_app(app)
+ 
 
 dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
 load_dotenv(dotenv_path)
@@ -135,7 +138,8 @@ posters = [
 def home():
     print(math_service.add(1.0, 2.0))
     app.logger.info("Rendering home page")
-    return render_template("home.html")
+    products = product_repo.get_all_products()
+    return render_template("home.html", products=products)
 
 @app.route('/result/', defaults={'name': 'Guest'})
 @app.route('/result/<name>')
@@ -277,12 +281,14 @@ def submit():
 
     return redirect(url_for("result", name=name))
 
+
+@app.route("/add-product", methods=["POST"])
+def add_product():
+    name = request.form['name']
+    price = request.form['price']
+    product_repo.add_product(name, price)
+    return redirect(url_for("home"))
+    
+
 if __name__ == '__main__':
     app.run(port=5000) 
-
-    @app.route("/add-product", methods=["POST"])
-    def add_product():
-        name = request.form['name']
-        price = request.form['price']
-        db_repo.create_product(name, price)
-        return redirect(url_for("home"))

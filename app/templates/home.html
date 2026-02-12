@@ -138,6 +138,22 @@
     </div>
 </div>
 
+<form action="{{ url_for('add_product') }}" method="POST">
+                    <input type="text" name="name" placeholder="name" required>
+                    <input type="number" name="price" placeholder="preise" required>
+                    <br><br>
+                <button type="submit" name="action" value="add_product">Produkt hinzufügen</button>
+            </form>
+
+<h1>Produkte </h1>
+<ul>
+    {% for product in products %}
+        <li>{{ product['name'] }} - {{ product[2] }} Geld</li>
+    {% endfor %}
+</ul>
+
+
+
 <script>
 // Filter functionality
 document.querySelectorAll('.filter').forEach(button => {
