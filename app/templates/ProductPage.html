@@ -1,6 +1,7 @@
 <head>
       <link rel="stylesheet" href="{{ url_for('static', filename='styles/productpage.css') }}">
       <script src="{{ url_for('static', filename='js/ProductPage.js') }}" defer></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 {% extends 'base.html' %}
 
@@ -59,13 +60,11 @@
                         Wählen Sie Ihre gewünschte Grösse:
                   </p>
                   <div class="buttons">
-                        <button class="button" id="a4" data-size="21 x 29,7 cm">A4</button>
-                        <button class="button" id="a3" data-size="29,7 x 42 cm">A3</button>
                         <button class="button" id="a2" data-size="42 x 59,4 cm">A2</button>
+                        <button class="button" id="a3" data-size="29,7 x 42 cm">A3</button>
+                        <button class="button" id="a4" data-size="21 x 29,7 cm">A4</button>
                   </div>
                   <p class="price">Bitte wähle ein Format aus</p>
-
-
 
                   <div class="cart1-item-quantity">
                         <button class="quantity1-btn" id="decrease-btn" type="button" aria-label="Decrease quantity">
