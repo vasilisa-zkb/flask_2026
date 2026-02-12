@@ -51,6 +51,7 @@
     display: flex;
     gap: 20px;
     align-items: flex-end;
+   
 }
 
 .button {
@@ -246,6 +247,7 @@
 }
 
 .carousel-slide {
+    padding-top: 10px;
     width: 100%;
     height: auto;
     display: none;
@@ -351,4 +353,99 @@
 .button::after {
     bottom: 8px;
     font-size: 10px;
+}
+
+@media (max-width: 810px) {
+
+
+    .a {
+        display: block !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        width: 100% !important;
+    }
+
+
+    .posterimg {
+        display: block !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .buttons {
+        display: flex !important;
+        flex-direction: row;
+        justify-content: center !important;
+        gap: 15px !important;
+        width: 100% !important;
+    }
+
+    .button {
+        flex: 0 1 auto !important;
+    }
+
+
+    .carousel {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        left: 0 !important;
+        margin: 0 !important;
+    }
+
+
+    .text {
+        display: block !important;
+        width: 100% !important;
+        padding-left: 20px !important;
+
+        padding-right: 20px !important;
+        margin-top: 20px !important;
+        box-sizing: border-box !important;
+
+    }
+
+
+    .title {
+        font-size: 35px !important;
+        line-height: 1.2 !important;
+        width: 100% !important;
+    }
+
+    .desc {
+        padding-right: 0 !important;
+        width: 100% !important;
+    }
+
+    .anzahl {
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
+        margin: 20px 0 !important;
+    }
+
+
+    .cart1-item-quantity {
+        margin-top: 0 !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+
+    .warenkorb {
+        width: 100% !important;
+        height: 60px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        border-radius: 5px !important;
+        overflow: hidden !important;
+
+    }
+
+
+    .buttons {
+        justify-content: center !important;
+        width: 100% !important;
+        margin-bottom: 20px !important;
+    }
 }
