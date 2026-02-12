@@ -257,14 +257,6 @@ def update_cart_quantity(index):
     return '', 400
 
 
-@app.route("/cart/remove/<int:index>", methods=["POST"])
-def remove_from_cart(index):
-    cart_items = session.get('cart_items', [])
-    if 0 <= index < len(cart_items):
-        cart_items.pop(index)
-        session['cart_items'] = cart_items
-        app.logger.info(f"Removed item at index {index}. Remaining items: {cart_items}")
-    return '', 204
 
 
 @app.route("/feedbackconfirmation")
