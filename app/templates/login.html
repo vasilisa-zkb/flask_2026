@@ -12,44 +12,41 @@
 <div class="login-container">
 
     <div class="left">
-        <h1 class="title">Welcome to Carframe</h1>
-        <p class="description">Melde dich an, um deine Bestellungen zu verwalten, deinen Warenkorb einzusehen und dein
-            persoenliches Konto zu nutzen.
-            Logge dich jetzt ein und entdecke deine individuellen Carframe-Produkte.</p>
+        <h1 class="title">Willkommen bei CarFrame</h1>
+        <p class="description">Melde dich an und verpasse keine neuen Drops! Erhalte exklusiven Zugang zu limitierten CarFrame-Produkten und die besten Rabbattcodes, verwalte deine letzten Bestellungen.</p>
     </div>
 
     <div class="right">
-
         <div class="gui">
+            <h1 class="userlogin">Willkommen zurück</h1>
 
-            <h1 class="userlogin">User Login</h1>
+       
+            <form method="POST" action="{{ url_for('login') }}">
+                <div class="fields">
 
-            <div class="fields">
+                    <input type="text" name="username" class="Username" placeholder="Benutzername" required autofocus>
+                    <input type="password" name="password" class="Password" placeholder="Passwort" required>
 
-                <input type="text" class="Username" placeholder="Benutzername">
-                <input type="password" class="Password" placeholder="Passwort">
+                    {% if error %}
+                    <div class="error-message">{{ error }}</div>
+                    {% endif %}
 
+                    <div class="options">
+                        <label>
+                            <input type="checkbox" name="remember"> Login merken
+                        </label>
+                        <a href="#" class="forgot">Passwort vergessen?</a>
+                    </div>
 
-                <div class="options">
-                    <label>
-                        <input type="checkbox"> Login merken
-                    </label>
+                    <button type="submit" class="login-btn">Login</button>
 
-                    <a href="#" class="forgot">Passwort vergessen?</a>
                 </div>
+            </form>
 
-                <button class="login-btn">Login</button>
-
-
-
+            <div class="register-link">
+                <p>Noch kein Konto? <a href="{{ url_for('register') }}">Hier registrieren</a></p>
             </div>
-
-
-
         </div>
-
-
-
     </div>
 
 
