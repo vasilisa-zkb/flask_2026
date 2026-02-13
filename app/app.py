@@ -102,7 +102,7 @@ languages = [
 ]
 
 cart_items = [
-    {"id": 1, "image_url": "static/pictures/2/Porsche GT3 RS.png", "name": "Porsche GT3 RS", "size": "A4", "price": 38, "quantity": 1},
+    {"id": 1, "image_url": "static/pictures/2/PorscheGT3RS.png", "name": "Porsche GT3 RS", "size": "A4", "price": 35.95, "quantity": 1},
 ]
 
 posters = [
@@ -324,8 +324,6 @@ def update_cart_quantity(index):
 @app.route("/feedbackconfirmation")
 def feedbackconfirmation() -> str:
     return render_template("feedbackconfirmation.html")
-
-
 
 
 
