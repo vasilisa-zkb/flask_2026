@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 sizeInput.value = selectedSize;
             }
 
-            if (priceDisplay && sizePrice[selectedSize] !== undefined) {
+            if (priceDisplay && sizePrice[selectedSize] && addToCartForm !== undefined) {
                 priceDisplay.textContent = sizePrice[selectedSize].toFixed(2) + ' CHF';
             }
         });
