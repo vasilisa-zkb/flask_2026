@@ -50,22 +50,40 @@ def send_email_via_mailgun(subject, recipients, text):
         app.logger.error('No recipients provided for Mailgun send.')
         return False
 
+    app.logger.info(f"Sending email via Mailgun...")
+    app.logger.info(f"  From: {MAILGUN_FROM}")
+    app.logger.info(f"  To: {recipients}")
+    app.logger.info(f"  Subject: {subject}")
+    app.logger.info(f"  Domain: {MAILGUN_DOMAIN}")
+
     url = f"https://api.mailgun.net/v3/{MAILGUN_DOMAIN}/messages"
-    response = requests.post(
-        url,
-        auth=("api", MAILGUN_API_KEY),
-        data={
-            "from": MAILGUN_FROM,
-            "to": ",".join(recipients),
-            "subject": subject or "",
-            "text": text or "",
-        },
-        timeout=10,
-    )
-    if response.status_code not in (200, 202):
-        app.logger.error("Mailgun error %s: %s", response.status_code, response.text)
+    
+    try:
+        response = requests.post(
+            url,
+            auth=("api", MAILGUN_API_KEY),
+            data={
+                "from": MAILGUN_FROM,
+                "to": ",".join(recipients),
+                "subject": subject or "",
+                "text": text or "",
+            },
+            timeout=10,
+        )
+        
+        app.logger.info(f"Mailgun response status: {response.status_code}")
+        app.logger.info(f"Mailgun response body: {response.text}")
+        
+        if response.status_code not in (200, 202):
+            app.logger.error("Mailgun error %s: %s", response.status_code, response.text)
+            return False
+        
+        app.logger.info("Email sent successfully via Mailgun!")
+        return True
+        
+    except Exception as e:
+        app.logger.error(f"Exception during Mailgun request: {str(e)}")
         return False
-    return True
 
 # Benutzerdaten-Management
 def load_users():
