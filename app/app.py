@@ -40,6 +40,8 @@ if not MAILGUN_DOMAIN or not MAILGUN_API_KEY:
     app.logger.warning('Mailgun is not configured. Set MAILGUN_DOMAIN and MAILGUN_API_KEY in Render Environment Variables.')
 else:
     app.logger.info('MAILGUN_API_KEY is set (length=%s).', len(MAILGUN_API_KEY))
+    app.logger.info('MAILGUN_DOMAIN=%s', MAILGUN_DOMAIN)
+    app.logger.info('MAILGUN_FROM=%s', MAILGUN_FROM)
 
 def send_email_via_mailgun(subject, recipients, text):
     if not MAILGUN_DOMAIN or not MAILGUN_API_KEY or not MAILGUN_FROM:
