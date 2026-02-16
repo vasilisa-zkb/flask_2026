@@ -41,6 +41,32 @@ if not MAILGUN_DOMAIN or not MAILGUN_API_KEY:
 else:
     app.logger.info('MAILGUN_API_KEY is set (length=%s).', len(MAILGUN_API_KEY))
 
+def send_email_via_mailgun(subject, recipients, text):
+    if not MAILGUN_DOMAIN or not MAILGUN_API_KEY or not MAILGUN_FROM:
+        app.logger.error('Mailgun config missing. Set MAILGUN_DOMAIN, MAILGUN_API_KEY, and MAILGUN_FROM.')
+        return False
+
+    if not recipients:
+        app.logger.error('No recipients provided for Mailgun send.')
+        return False
+
+    url = f"https://api.mailgun.net/v3/{MAILGUN_DOMAIN}/messages"
+    response = requests.post(
+        url,
+        auth=("api", MAILGUN_API_KEY),
+        data={
+            "from": MAILGUN_FROM,
+            "to": ",".join(recipients),
+            "subject": subject or "",
+            "text": text or "",
+        },
+        timeout=10,
+    )
+    if response.status_code not in (200, 202):
+        app.logger.error("Mailgun error %s: %s", response.status_code, response.text)
+        return False
+    return True
+
 # Benutzerdaten-Management
 def load_users():
     """Lade alle Benutzer aus der users.json Datei"""
@@ -67,7 +93,7 @@ def save_users(users):
     except Exception as e:
         app.logger.error(f"Error saving users: {str(e)}")
 
-def send_email_async(message: Message) -> None:
+def send_email_async(subject, recipients, text) -> None:
     def _send():
         try:
             app.logger.info("Email send start (Mailgun)")
@@ -350,6 +376,11 @@ def submit():
         return render_template("about.html", languages=languages, errors=errors,
                                form={"name": name, "email": email, "message": message})
 
+    if not MAILGUN_DOMAIN or not MAILGUN_API_KEY or not MAILGUN_FROM:
+        errors.append("Email service not configured.")
+        return render_template("about.html", languages=languages, errors=errors,
+                               form={"name": name, "email": email, "message": message})
+
     timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
     send_email_async(
         subject=f"Kontaktformular von {name} | {timestamp}",
@@ -375,6 +406,11 @@ def submit2():
         errors.append("Nachricht must be at least 3 characters.")
 
     if errors:
+        return render_template("about.html", languages=languages, errors=errors,
+                               form={"name": name, "email": email, "message": message})
+
+    if not MAILGUN_DOMAIN or not MAILGUN_API_KEY or not MAILGUN_FROM:
+        errors.append("Email service not configured.")
         return render_template("about.html", languages=languages, errors=errors,
                                form={"name": name, "email": email, "message": message})
 
