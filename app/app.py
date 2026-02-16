@@ -39,7 +39,7 @@ MAILGUN_FROM = os.environ.get('MAILGUN_FROM', '').strip()
 if not MAILGUN_DOMAIN or not MAILGUN_API_KEY:
     app.logger.warning('Mailgun is not configured. Set MAILGUN_DOMAIN and MAILGUN_API_KEY in Render Environment Variables.')
 else:
-    app.logger.info('MAIL_PASSWORD is set (length=%s).', len(app.config['MAIL_PASSWORD']))
+    app.logger.info('MAILGUN_API_KEY is set (length=%s).', len(MAILGUN_API_KEY))
 
 # Benutzerdaten-Management
 def load_users():
