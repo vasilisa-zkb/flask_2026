@@ -21,8 +21,13 @@ z.B.
 """
 
 
-dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+app_dir = os.path.dirname(__file__)
+dotenv_app = os.path.join(app_dir, '.env')
+dotenv_root = os.path.abspath(os.path.join(app_dir, '..', '.env'))
+loaded_app = load_dotenv(dotenv_app, override=True)
+loaded_root = load_dotenv(dotenv_root, override=True)
+app.logger.info('dotenv_app=%s loaded=%s', dotenv_app, loaded_app)
+app.logger.info('dotenv_root=%s loaded=%s', dotenv_root, loaded_root)
 
 
 if os.environ.get('FLASK_ENV') == 'development':
@@ -35,6 +40,18 @@ else:
 MAILGUN_DOMAIN = os.environ.get('MAILGUN_DOMAIN', '').strip()
 MAILGUN_API_KEY = os.environ.get('MAILGUN_API_KEY', '').strip()
 MAILGUN_FROM = os.environ.get('MAILGUN_FROM', '').strip()
+
+@app.route('/debug/mailgun')
+def debug_mailgun():
+    if os.environ.get('FLASK_ENV') != 'development':
+        return 'Not Found', 404
+    return {
+        'mailgun_domain_set': bool(MAILGUN_DOMAIN),
+        'mailgun_from_set': bool(MAILGUN_FROM),
+        'mailgun_api_key_set': bool(MAILGUN_API_KEY),
+        'mailgun_domain': MAILGUN_DOMAIN,
+        'mailgun_from': MAILGUN_FROM,
+    }
 
 if not MAILGUN_DOMAIN or not MAILGUN_API_KEY:
     app.logger.warning('Mailgun is not configured. Set MAILGUN_DOMAIN and MAILGUN_API_KEY in Render Environment Variables.')
