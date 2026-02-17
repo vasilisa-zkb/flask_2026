@@ -20,7 +20,7 @@
 					<img class="payment-logo-img visa" src="{{ url_for('static', filename='pictures/Payment_Logos/images.png') }}" alt="Visa">
 				</label>
 				<div id="visa-form" class="payment-form" style="display: none;">
-					<form>
+					<form action="{{ url_for('bestellbestaetigung') }}" method="get">
 						<div class="form-group">
 							<label>Vollständiger Name:</label>
 							<input type="text" placeholder="Max Mustermann" required>
@@ -67,7 +67,7 @@
 					<img class="payment-logo-img amex" src="{{ url_for('static', filename='pictures/Payment_Logos/American_Express_logo_(2018).svg') }}" alt="American Express">
 				</label>
 				<div id="amex-form" class="payment-form" style="display: none;">
-					<form>
+					<form action="{{ url_for('bestellbestaetigung') }}" method="get">
 						<div class="form-group">
 							<label>Vollständiger Name:</label>
 							<input type="text" placeholder="Max Mustermann" required>
