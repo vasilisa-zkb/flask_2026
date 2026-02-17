@@ -5,14 +5,18 @@
     display: flex;
     flex-direction: column;
     padding-left: 20px;
-    padding-top: 20px;
-    margin-bottom: 4%;
+    
+    margin-bottom: 2%;
+}
+
+.text {
+    padding-left: 50px;
 }
 
 .posterimg {
     display: flex;
-    padding-top: 20px;
-    padding-left: 20px;
+  
+    padding-left: 5px;
 }
 
 .carousel {
@@ -24,30 +28,43 @@
     font-family: "Inter", sans-serif;
     color: white;
     font-size: 64px;
-    font-weight: lighter;
-    padding-left: 17%;
+    font-weight: initial;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
 }
 
 .desc {
-    padding-left: 17%;
     padding-right: 16%;
     font-family: "Inter", sans-serif;
     color: white;
     font-weight: lighter;
+    font-size: 19px;
 }
 
 .choose1 {
-    padding-left: 17%;
-    padding-top: 5%;
+     margin-top: 20px;
+    font-size: 26px;
+    margin-bottom: 20px;
     font-family: "Inter", sans-serif;
     color: white;
-    font-weight: lighter;
+    font-weight: 150;
+}
+
+.choose2 {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-family: "Inter", sans-serif;
+    color: white;
+    font-weight: 150;
+    font-size: 26px;
 }
 
 .buttons {
     display: flex;
-    padding-left: 17%;
     gap: 20px;
+    align-items: flex-end;
+
 }
 
 .button {
@@ -59,6 +76,21 @@
     cursor: pointer;
     border: none;
     transition: background-color 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.button::after {
+    content: attr(data-size);
+    font-size: 9px;
+    font-weight: 300;
+    position: absolute;
+    bottom: 6px;
+    opacity: 0.7;
+    letter-spacing: 0.5px;
 }
 
 .button:hover {
@@ -69,28 +101,30 @@
     background-color: white;
 }
 
+.button.selected::after {
+    opacity: 1;
+}
+
 
 .price {
+    margin-top: 5%;
+    margin-left: 0px;
+    margin-bottom: 20px;
     font-family: "Inter", sans-serif;
     color: white;
-    font-size: 45px;
+    font-size: 35px;
     font-weight: lighter;
-    padding-left: 17%;
-    margin-top: 8%;
 }
 
 .anzahl {
-    padding-left: 17%;
+
     display: flex;
     align-items: center;
-
-
 }
 
 .gui {
     width: 50px;
     height: 50px;
-
 }
 
 .counter {
@@ -120,7 +154,7 @@
     height: 50px;
     width: fit-content;
     border: 2px solid #ffffff;
-    margin-left: 17%;
+
 
 }
 
@@ -132,7 +166,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    cursor:auto;
     padding: 0;
 }
 
@@ -151,19 +185,19 @@
     font-size: 30px;
     font-weight: 100;
     color: #ffffff;
+    cursor: none;
 }
 
 .quantity1-icon {
     width: 25px;
     height: 25px;
     color: #000000;
-
 }
 
 
 .warenkorb {
-    margin-left: 17%;
-    margin-top: 15%;
+    cursor: pointer;
+    margin-top: 20px;
     width: 35%;
     height: 5%;
     background-color: white;
@@ -172,39 +206,42 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10%;
+    gap: 5px;
+    overflow: hidden;
+    border-radius: 5px;
 }
 
 .textWarenkorb {
     font-size: 16px;
     margin: 0px;
     color: black;
-    padding-left: 0px;
+
+
 }
 
 .bildWarenkorb {
     margin: 0px;
-    padding: 0px;
+
 }
 
-.bildNavigator{
+.bildNavigator {
     margin-top: 1%;
     gap: 20%;
-    margin-bottom: 4%;
+
     width: 10%;
     height: 10%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 22%;
-    
+
+
 }
 
-.arrowBG{
+.arrowBG {
     border-radius: 100px;
     background-color: white;
-    height: 15%;
-    width: 15%;
+    height: 10%;
+    width: 10%;
 }
 
 .carousel {
@@ -212,6 +249,7 @@
     width: 100%;
     position: relative;
     overflow: hidden;
+    cursor: zoom-in;
 }
 
 .carousel-inner {
@@ -220,6 +258,7 @@
 }
 
 .carousel-slide {
+    padding-top: 10px;
     width: 100%;
     height: auto;
     display: none;
@@ -285,83 +324,175 @@
 .back-button {
     background: none;
     border: none;
-    cursor: pointer;
+    cursor: alias;
     padding: 0;
-    margin-bottom: 10px;
-    height: 7%;
-    width: 7%;
+    margin-bottom: 5px;
+    height: 3%;
+    width: 3%;
 }
 
-@media (max-width: 900px) {
+#a4 {
+    width: 59.5px;
+    height: 84.2px;
+    font-size: 18px;
+
+}
+
+#a3 {
+    width: 84.2px;
+    height: 119.1px;
+    font-size: 20px;
+
+}
+
+#a2 {
+    width: 119.1px;
+    height: 168.4px;
+    font-size: 22px;
+
+}
+
+.button {
+    transition: background-color 0.25s ease, transform 0.15s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.button:hover {
+    transform: translateY(-4px);
+}
+
+.button::after {
+    bottom: 8px;
+    font-size: 10px;
+}
+
+@media (max-width: 999px) {
+
+
     .a {
-        padding-left: 16px;
-        padding-right: 16px;
-        padding-top: 16px;
+        display: block !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        width: 100% !important;
     }
+
 
     .posterimg {
-        flex-direction: column;
-        padding-left: 0;
-        gap: 20px;
-    }
-
-    .carousel {
-        max-width: 100%;
-    }
-
-    .title {
-        font-size: 36px;
-        padding-left: 0;
-    }
-
-    .desc,
-    .choose1,
-    .buttons,
-    .price,
-    .anzahl,
-    .cart1-item-quantity,
-    .warenkorb {
-        padding-left: 0;
-        margin-left: 0;
-    }
-
-    .desc {
-        padding-right: 0;
+        display: block !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
     .buttons {
-        flex-wrap: wrap;
-        gap: 12px;
+        display: flex !important;
+        flex-direction: row;
+        justify-content: center !important;
+        gap: 15px !important;
+        width: 100% !important;
     }
 
-    .price {
-        font-size: 32px;
-        margin-top: 24px;
+    .button {
+        flex: 0 1 auto !important;
     }
+
+
+    .carousel {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        left: 0 !important;
+        margin: 0 !important;
+    }
+
+
+    .text {
+        display: block !important;
+        width: 100% !important;
+        padding-left: 20px !important;
+
+        padding-right: 20px !important;
+        margin-top: 20px !important;
+        box-sizing: border-box !important;
+
+    }
+
+
+    .title {
+        font-size: 35px !important;
+        line-height: 1.2 !important;
+        width: 100% !important;
+    }
+
+    .desc {
+        padding-right: 0 !important;
+        width: 100% !important;
+    }
+
+    .anzahl {
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
+        margin: 20px 0 !important;
+    }
+
 
     .cart1-item-quantity {
-        margin-left: 0;
+        margin-top: 9% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        cursor: pointer;
     }
+
 
     .warenkorb {
-        width: 100%;
+        width: 100% !important;
+        height: 60px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        border-radius: 5px !important;
+        overflow: hidden !important;
+
     }
 
-    .back-button {
-        width: 44px;
-        height: 44px;
-    }
-}
 
-@media (max-width: 600px) {
-    .button {
-        width: 56px;
-        height: 64px;
-        font-size: 18px;
-    }
-
-    .textWarenkorb {
-        font-size: 14px;
+    .buttons {
+        justify-content: center !important;
+        width: 100% !important;
+        margin-bottom: 20px !important;
+         cursor: pointer;
     }
 }
 
+
+.FrameButtons {
+    display: flex;
+    align-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.frame-button {
+    display: flex;
+    background-color: rgb(138, 138, 138);
+    font-size: 20px;
+    font-weight: light;
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+.frame-button.selected {
+    background-color: white !important;
+    color: black;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
