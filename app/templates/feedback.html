@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Feedback{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/feedback.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="everything" class="feedback">
+
+    <h1>Feedback</h1>
+
+    <div class="feedback_block">
+        <div class="feedbackinput">
+            <div>
+                <form action="{{ url_for('submit2') }}" method="post">
+                    <label for="name">Vor-/Nachname</label>
+                    <input type="text" id="name" name="name" placeholder="Name" required>
+            </div>
+            <div>
+                <label for="email">E-mail Adresse</label>
+                <input type="email" id="email" name="email" placeholder="E-mail" required>
+            </div>
+            <div>
+                <label for="feedback_message">Feedback</label>
+
+                <div class="feedback_submit">
+                    <textarea id="feedbackmessage" name="message" placeholder="Feedback" rows="1" required></textarea>
+                </div>
+            </div>
+
+            <div class="rating-block">
+                <fieldset class="star-rating" aria-label="Bewertung">
+                    <input type="radio" id="star5" class="star" name="rating" value="5">
+                    <label for="star5" title="5 von 5">★</label>
+
+                    <input type="radio" id="star4" class="star"name="rating" value="4">
+                    <label for="star4" title="4 von 5">★</label>
+
+                    <input type="radio" id="star3" class="star" name="rating" value="3">
+                    <label for="star3" title="3 von 5">★</label>
+
+                    <input type="radio" id="star2" class="star" name="rating" value="2">
+                    <label for="star2" title="2 von 5">★</label>
+
+                    <input type="radio" id="star1" class="star" name="rating" value="1">
+                    <label for="star1" title="1 von 5">★</label>
+
+                    <div id="consoleprint" onclick="console.log(this.star.value)">
+
+</div>
+                </fieldset>
+
+            </div>
+
+        </div>
+        <button type="submit" class="feedbackbutton">Senden</button>
+        </form>
+    </div>
+   <!-- script vom console log-->
+</div>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+        // Validierung: Prüfe ob eine Bewertung ausgewählt wurde
+        const ratingSelected = document.querySelector('input[name="rating"]:checked');
+        if (!ratingSelected) {
+            e.preventDefault();
+            alert('Bitte wähle eine Bewertung aus!');
+            return;
+        }
+        
+        // Sammle alle Formulardaten
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            message: document.getElementById('feedbackmessage').value,
+            rating: ratingSelected.value
+        };
+        
+        // Ausgabe in der Konsole
+        console.log('Feedback gesendet:', formData);
+    });
+</script>
+
+{% endblock %}

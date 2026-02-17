@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+body {
+    font-family: "Inter", sans-serif;
+}
+
+.everything {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.top {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2%;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 4%;
+}
+
+#decription-text {
+    font-size: 20px;
+}
+
+#About_text {
+    max-width: 45%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    font-weight: 100;
+    justify-content: center;
+    margin-right: 7%;
+}
+
+#About_text p {
+    font-weight: 100;
+}
+
+.about h1 {
+    font-weight: 300;
+    margin-bottom: 1%;
+    margin-top: 1%;
+}
+
+#socials {
+    margin-top: 4%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#socialsimgs {
+    display: flex;
+    gap: 5%;
+    align-items: center;
+    margin-top: 1%;
+    margin-bottom: 6%;
+}
+
+#socialsh1 {
+    font-size: 375%;
+}
+
+#CarFrame_whiteback {
+    display: flex;
+    padding: 3%;
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 45%;
+    height: auto;
+    margin-right: 2%;
+    flex-shrink: 0;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+#contact {
+    margin-top: 4%;
+    background-color: #eaeaea;
+    color: black;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 50%;
+    max-width: 600px;
+    display: flex;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+#contact form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    min-height: 200px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.error-message {
+    color: #d32f2f;
+    font-size: 14px;
+    min-height: 18px;
+    font-weight: 500;
+}
+
+.error-message:empty {
+    display: none;
+}
+
+#contact input[type="text"],
+#contact input[type="email"],
+#contact textarea {
+    width: 100%;
+    min-height: 35px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #eaeaea;
+    box-sizing: border-box;
+    resize: vertical;
+    max-height: 1000px;
+}
+
+#contact button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+#contact_submit {
+    cursor: pointer;
+}
+
+p {
+    color: white;
+}
+
+h1 {
+    color: white;
+}
+
+.about {
+    margin-left: 3.5%;
+    margin-right: 2%;
+}
+
+.SocialMedia-Text {
+    font-size: 375%;
+}
+
+@media (max-width: 900px) {
+    .everything {
+        padding: 0 20px 40px 20px;
+    }
+
+    .top {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+
+    #CarFrame_whiteback {
+        width: 100%;
+        max-width: 600px;
+        margin-right: 0;
+    }
+
+    #About_text {
+        max-width: 100%;
+        margin-right: 0;
+    }
+
+    #decription-text {
+        font-size: 18px;
+    }
+
+    #socialsimgs {
+        flex-wrap: wrap;
+        gap: 24px;
+    }
+
+    #contact {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #socialsh1,
+    .SocialMedia-Text {
+        font-size: 42px;
+    }
+}
+
+@media (max-width: 600px) {
+    .about {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .about h1 {
+        font-size: 28px;
+    }
+
+    #contact {
+        padding: 16px;
+    }
+
+    #socialsh1,
+    .SocialMedia-Text {
+        font-size: 32px;
+    }
+}
+
+/* * {
+    outline: 2px solid red;
+} */

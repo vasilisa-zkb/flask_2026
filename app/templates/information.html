@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Lieferadresse | CarFrame{% endblock %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/information.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="information">
+	<section class="information-container">
+		<h1 class="page-title">Lieferadresse</h1>
+		
+		<form class="info-form">
+			<div class="form-section">
+				<div class="form-row">
+					<div class="form-field">
+						<label>Vorname:</label>
+						<input type="text" name="firstname" placeholder="Max" required>
+						<span class="error-message" id="firstname-error"></span>
+					</div>
+					<div class="form-field">
+						<label>Nachname:</label>
+						<input type="text" name="lastname" placeholder="Mustermann" required>
+						<span class="error-message" id="lastname-error"></span>
+					</div>
+				</div>
+				
+				<div class="form-field full-width">
+					<label>Adresse:</label>
+					<input type="text" name="address" placeholder="Zürichstrasse 20" required>
+					<span class="error-message" id="address-error"></span>
+				</div>
+				
+				<div class="form-row">
+					<div class="form-field small">
+						<label>PLZ:</label>
+						<input type="text" name="plz" placeholder="1234" required>
+						<span class="error-message" id="plz-error"></span>
+					</div>
+					<div class="form-field">
+						<label>Ort:</label>
+						<input type="text" name="ort" placeholder="Zürich" required>
+						<span class="error-message" id="ort-error"></span>
+					</div>
+				</div>
+			</div>
+			
+			<h2 class="section-title">Kontaktinformationen:</h2>
+			
+			<div class="form-section">
+				<div class="form-row">
+					<div class="form-field">
+						<label>E-Mail Adresse:</label>
+						<input type="email" name="email" placeholder="max.mustermann@example.com" required>
+						<span class="error-message" id="email-error"></span>
+					</div>
+					<div class="form-field">
+						<label>Rabattcode:</label>
+						<div class="input-with-button">
+							<input type="text" name="rabattcode" placeholder="abc123">
+							<button type="button" class="confirm-btn">Bestätigen</button>
+						</div>
+						<span class="error-message" id="rabattcode-error"></span>
+					</div>
+				</div>
+				
+				<div class="form-field half-width">
+					<label>Handynummer:</label>
+					<input type="tel" name="phone" placeholder="076 123 45 67" required>
+					<span class="error-message" id="phone-error"></span>
+				</div>
+			</div>
+			
+			<div class="form-actions">
+				<button type="button" class="action-btn back-btn" onclick="window.history.back()">Zurück</button>
+				<button type="submit" class="action-btn next-btn">weiter</button>
+			</div>
+		</form>
+	</section>
+</main>
+
+<script>
+	document.querySelector('.info-form').addEventListener('submit', function(e) {
+		e.preventDefault();
+		
+		// Alle Fehlermeldungen zurücksetzen
+		document.querySelectorAll('.error-message').forEach(msg => msg.textContent = '');
+		
+		// Erforderliche Felder überprüfen
+		const requiredFields = [
+			{ name: 'firstname', label: 'Vorname' },
+			{ name: 'lastname', label: 'Nachname' },
+			{ name: 'address', label: 'Adresse' },
+			{ name: 'plz', label: 'PLZ' },
+			{ name: 'ort', label: 'Ort' },
+			{ name: 'email', label: 'E-Mail Adresse' },
+			{ name: 'phone', label: 'Handynummer' }
+		];
+		
+		let isValid = true;
+		
+		requiredFields.forEach(field => {
+			const input = document.querySelector(`input[name="${field.name}"]`);
+			const errorElement = document.getElementById(`${field.name}-error`);
+			
+			if (!input.value.trim()) {
+				errorElement.textContent = `${field.label} ist erforderlich`;
+				isValid = false;
+			}
+		});
+		
+		// Wenn alle Felder gültig sind, zur nächsten Seite gehen
+		if (isValid) {
+			location.href = '{{ url_for('cashdesk') }}';
+		}
+	});
+</script>
+{% endblock %}

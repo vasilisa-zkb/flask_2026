@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.login-container {
+    margin: 80px auto;
+    max-width: 1200px;
+    display: flex;
+    background: rgba(26, 26, 26, 0.9);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    min-height: 600px;
+}
+
+.left {
+    flex: 1;
+    background-image: url("../pictures/Car.png");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 40px;
+    position: relative;
+}
+
+.left::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+    z-index: 1;
+}
+
+.left > * {
+    position: relative;
+    z-index: 2;
+}
+
+.right {
+    flex: 1;
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+}
+
+.title {
+    color: white;
+    font-size: clamp(28px, 4vw, 48px);
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.description {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: clamp(14px, 1.5vw, 18px);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    text-align: center;
+    line-height: 1.6;
+    max-width: 450px;
+}
+
+.gui {
+    width: 100%;
+    max-width: 400px;
+}
+
+.userlogin {
+    font-family: 'Inter', sans-serif;
+    font-size: 32px;
+    color: #ffffff;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.Username,
+.Password {
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid #444;
+    border-radius: 12px;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    box-sizing: border-box;
+}
+
+.Username:focus,
+.Password:focus {
+    outline: none;
+    border-color: #ffffff;
+    background-color: #333;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+}
+
+.Username::placeholder,
+.Password::placeholder {
+    color: #aaa;
+    font-weight: 400;
+}
+
+.error-message {
+    background-color: #4a2222;
+    border: 1px solid #8b3333;
+    color: #ff6b6b;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    font-weight: 500;
+}
+
+.success-message {
+    background-color: #224a22;
+    border: 1px solid #338b33;
+    color: #6bff6b;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    font-weight: 500;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+}
+
+.options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: #aaa;
+    user-select: none;
+    font-weight: 400;
+}
+
+.options label input[type="checkbox"] {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    accent-color: #007bff;
+}
+
+.forgot {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.forgot:hover {
+    color: #f0f0f0;
+    text-decoration: underline;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 16px;
+    background-color: #ffffff;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+.login-btn:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+    .login-container {
+        flex-direction: column;
+        margin: 40px 20px;
+    }
+    
+    .left {
+        min-height: 300px;
+    }
+    
+    .right {
+        padding: 40px 30px;
+    }
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.4);
+}
+
+.login-btn:active {
+    transform: translateY(0px);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.register-link p {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.register-link a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.register-link a:hover {
+    color: #f0f0f0;
+    text-decoration: underline;
+}
