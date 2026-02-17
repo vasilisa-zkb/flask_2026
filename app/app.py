@@ -138,7 +138,8 @@ def productpage(id) -> str:
     title = poster["name"]
     description = poster["description"]
     id = poster["id"]
-    return render_template("ProductPage.html", id=id, title=title, description=description)
+    image_base = poster["image_base"]
+    return render_template("ProductPage.html", id=id, title=title, description=description, image_base=image_base)
 
 @app.route("/cashdesk")
 def cashdesk() -> str:
@@ -222,6 +223,7 @@ def logout() -> str:
     session.pop('logged_in', None)
     session.pop('username', None)
     app.logger.info("User logged out")
+
     return redirect(url_for('home'))
 
 @app.route("/information")
@@ -231,49 +233,60 @@ def information() -> str:
 
 @app.route("/cart/add/<id>", methods=["POST"])
 def add_to_cart(id):
-    allowed_ids = { 1, 2, 3, 4, 5, 6 }
-    if int(id) in allowed_ids:
-        quantity = int(request.form.get('quantity', 1))
-        if quantity < 1:
-            quantity = 1
-        size = request.form.get('size', 'A4')
-        cart_items = session.get('cart_items', [])
+    allowed_ids = {1, 2, 3, 4, 5, 6}
+    if int(id) not in allowed_ids:
+        return redirect(url_for('index'))
 
-        if size == 'A4':
-            unit_price = 35.95
-        elif size == 'A3':
-            unit_price = 42.95
-        else:
-            unit_price = 50.95
 
-        item_exists = False
-        for item in cart_items:
-            try:
+    quantity = max(1, int(request.form.get('quantity', 1)))
+    size = request.form.get('size', 'A4')
+    frame_option = request.form.get('frame_option')
+    cart_items = session.get('cart_items', [])
+  
+    if size == 'A4':
+        unit_price = 35.95
+    elif size == 'A3':
+        unit_price = 42.95
+    else:
+        unit_price = 50.95
 
-                if int(item.get('id')) == int(id) and item.get('size') == size:
-                    item['quantity'] = int(item.get('quantity', 0)) + quantity
-                    item['price'] = round(unit_price * item['quantity'], 2)
-                    item_exists = True
-                    break
 
-            except (TypeError, ValueError):
+    if frame_option == 'Ohne Rahmen':
+        unit_price -= 10.00
 
-                if str(item.get('id')) == str(id) and item.get('size') == size:
-                    item['quantity'] = int(item.get('quantity', 0)) + quantity
-                    item['price'] = round(unit_price * item['quantity'], 2)
-                    item_exists = True
-                    break
+    item_exists = False
 
-        if not item_exists:
-            calPrice = round(unit_price * quantity, 2)
+    for item in cart_items:
+        if (int(item.get('id')) == int(id) and
+            item.get('size') == size and
+            item.get('frame_option') == frame_option):
 
-            cart_items.append({ 'id': int(id), 'name': posters[int(id)-1]['name'], 'size': size, 'price': calPrice , 'quantity': quantity })
 
-        session['cart_items'] = cart_items
-        app.logger.info(f"Added item {id} (size {size}) x{quantity} to cart. Current cart items: {cart_items}")
+            item['quantity'] = int(item.get('quantity', 0)) + quantity
+
+            item['price'] = round(unit_price * item['quantity'], 2)
+            item_exists = True
+            break
+
+
+    if not item_exists:
+        total_price = round(unit_price * quantity, 2)
+        poster_info = posters[int(id)-1]
+
+        cart_items.append({
+            'id': int(id),
+            'name': poster_info['name'],
+            'image_base': poster_info['image_base'],
+            'size': size,
+            'price': total_price,
+            'frame_option': frame_option,
+            'quantity': quantity
+        })
+
+    session['cart_items'] = cart_items
+    session.modified = True
 
     return redirect(url_for('productpage', id=id))
-
 
 @app.route("/cart")
 def cart():
@@ -311,13 +324,18 @@ def update_cart_quantity(index):
             else:
                 unit_price = 50.95
 
+            if item.get('frame_option') == 'Ohne Rahmen':
+                unit_price -= 10.00
+
             item['quantity'] = quantity
-            item['price'] = unit_price * quantity
+
+            item['price'] = round(unit_price * quantity, 2)
+
             session['cart_items'] = cart_items
+            session.modified = True
             app.logger.info(f"Updated item at index {index} to quantity {quantity}")
             return '', 204
     return '', 400
-
 
 
 
@@ -387,4 +405,4 @@ def submit2():
 
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(port=5000, debug=True)
