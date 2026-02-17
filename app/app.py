@@ -148,16 +148,16 @@ languages = [
 ]
 
 cart_items = [
-    {"id": 1, "image_url": "static/pictures/2/Porsche GT3 RS.png", "name": "Porsche GT3 RS", "size": "A4", "price": 38, "quantity": 1},
+    {"id": 1, "image_url": "static/pictures/2/PorscheGT3RS.png", "name": "Porsche GT3 RS", "size": "A4", "price": 35.95, "quantity": 1},
 ]
 
 posters = [
-    {"id": 1, "name": "F1 Track", "description": "Ein ikonisches Motorsport-Poster, das packende Renn-Action und pure Geschwindigkeit einfängt. Präzise Linienwahl, aerodynamische Effizienz und taktisches Können verschmelzen in der Kurve zu einem intensiven Duell am Limit, ein Statement für echte Racing-Enthusiasten."},
-    {"id": 2, "name": "Porsche GT3 RS", "description": "Ein ikonisches Porsche 911 GT3 RS Poster, das kompromisslose Performance und Motorsport-DNA zeigt. Aerodynamische Perfektion, Leichtbau und Rennstrecken-Gene vereinen sich zu purer Fahrleidenschaft, ein Statement für echte Porsche-Enthusiasten."},
-    {"id": 3, "name": "Ferrari Enzo", "description": "Ein ikonisches Ferrari-Poster, das zeitlose Eleganz und italienische Sportwagen-Tradition verkörpert. Glänzender Lack, ikonisches Emblem und pure Design-Leidenschaft verschmelzen zu einem Symbol automobiler Geschichte, ein Statement für echte Klassiker-Enthusiasten."},
-    {"id": 4, "name": "Jaguar F-Type", "description": "Ein ikonisches Jaguar F-Type Poster, das britische Eleganz und kraftvolle Sportwagen-DNA vereint. Markantes Design, dynamische Linien und beeindruckende Performance verschmelzen zu purer Fahrfaszination, ein Statement für echte Sportwagen-Enthusiasten."},
-    {"id": 5, "name": "Just Drive don't mind", "description": "Ein ikonisches Highway-Poster, das Freiheit, Bewegung und pures Fahrgefühl einfängt. Klare Linien, kräftige Farben und eine starke Frontansicht verschmelzen zu einem modernen Retro-Statement, geschaffen für alle, die einfach fahren und den Moment geniessen."},
-    {"id": 6, "name": "Ferrari LaFerrari", "description": "Ein ikonisches LaFerrari-Poster, das italienische Ingenieurskunst und kompromisslose Performance vereint. Extreme Leistung, Hybrid-Innovation und zeitloses Design verschmelzen zu purer Supercar-Emotion, ein klares Statement für echte Ferrari-Enthusiasten."},
+    {"id": 1, "name": "F1 Track", "description": "Ein ikonisches Motorsport-Poster, das packende Renn-Action und pure Geschwindigkeit einfängt. Präzise Linienwahl, aerodynamische Effizienz und taktisches Können verschmelzen in der Kurve zu einem intensiven Duell am Limit, ein Statement für echte Racing-Enthusiasten.", "image_base": "F1Track"},
+    {"id": 2, "name": "Porsche GT3 RS", "description": "Ein ikonisches Porsche 911 GT3 RS Poster, das kompromisslose Performance und Motorsport-DNA zeigt. Aerodynamische Perfektion, Leichtbau und Rennstrecken-Gene vereinen sich zu purer Fahrleidenschaft, ein Statement für echte Porsche-Enthusiasten.", "image_base": "PorscheGT3RS"},
+    {"id": 3, "name": "Ferrari Enzo", "description": "Ein ikonisches Ferrari-Poster, das zeitlose Eleganz und italienische Sportwagen-Tradition verkörpert. Glänzender Lack, ikonisches Emblem und pure Design-Leidenschaft verschmelzen zu einem Symbol automobiler Geschichte, ein Statement für echte Klassiker-Enthusiasten.", "image_base": "FerrariEnzo"},
+    {"id": 4, "name": "Jaguar F-Type", "description": "Ein ikonisches Jaguar F-Type Poster, das britische Eleganz und kraftvolle Sportwagen-DNA vereint. Markantes Design, dynamische Linien und beeindruckende Performance verschmelzen zu purer Fahrfaszination, ein Statement für echte Sportwagen-Enthusiasten.", "image_base": "JaguarF-Type"},
+    {"id": 5, "name": "Just Drive don't mind", "description": "Ein ikonisches Highway-Poster, das Freiheit, Bewegung und pures Fahrgefühl einfängt. Klare Linien, kräftige Farben und eine starke Frontansicht verschmelzen zu einem modernen Retro-Statement, geschaffen für alle, die einfach fahren und den Moment geniessen.", "image_base": "Highway"},
+    {"id": 6, "name": "Ferrari LaFerrari", "description": "Ein ikonisches LaFerrari-Poster, das italienische Ingenieurskunst und kompromisslose Performance vereint. Extreme Leistung, Hybrid-Innovation und zeitloses Design verschmelzen zu purer Supercar-Emotion, ein klares Statement für echte Ferrari-Enthusiasten.", "image_base": "FerrariLaFerrari"},
 ]
 
 @app.route('/')
@@ -184,7 +184,8 @@ def productpage(id) -> str:
     title = poster["name"]
     description = poster["description"]
     id = poster["id"]
-    return render_template("ProductPage.html", id=id, title=title, description=description)
+    image_base = poster["image_base"]
+    return render_template("ProductPage.html", id=id, title=title, description=description, image_base=image_base)
 
 @app.route("/cashdesk")
 def cashdesk() -> str:
@@ -268,6 +269,7 @@ def logout() -> str:
     session.pop('logged_in', None)
     session.pop('username', None)
     app.logger.info("User logged out")
+
     return redirect(url_for('home'))
 
 @app.route("/information")
@@ -277,49 +279,60 @@ def information() -> str:
 
 @app.route("/cart/add/<id>", methods=["POST"])
 def add_to_cart(id):
-    allowed_ids = { 1, 2, 3, 4, 5, 6 }
-    if int(id) in allowed_ids:
-        quantity = int(request.form.get('quantity', 1))
-        if quantity < 1:
-            quantity = 1
-        size = request.form.get('size', 'A4')
-        cart_items = session.get('cart_items', [])
+    allowed_ids = {1, 2, 3, 4, 5, 6}
+    if int(id) not in allowed_ids:
+        return redirect(url_for('index'))
 
-        if size == 'A4':
-            unit_price = 35.95
-        elif size == 'A3':
-            unit_price = 42.95
-        else:
-            unit_price = 50.95
 
-        item_exists = False
-        for item in cart_items:
-            try:
+    quantity = max(1, int(request.form.get('quantity', 1)))
+    size = request.form.get('size', 'A4')
+    frame_option = request.form.get('frame_option')
+    cart_items = session.get('cart_items', [])
+  
+    if size == 'A4':
+        unit_price = 35.95
+    elif size == 'A3':
+        unit_price = 42.95
+    else:
+        unit_price = 50.95
 
-                if int(item.get('id')) == int(id) and item.get('size') == size:
-                    item['quantity'] = int(item.get('quantity', 0)) + quantity
-                    item['price'] = round(unit_price * item['quantity'], 2)
-                    item_exists = True
-                    break
 
-            except (TypeError, ValueError):
+    if frame_option == 'Ohne Rahmen':
+        unit_price -= 10.00
 
-                if str(item.get('id')) == str(id) and item.get('size') == size:
-                    item['quantity'] = int(item.get('quantity', 0)) + quantity
-                    item['price'] = round(unit_price * item['quantity'], 2)
-                    item_exists = True
-                    break
+    item_exists = False
 
-        if not item_exists:
-            calPrice = round(unit_price * quantity, 2)
+    for item in cart_items:
+        if (int(item.get('id')) == int(id) and
+            item.get('size') == size and
+            item.get('frame_option') == frame_option):
 
-            cart_items.append({ 'id': int(id), 'name': posters[int(id)-1]['name'], 'size': size, 'price': calPrice , 'quantity': quantity })
 
-        session['cart_items'] = cart_items
-        app.logger.info(f"Added item {id} (size {size}) x{quantity} to cart. Current cart items: {cart_items}")
+            item['quantity'] = int(item.get('quantity', 0)) + quantity
+
+            item['price'] = round(unit_price * item['quantity'], 2)
+            item_exists = True
+            break
+
+
+    if not item_exists:
+        total_price = round(unit_price * quantity, 2)
+        poster_info = posters[int(id)-1]
+
+        cart_items.append({
+            'id': int(id),
+            'name': poster_info['name'],
+            'image_base': poster_info['image_base'],
+            'size': size,
+            'price': total_price,
+            'frame_option': frame_option,
+            'quantity': quantity
+        })
+
+    session['cart_items'] = cart_items
+    session.modified = True
 
     return redirect(url_for('productpage', id=id))
-
 
 @app.route("/cart")
 def cart():
@@ -357,21 +370,24 @@ def update_cart_quantity(index):
             else:
                 unit_price = 50.95
 
+            if item.get('frame_option') == 'Ohne Rahmen':
+                unit_price -= 10.00
+
             item['quantity'] = quantity
-            item['price'] = unit_price * quantity
+
+            item['price'] = round(unit_price * quantity, 2)
+
             session['cart_items'] = cart_items
+            session.modified = True
             app.logger.info(f"Updated item at index {index} to quantity {quantity}")
             return '', 204
     return '', 400
 
 
 
-
 @app.route("/feedbackconfirmation")
 def feedbackconfirmation() -> str:
     return render_template("feedbackconfirmation.html")
-
-
 
 
 
@@ -445,4 +461,4 @@ def submit2():
 
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(port=5000, debug=True)

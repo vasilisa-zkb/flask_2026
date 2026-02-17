@@ -37,37 +37,60 @@ document.addEventListener('DOMContentLoaded', function () {
     const addToCartForm = document.getElementById('add-to-cart-form');
     const priceDisplay = document.querySelector('.price');
     let selectedSize = null;
+    const frameButtons = document.querySelectorAll('.FrameButtons .frame-button');
+    const frameOption = document.getElementById('frameOption');
+    let selectedFrameOption = "with_frame"; 
 
-    // Use numeric unit prices and format to two decimals when displaying
-    const sizePrice = {
-        'A4': 35.95,
-        'A3': 42.95,
-        'A2': 50.95
-    };
+const basePrices = {
+    'A4': 35.95,
+    'A3': 42.95,
+    'A2': 50.95
+};
 
-    sizeButtons.forEach(button => {
-        button.addEventListener('click', function (e) {
-            e.preventDefault();
-            sizeButtons.forEach(btn => btn.classList.remove('selected'));
+function updatePrice() {
+    if (selectedSize && basePrices[selectedSize]) {
+        let currentPrice = basePrices[selectedSize];
 
-            this.classList.add('selected');
-            selectedSize = this.id.toUpperCase();
-            if (sizeInput) {
-                sizeInput.value = selectedSize;
-            }
+        if (selectedFrameOption === 'Ohne Rahmen') {
+            currentPrice -= 10.00;
+        }
 
-            if (priceDisplay && sizePrice[selectedSize] !== undefined) {
-                priceDisplay.textContent = sizePrice[selectedSize].toFixed(2) + ' CHF';
-            }
-        });
+        if (priceDisplay) {
+            priceDisplay.textContent = currentPrice.toFixed(2) + ' CHF';
+        }
+    }
+}
+
+sizeButtons.forEach(button => {
+    button.addEventListener('click', function (e) {
+        e.preventDefault();
+        sizeButtons.forEach(btn => btn.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedSize = this.id.toUpperCase();
+        if (sizeInput) sizeInput.value = selectedSize;
+        updatePrice();
     });
+});
 
+frameButtons.forEach(button => {
+    button.addEventListener('click', function (e) {
+        e.preventDefault();
+        frameButtons.forEach(btn => btn.classList.remove('selected'));
+        this.classList.add('selected');
+
+        selectedFrameOption = this.id;
+
+        if (frameOption) {frameOption.value = selectedFrameOption;}
+
+        updatePrice();
+    });
+});
 
     if (addToCartForm) {
         addToCartForm.addEventListener('submit', function (e) {
-            if (!selectedSize) {
+            if (!selectedSize || !selectedFrameOption) {
                 e.preventDefault();
-                alert('Bitte wählen Sie eine Grösse aus, bevor Sie das Poster in den Warenkorb legen.');
+                alert('Bitte wähl eine Grösse und Rahmen Option');
                 return false;
             }
         });
@@ -107,8 +130,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 showSlide(currentIndex);
             });
         });
-
-
         showSlide(currentIndex);
     }
 });
