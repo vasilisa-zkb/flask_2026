@@ -8,6 +8,7 @@ body {
     background-color: #000;
     color: #fff;
 }
+
       
 .container {
     max-width: 1100px;
@@ -39,7 +40,12 @@ h1 {
 }
 
 
-.feedback,
+button {
+    background-color: #ffffff;
+    color: #000;
+    border: none;
+    padding: 12px 26px;
+}
 .shop {
     background-color: #ffffff;
     color: #000;
@@ -49,6 +55,10 @@ h1 {
     font-family: "Inter", sans-serif;
     font-weight: 450;
     cursor: pointer;
+    font-size: 22px;
+}
+
+button:hover {
     font-size: 18px;
     line-height: 1.2;
     text-decoration: none;

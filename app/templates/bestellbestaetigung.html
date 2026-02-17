@@ -5,17 +5,6 @@
 {% block css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/bestellbestaetigung.css') }}">
 {% endblock %}
-<<<<<<< HEAD
-
-{% block content %}
-<div class="container">
-
-        <h1>Vielen Dank für Ihre Bestellung!</h1>
-        <p class="untertitle">Bestellnummer: 0000</p>
-        <p class="bedanken">Danke, dass Sie bei uns bestellt haben.<br>Wir würden uns sehr freuen, wenn Sie ein Feedback hinterlassen.</p>
-        <form action="{{ url_for('feedback') }}" method="get">
-            <button type="submit" class="feedback">Feedback</button>
-        </form>
         <div class="info-grid">
             <div class="info-box">
                 <h2>Lieferadresse</h2>
@@ -73,7 +62,6 @@
         </form>
     </div>
     {% endblock %}
-=======
 
 {% block content %}
 <div class="container">
@@ -137,4 +125,4 @@
     <a class="shop" href="{{ url_for('home') }}">Zurück zum Shop</a>
 </div>
 {% endblock %}
->>>>>>> d602853b85a3d0c63dfecf11a38aa6c3a1f5b081
+
