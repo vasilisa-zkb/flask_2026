@@ -383,8 +383,6 @@ def update_cart_quantity(index):
             return '', 204
     return '', 400
 
-
-
 @app.route("/feedbackconfirmation")
 def feedbackconfirmation() -> str:
     return render_template("feedbackconfirmation.html")
