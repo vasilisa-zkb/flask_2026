@@ -175,6 +175,13 @@ def about() -> str:
     app.logger.info(session.get('test', ''))
     return render_template("about.html", languages=languages)
 
+
+@app.route("/bestellungen")
+def bestellungen() -> str:
+    app.logger.info(session.get('test', ''))
+    return render_template("bestellungen.html")
+
+
 @app.route("/productpage")
 @app.route('/productpage/<id>')
 def productpage(id) -> str:
@@ -443,4 +450,4 @@ def submit2():
 
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(port=5000, debug=True)
