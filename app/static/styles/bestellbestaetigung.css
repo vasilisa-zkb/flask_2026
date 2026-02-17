@@ -39,29 +39,36 @@ h1 {
 }
 
 
-button {
+.feedback,
+.shop {
     background-color: #ffffff;
     color: #000;
     border: none;
-    padding: 12px 26px;
+    padding: 8px 18px;
     border-radius: 8px;
     font-family: "Inter", sans-serif;
     font-weight: 450;
     cursor: pointer;
-    font-size: 22px;
+    font-size: 18px;
+    line-height: 1.2;
+    text-decoration: none;
+    text-align: center;
 }
 
-button:hover {
+.feedback:hover,
+.shop:hover {
     background-color: #ffffff;
 }
 
 .feedback {
     display: block;
+    width: fit-content;
     margin: 0 auto;
 }
 
 .shop {
     display: block;
+    width: fit-content;
     margin: 40px auto 0 auto;
 }
 
