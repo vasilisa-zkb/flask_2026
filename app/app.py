@@ -426,6 +426,9 @@ def submit():
 
     return redirect(url_for("result", name=name))
 
+@app.route("/bestellbestaetigung")
+def bestellbestaetigung() -> str:
+    return render_template("bestellbestaetigung.html", languages=languages)
 @app.route("/submit2", methods=["POST"])
 def submit2():
     app.logger.info("Form submitted")
