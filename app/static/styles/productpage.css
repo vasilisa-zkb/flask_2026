@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     padding-left: 20px;
-    padding-top: 20px;
+    
     margin-bottom: 2%;
 }
 
@@ -15,8 +15,8 @@
 
 .posterimg {
     display: flex;
-    padding-top: 20px;
-    padding-left: 20px;
+  
+    padding-left: 5px;
 }
 
 .carousel {
@@ -28,7 +28,7 @@
     font-family: "Inter", sans-serif;
     color: white;
     font-size: 64px;
-    font-weight: lighter;
+    font-weight: initial;
     margin-bottom: 10px;
     margin-top: 10px;
 
@@ -38,18 +38,26 @@
     padding-right: 16%;
     font-family: "Inter", sans-serif;
     color: white;
-    font-weight:lighter;
-     font-size: 20px;
-     margin-top: 10px;
+    font-weight: lighter;
+    font-size: 19px;
 }
 
 .choose1 {
-    font-size: 35px;
-    margin-top: 40px;
+     margin-top: 20px;
+    font-size: 26px;
     margin-bottom: 20px;
     font-family: "Inter", sans-serif;
     color: white;
-    font-weight: lighter;
+    font-weight: 150;
+}
+
+.choose2 {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-family: "Inter", sans-serif;
+    color: white;
+    font-weight: 150;
+    font-size: 26px;
 }
 
 .buttons {
@@ -99,14 +107,13 @@
 
 
 .price {
-    margin: 25px;
+    margin-top: 5%;
     margin-left: 0px;
-    margin-top: 20px;
+    margin-bottom: 20px;
     font-family: "Inter", sans-serif;
     color: white;
-    font-size: 40px;
+    font-size: 35px;
     font-weight: lighter;
-
 }
 
 .anzahl {
@@ -147,7 +154,7 @@
     height: 50px;
     width: fit-content;
     border: 2px solid #ffffff;
-    margin-top: 5%;
+
 
 }
 
@@ -159,7 +166,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    cursor:auto;
     padding: 0;
 }
 
@@ -178,18 +185,18 @@
     font-size: 30px;
     font-weight: 100;
     color: #ffffff;
+    cursor: none;
 }
 
 .quantity1-icon {
     width: 25px;
     height: 25px;
     color: #000000;
-
 }
 
 
 .warenkorb {
-
+    cursor: pointer;
     margin-top: 20px;
     width: 35%;
     height: 5%;
@@ -242,6 +249,7 @@
     width: 100%;
     position: relative;
     overflow: hidden;
+    cursor: zoom-in;
 }
 
 .carousel-inner {
@@ -316,7 +324,7 @@
 .back-button {
     background: none;
     border: none;
-    cursor:move;
+    cursor: alias;
     padding: 0;
     margin-bottom: 5px;
     height: 3%;
@@ -432,6 +440,7 @@
         margin-top: 9% !important;
         margin-left: auto !important;
         margin-right: auto !important;
+        cursor: pointer;
     }
 
 
@@ -450,12 +459,12 @@
         justify-content: center !important;
         width: 100% !important;
         margin-bottom: 20px !important;
+         cursor: pointer;
     }
 }
 
 
 .FrameButtons {
-
     display: flex;
     align-content: center;
     gap: 20px;
@@ -477,7 +486,7 @@
     justify-content: center;
     text-align: center;
     color: rgb(0, 0, 0);
-     border-radius: 8px;
+    border-radius: 8px;
     overflow: hidden;
 }
 

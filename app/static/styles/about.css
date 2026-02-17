@@ -47,7 +47,7 @@ body {
 }
 
 #socials {
-    margin-top: 4%;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -55,10 +55,9 @@ body {
 
 #socialsimgs {
     display: flex;
-    gap: 5%;
+    gap: 50px;
     align-items: center;
-    margin-top: 1%;
-    margin-bottom: 6%;
+    cursor: pointer;
 }
 
 #socialsh1 {
@@ -74,20 +73,18 @@ body {
     overflow: hidden;
     width: 45%;
     height: auto;
-    margin-right: 2%;
     flex-shrink: 0;
     padding-top: 5%;
     padding-bottom: 5%;
 }
 
 #contact {
-    margin-top: 4%;
     background-color: #eaeaea;
     color: black;
     border-radius: 12px;
     overflow: hidden;
-    width: 50%;
-    max-width: 600px;
+    min-width: 40%;
+    max-width: 50%;
     display: flex;
     padding: 24px;
     box-sizing: border-box;
