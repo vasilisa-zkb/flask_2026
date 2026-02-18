@@ -105,25 +105,28 @@
 }
 
 .remove-button {
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
     color: white;
     border: none;
-    padding: 10px 18px;
-    border-radius: 6px;
+    padding: 16px 32px;
+    border-radius: 8px;
     font-family: 'Inter', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(231, 76, 60, 0.3);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+    width: 100%;
+    letter-spacing: 0.5px;
 }
 
 .remove-button:hover {
-    background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
-    box-shadow: 0 4px 8px rgba(231, 76, 60, 0.4);
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #2980b9 0%, #1f618d 100%);
+    box-shadow: 0 6px 16px rgba(52, 152, 219, 0.4);
+    transform: translateY(-2px);
 }
 
 .remove-button:active {
-    transform: scale(0.98);
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
 }
