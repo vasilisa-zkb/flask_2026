@@ -1,0 +1,51 @@
+<head>
+      <link rel="stylesheet" href="{{ url_for('static', filename='styles/bestellungen.css') }}">
+      <script src="{{ url_for('static', filename='js/bestellungen.js') }}" defer></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+{% extends 'base.html' %}
+
+{% block title %}Bestellungen CarFrame{% endblock %}
+
+{% block content %}
+
+
+
+<div class="einkauf">
+
+      <h1 class="title">Bestellungen</h1>
+     
+
+
+
+      <div class="einkaufliste">
+
+
+      </div>
+
+      </div>
+{% for order in orders %}
+      <div class="bestell-item">
+            <img src="{{ url_for('static', filename='pictures/1/F1Track.png') }}" class="cart-item-image" width="180px"
+                  height="auto">
+            <div class="cart-item-details">
+                  <div class="left-side">
+                        <h2 class="">Bestellnummer: {{ order[1] }}</h2>
+                        <p class=""><strong>Bestelldatum:</strong> {{ order[2] }}</p>
+                        <p class=""><strong>Versanddatum:</strong> {{ order[5] }}</p>
+                        <p class=""><strong>Zahlungsart:</strong> {{ order[6] }}</p>
+                        <p class=""><strong>Status:</strong> <span class="status-bezahlt">{{ order[3] }}</span></p>
+                  </div>
+
+                  <div class="right-side">
+                        <p class="cart-item-price">
+                             {{ order[4] }} CHF</p>
+                       
+                  </div>
+
+
+            </div>
+      </div>
+{% endfor %}
+
+      {% endblock %}
