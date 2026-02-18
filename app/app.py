@@ -416,6 +416,7 @@ def checkout() -> str:
         zahlungsart = bezahlart,
         userid = session.get('user_id')
     )
+    session['cart_items'] = []
     return render_template("bestellbestaetigung.html")
 
 @app.route("/submit2", methods=["POST"])
