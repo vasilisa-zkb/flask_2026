@@ -6,6 +6,7 @@ import json
 from flask import Flask, render_template, request, redirect, url_for, session
 from dotenv import load_dotenv # Lädt .env Datei
 from repository.customer_repo import get_all_orders
+from repository.customer_repo import get_orders_by_customer_id
 from services import math_service
 from config import DevelopmentConfig, ProductionConfig
 import db
@@ -474,7 +475,7 @@ def add_product():
 
 @app.route("/bestellungen")
 def bestellungen() -> str:
-    orders = get_all_orders()
+    orders = get_orders_by_customer_id(customer_id=session.get('user_id'))
     app.logger.info(session.get('test', ''))
     return render_template("bestellungen.html", orders=orders)
     
