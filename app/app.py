@@ -8,7 +8,7 @@ from dotenv import load_dotenv # Lädt .env Datei
 from services import math_service
 from config import DevelopmentConfig, ProductionConfig
 import db
-from repository import product_repo 
+from repository import product_repo, users_repo
 
 
 app = Flask(__name__)
@@ -90,31 +90,7 @@ def send_email_via_mailgun(subject, recipients, text):
         app.logger.error(f"Exception during Mailgun request: {str(e)}")
         return False
 
-# Benutzerdaten-Management
-def load_users():
-    """Lade alle Benutzer aus der users.json Datei"""
-    users_file = os.path.join(os.path.dirname(__file__), 'users.json')
-    default_users = {
-        "admin": "1234",
-        "carframe": "poster123"
-    }
-    
-    if os.path.exists(users_file):
-        try:
-            with open(users_file, 'r') as f:
-                return json.load(f)
-        except:
-            return default_users
-    return default_users
 
-def save_users(users):
-    """Speichere alle Benutzer in der users.json Datei"""
-    users_file = os.path.join(os.path.dirname(__file__), 'users.json')
-    try:
-        with open(users_file, 'w') as f:
-            json.dump(users, f, indent=2)
-    except Exception as e:
-        app.logger.error(f"Error saving users: {str(e)}")
 
 def send_email_async(subject, recipients, text) -> None:
     def _send():
@@ -196,82 +172,75 @@ def cashdesk() -> str:
     return render_template("cashdesk.html")
 
 @app.route("/login", methods=["GET", "POST"])
-def login() -> str:
-    # Wenn Formular abgeschickt wurde (POST)
+def login():
     if request.method == "POST":
-        username = request.form.get("username", "").strip()
+        email = request.form.get("email", "").strip()
         password = request.form.get("password", "").strip()
+
+        user = users_repo.get_user_by_email(email)
+
         
-        # Lade Benutzer aus Datei
-        users = load_users()
-        
-        # Überprüfe ob Benutzername existiert und Passwort stimmt
-        if username in users and users[username] == password:
-            # Login erfolgreich - speichere in Session
+        if user and user["password"] == password:
             session['logged_in'] = True
-            session['username'] = username
-            app.logger.info(f"User {username} logged in successfully")
+            session['email'] = email
+            session['user_id'] = user["id"] # Wichtig für spätere Abfragen
             return redirect(url_for('home'))
         else:
-            # Login fehlgeschlagen
-            error = "Falscher Benutzername oder Passwort!"
+            error = "Falsche Email oder Passwort!"
             return render_template("login.html", error=error)
-    
-    # Bei GET-Request: Zeige Login-Seite
+
     return render_template("login.html")
 
 @app.route("/register", methods=["GET", "POST"])
 def register() -> str:
     # Wenn Formular abgeschickt wurde (POST)
     if request.method == "POST":
-        username = request.form.get("username", "").strip()
+        email = request.form.get("email", "").strip()
         password = request.form.get("password", "").strip()
         confirm_password = request.form.get("confirm_password", "").strip()
-        
+
+
         # Validierung
-        if not username:
-            error = "Benutzername ist erforderlich!"
+        if not email:
+            error = "Email ist erforderlich!"
             return render_template("register.html", error=error)
-        
-        if len(username) < 3:
-            error = "Benutzername muss mindestens 3 Zeichen lang sein!"
+
+        if len(email) < 5:
+            error = "Email muss mindestens 5 Zeichen lang sein!"
             return render_template("register.html", error=error)
-        
+
         if not password:
             error = "Passwort ist erforderlich!"
             return render_template("register.html", error=error)
-        
+
         if len(password) < 4:
             error = "Passwort muss mindestens 4 Zeichen lang sein!"
             return render_template("register.html", error=error)
-        
+
         if password != confirm_password:
             error = "Passwörter stimmen nicht überein!"
             return render_template("register.html", error=error)
-        
-        # Lade bestehende Benutzer
-        users = load_users()
-        
-        # Überprüfe ob Benutzername bereits existiert
-        if username in users:
-            error = "Dieser Benutzername existiert bereits!"
+
+        users = users_repo.get_all_users()
+
+
+        if email in [user[1] for user in users]:
+            error = "Diese Email existiert bereits!"
             return render_template("register.html", error=error)
-        
-        # Neuen Benutzer hinzufügen
-        users[username] = password
-        save_users(users)
-        
+
+        users_repo.save_user_login(email, password)
+
         success = "Registrierung erfolgreich! Melde dich jetzt an."
-        return render_template("register.html", success=success)
-    
-    # Bei GET-Request: Zeige Registrierungs-Seite
+        return render_template("login.html", success=success)
+
+   
     return render_template("register.html")
 
 @app.route("/logout")
 def logout() -> str:
     # Entferne User aus Session
     session.pop('logged_in', None)
-    session.pop('username', None)
+    session.pop('email', None)
     app.logger.info("User logged out")
 
     return redirect(url_for('home'))
@@ -470,7 +439,7 @@ def add_product():
     price = request.form['price']
     product_repo.add_product(name, price)
     return redirect(url_for("home"))
-    
+
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
