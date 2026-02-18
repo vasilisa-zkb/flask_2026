@@ -398,7 +398,7 @@ def submit():
     timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
     send_email_async(
         subject=f"Kontaktformular von {name} | {timestamp}",
-        recipients=['nick.noesberger@gmail.com'],
+        recipients=['sekreteriatcarframe@gmail.com'],
         text=f"Name: {name}\nE-Mail: {email}\nNachricht:\n{message}",
     )
 
@@ -446,7 +446,7 @@ def submit2():
     timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
     send_email_async(
         subject=f"Feedback von {name} | {timestamp}",
-        recipients=['nick.noesberger@gmail.com'],
+        recipients=['sekreteriatcarframe@gmail.com'],
         text=f"Name: {name}\nE-Mail: {email}\nBewertung: {rating}/5\nFeedback:\n{message}",
     )
 
