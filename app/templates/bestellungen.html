@@ -30,15 +30,16 @@
                   height="auto">
             <div class="cart-item-details">
                   <div class="left-side">
-                        <h2 class="">Bestellnummer: {{ order[0] }}</h2>
-                        <p class="">Versanddatum: {{ order[1] }}</p>
-                        <p>Status: {{ order[2] }}</p>
-
+                        <h2 class="">Bestellnummer: {{ order[1] }}</h2>
+                        <p class=""><strong>Bestelldatum:</strong> {{ order[2] }}</p>
+                        <p class=""><strong>Versanddatum:</strong> {{ order[5] }}</p>
+                        <p class=""><strong>Zahlungsart:</strong> {{ order[6] }}</p>
+                        <p class=""><strong>Status:</strong> <span class="status-bezahlt">{{ order[3] }}</span></p>
                   </div>
 
                   <div class="right-side">
                         <p class="cart-item-price">
-                             {{ order[3] }} CHF</p>
+                             {{ order[4] }} CHF</p>
                         <div class="remove-item">
                               <button class="remove-button">Bestellung stornieren</button>
                         </div>
