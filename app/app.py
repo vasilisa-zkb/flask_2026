@@ -1,10 +1,11 @@
 import os
 import threading
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import requests
 import json
 from flask import Flask, render_template, request, redirect, url_for, session
 from dotenv import load_dotenv # Lädt .env Datei
+from repository import orders_repo
 from repository.customer_repo import get_all_orders
 from repository.customer_repo import get_orders_by_customer_id
 from services import math_service
@@ -305,6 +306,7 @@ def add_to_cart(id):
         })
 
     session['cart_items'] = cart_items
+    session['price'] = sum(item.get('price', 0) for item in cart_items)
     session.modified = True
 
     return redirect(url_for('productpage', id=id))
@@ -331,9 +333,11 @@ def remove_from_cart(index):
 @app.route("/cart/update/<int:index>", methods=["POST"])
 def update_cart_quantity(index):
     cart_items = session.get('cart_items', [])
+
     if 0 <= index < len(cart_items):
         data = request.get_json()
         quantity = data.get('quantity', 1)
+
         if quantity > 0:
             item = cart_items[index]
 
@@ -353,6 +357,7 @@ def update_cart_quantity(index):
             item['price'] = round(unit_price * quantity, 2)
 
             session['cart_items'] = cart_items
+            session['price'] = sum(item.get('price', 0) for item in cart_items)
             session.modified = True
             app.logger.info(f"Updated item at index {index} to quantity {quantity}")
             return '', 204
@@ -399,9 +404,20 @@ def submit():
 
     return redirect(url_for("result", name=name))
 
-@app.route("/bestellbestaetigung")
-def bestellbestaetigung() -> str:
-    return render_template("bestellbestaetigung.html", languages=languages)
+@app.route("/checkout", methods=["POST"])
+def checkout() -> str:
+    app.logger.info(session.get('price'))
+    bezahlart = request.form.get("payment_method")
+    orders_repo.add_order(
+        bestellnummer = str(int(datetime.now().timestamp()) % 100000).zfill(5),
+        status = "Bestellt",
+        preis = session.get('price', 0.0),
+        liefertermin = (datetime.now() + timedelta(days=7)).strftime('%Y-%m-%d'),
+        zahlungsart = bezahlart,
+        userid = session.get('user_id')
+    )
+    return render_template("bestellbestaetigung.html")
+
 @app.route("/submit2", methods=["POST"])
 def submit2():
     app.logger.info("Form submitted")

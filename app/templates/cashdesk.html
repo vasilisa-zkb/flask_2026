@@ -20,7 +20,7 @@
 					<img class="payment-logo-img visa" src="{{ url_for('static', filename='pictures/Payment_Logos/images.png') }}" alt="Visa">
 				</label>
 				<div id="visa-form" class="payment-form" style="display: none;">
-					<form action="{{ url_for('bestellbestaetigung') }}" method="get">
+					<form action="{{ url_for('checkout') }}" method="post">
 						<div class="form-group">
 							<label>Vollständiger Name:</label>
 							<input type="text" placeholder="Max Mustermann" required>
@@ -39,7 +39,8 @@
 								<input type="text" placeholder="000" required>
 							</div>
 						</div>
-						<button type="submit" class="checkout-btn">Kauf abschließen</button>
+						<input type="hidden" name="payment_method" value="Kreditkarte">
+						<button type="submit" class="checkout-btn">Kauf abschliessen</button>
 					</form>
 				</div>
 			</div>
@@ -54,7 +55,10 @@
 				<div id="twint-form" class="payment-form" style="display: none;">
 					<div class="form-content">
 						<p>Sie werden zu TWINT weitergeleitet</p>
+						<form action="{{ url_for('checkout') }}" method="post">
+							<input type="hidden" name="payment_method" value="Twint">
 						<button type="button" class="checkout-btn" onclick="window.open('https://www.twint.ch', '_blank')">Zu TWINT</button>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -67,7 +71,7 @@
 					<img class="payment-logo-img amex" src="{{ url_for('static', filename='pictures/Payment_Logos/American_Express_logo_(2018).svg') }}" alt="American Express">
 				</label>
 				<div id="amex-form" class="payment-form" style="display: none;">
-					<form action="{{ url_for('bestellbestaetigung') }}" method="get">
+					<form action="{{ url_for('checkout') }}" method="post">
 						<div class="form-group">
 							<label>Vollständiger Name:</label>
 							<input type="text" placeholder="Max Mustermann" required>
@@ -86,7 +90,8 @@
 								<input type="text" placeholder="000" required>
 							</div>
 						</div>
-						<button type="submit" class="checkout-btn">Kauf abschließen</button>
+						<input type="hidden" name="payment_method" value="AmericanExpress">
+						<button type="submit" class="checkout-btn">Kauf abschliessen</button>
 					</form>
 				</div>
 			</div>
@@ -101,7 +106,10 @@
 				<div id="klarna-form" class="payment-form" style="display: none;">
 					<div class="form-content">
 						<p>Sie werden zu Klarna weitergeleitet</p>
+						<form action="{{ url_for('checkout') }}" method="post">
+							<input type="hidden" name="payment_method" value="Klarna">
 						<button type="button" class="checkout-btn" onclick="window.open('https://www.klarna.com/ch/', '_blank')">Zu Klarna</button>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -116,7 +124,10 @@
 				<div id="apple-form" class="payment-form" style="display: none;">
 					<div class="form-content">
 						<p>Apple Pay wird aktiviert</p>
+						<form action="{{ url_for('checkout') }}" method="post">
+							<input type="hidden" name="payment_method" value="ApplePay">
 						<button type="button" class="checkout-btn" onclick="window.open('https://www.apple.com/apple-pay/', '_blank')">Weiter mit Apple Pay</button>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -131,7 +142,10 @@
 				<div id="gpay-form" class="payment-form" style="display: none;">
 					<div class="form-content">
 						<p>Google Pay wird aktiviert</p>
+						<form action="{{ url_for('checkout') }}" method="post">
+							<input type="hidden" name="payment_method" value="GooglePay">
 						<button type="button" class="checkout-btn" onclick="window.open('https://pay.google.com/intl/de_ch/about/', '_blank')">Weiter mit Google Pay</button>
+						</form>
 					</div>
 				</div>
 			</div>
